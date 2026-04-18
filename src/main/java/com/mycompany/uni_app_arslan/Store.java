@@ -38,4 +38,19 @@ public class Store {
         // Create the hall list
         halls = new ArrayList<>();
     }
+
+    //Methods to add data
+
+    // Adds a student to the list
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+    // Adds an employee to the list
+    public void addEmployee(Employee employee){
+        employees.add(employee);
+    }
+    // Adds a hall to the list
+    public void addHall(Hall hall){
+        halls.add(hall);
+    }
 }
