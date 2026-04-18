@@ -16,6 +16,7 @@ public class Uni_App_Arslan {
         testPerson();
         testStudent();
         testEmployee();
+        testHall();
     }
 
     // Test Person class
@@ -80,6 +81,22 @@ public class Uni_App_Arslan {
 
         System.out.println("Employee Test:");
         System.out.println(e);
+        System.out.println("-------------------");
+    }
+
+    // Test Hall class
+    public static void testHall() {
+
+        Hall h = new Hall(
+                "Maple Hall",
+                "Mixed",
+                100,
+                true,
+                true
+        );
+
+        System.out.println("Hall Test:");
+        System.out.println(h);
         System.out.println("-------------------");
     }
 }
