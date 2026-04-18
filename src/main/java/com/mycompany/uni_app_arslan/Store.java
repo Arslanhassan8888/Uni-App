@@ -24,6 +24,15 @@ public class Store {
     // List to store halls
     private ArrayList<Hall> halls;
 
+    // Current position in student list
+    private int studentIndex;
+
+    // Current position in employee list
+    private int employeeIndex;
+
+    // Current position in hall list
+    private int hallIndex;
+
     // Constructor
 
     // Default constructor
@@ -37,6 +46,11 @@ public class Store {
 
         // Create the hall list
         halls = new ArrayList<>();
+
+        // Start all indexes at 0
+        studentIndex = 0;
+        employeeIndex = 0;
+        hallIndex = 0;
     }
 
     //Methods to add data
