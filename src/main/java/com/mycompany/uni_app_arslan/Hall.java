@@ -26,5 +26,24 @@ public class Hall {
 
     // Does the hall have ground floor rooms?
     private boolean groundFloorAvailable;
-}
 
+
+// Constructors
+
+    // Default constructor
+    public Hall() {
+    }
+
+    // Full constructor
+    public Hall(String hallName, String hallType, int capacity,
+                boolean vegetarianFriendly, boolean groundFloorAvailable) {
+
+        this.hallName = hallName;
+        this.hallType = hallType;
+        this.capacity = capacity;
+        this.vegetarianFriendly = vegetarianFriendly;
+        this.groundFloorAvailable = groundFloorAvailable;
+    }
+
+    
+}
