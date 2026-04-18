@@ -45,5 +45,46 @@ public class Hall {
         this.groundFloorAvailable = groundFloorAvailable;
     }
 
-    
+    // Getters and Setters
+
+    public String getHallName() {
+        return hallName;
+    }
+
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
+    }
+
+    public String getHallType() {
+        return hallType;
+    }
+
+    public void setHallType(String hallType) {
+        this.hallType = hallType;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public boolean isVegetarianFriendly() {
+        return vegetarianFriendly;
+    }
+
+    public void setVegetarianFriendly(boolean vegetarianFriendly) {
+        this.vegetarianFriendly = vegetarianFriendly;
+    }
+
+    public boolean isGroundFloorAvailable() {
+        return groundFloorAvailable;
+    }
+
+    public void setGroundFloorAvailable(boolean groundFloorAvailable) {
+        this.groundFloorAvailable = groundFloorAvailable;
+    }
+
 }
