@@ -87,4 +87,16 @@ public class Hall {
         this.groundFloorAvailable = groundFloorAvailable;
     }
 
+    // toString method
+
+    @Override
+    public String toString() {
+        return "Hall: " +
+                "Name = " + hallName +
+                ", Type = " + hallType +
+                ", Capacity = " + capacity +
+                ", Vegetarian Friendly = " + vegetarianFriendly +
+                ", Ground Floor Available = " + groundFloorAvailable;
+    }
+
 }
