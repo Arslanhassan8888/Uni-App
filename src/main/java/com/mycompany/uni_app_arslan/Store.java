@@ -24,4 +24,18 @@ public class Store {
     // List to store halls
     private ArrayList<Hall> halls;
 
+    // Constructor
+
+    // Default constructor
+    public Store() {
+
+        // Create the student list
+        students = new ArrayList<>();
+
+        // Create the employee list
+        employees = new ArrayList<>();
+
+        // Create the hall list
+        halls = new ArrayList<>();
+    }
 }
