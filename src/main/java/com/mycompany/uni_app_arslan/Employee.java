@@ -26,3 +26,26 @@ public class Employee extends Person {
     private String hallName;
 
 }
+
+    // Constructors
+
+    // Default constructor
+    public Employee() {
+    }
+
+    // Full constructor
+    public Employee(String name, String gender, String dateOfBirth, String address,
+                    String nationality, String healthConditions, String registrationDate,
+                    String employeeId, String jobRole, double salary, String hallName) {
+
+        // Call parent constructor
+        super(name, gender, dateOfBirth, address,
+                nationality, healthConditions, registrationDate);
+
+        // Set employee fields
+
+        this.employeeId = employeeId;
+        this.jobRole = jobRole;
+        this.salary = salary;
+        this.hallName = hallName;
+    }
