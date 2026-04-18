@@ -148,6 +148,7 @@ public class Student extends Person {
 
     // Returns a readable version of the student object
     // Useful for testing and debugging
+    @Override
     public String toString() {
         return "Student: " +
                 "Name = " + getName() +

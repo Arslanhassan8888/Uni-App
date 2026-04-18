@@ -15,6 +15,7 @@ public class Uni_App_Arslan {
 
         testPerson();
         testStudent();
+        testEmployee();
     }
 
     // Test Person class
@@ -57,6 +58,28 @@ public class Uni_App_Arslan {
 
         System.out.println("Student Test:");
         System.out.println(s);
+        System.out.println("-------------------");
+    }
+
+    // Test Employee class
+    public static void testEmployee() {
+
+        Employee e = new Employee(
+                "John Smith",
+                "Male",
+                "02/02/1985",
+                "London",
+                "British",
+                "None",
+                "Today",
+                "E2001",
+                "Manager",
+                2500.00,
+                "Oak Hall"
+        );
+
+        System.out.println("Employee Test:");
+        System.out.println(e);
         System.out.println("-------------------");
     }
 }

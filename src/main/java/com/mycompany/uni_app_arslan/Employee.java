@@ -25,7 +25,6 @@ public class Employee extends Person {
     // Hall name where the employee works or lives
     private String hallName;
 
-}
 
     // Constructors
 
@@ -43,9 +42,65 @@ public class Employee extends Person {
                 nationality, healthConditions, registrationDate);
 
         // Set employee fields
-
         this.employeeId = employeeId;
         this.jobRole = jobRole;
         this.salary = salary;
         this.hallName = hallName;
     }
+
+
+    // Getters and Setters
+
+    // Returns the employee ID
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    // Sets the employee ID
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    // Returns the job role
+    public String getJobRole() {
+        return jobRole;
+    }
+
+    // Sets the job role
+    public void setJobRole(String jobRole) {
+        this.jobRole = jobRole;
+    }
+
+    // Returns the salary
+    public double getSalary() {
+        return salary;
+    }
+
+    // Sets the salary
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    // Returns the hall name
+    public String getHallName() {
+        return hallName;
+    }
+
+    // Sets the hall name
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
+    }
+
+    // toString method
+
+    // Returns a readable version of the employee object
+    @Override
+    public String toString() {
+        return "Employee: " +
+                "Name = " + getName() +
+                ", ID = " + employeeId +
+                ", Role = " + jobRole +
+                ", Salary = " + salary +
+                ", Hall = " + hallName;
+    }
+}
