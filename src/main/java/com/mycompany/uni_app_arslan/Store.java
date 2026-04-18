@@ -67,4 +67,26 @@ public class Store {
     public void addHall(Hall hall){
         halls.add(hall);
     }
+
+    // Returns the next student in the list
+    public Student getNextStudent() {
+
+        // Check if the list is empty
+        if (students.isEmpty()) {
+            return null;
+        }
+
+        // If the end is reached, go back to the start
+        if (studentIndex >= students.size()) {
+            studentIndex = 0;
+        }
+
+        // Get the current student
+        Student student = students.get(studentIndex);
+
+        // Move to the next position
+        studentIndex++;
+
+        return student;
+    }
 }
