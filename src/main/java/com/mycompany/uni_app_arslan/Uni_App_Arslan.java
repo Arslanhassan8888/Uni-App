@@ -1,4 +1,8 @@
 package com.mycompany.uni_app_arslan;
+/**
+ *
+ * @author Arslan Hassan
+ */
 
 /*
  Main class for testing the application.
@@ -7,18 +11,52 @@ public class Uni_App_Arslan {
 
     public static void main(String[] args) {
 
-        // Create a Person object
+        // Run one test at a time
+
+        testPerson();
+        testStudent();
+    }
+
+    // Test Person class
+    public static void testPerson() {
+
         Person p = new Person(
+                "Ali Khan",
+                "Male",
+                "01/01/2000",
+                "Manchester",
+                "British",
+                "None",
+                "Today"
+        );
+
+        System.out.println("Person Test:");
+        System.out.println(p);
+        System.out.println("-------------------");
+    }
+
+    // Test Student class
+    public static void testStudent() {
+
+        Student s = new Student(
                 "Arslan Hassan",
                 "Male",
                 "01/01/2000",
                 "Manchester",
                 "British",
                 "None",
-                "18/04/2026"
+                "Today",
+                "S1001",
+                2,
+                "Vegetarian",
+                true,
+                120.50,
+                "Maple Hall",
+                false
         );
 
-        // Print the object
-        System.out.println(p);
+        System.out.println("Student Test:");
+        System.out.println(s);
+        System.out.println("-------------------");
     }
 }

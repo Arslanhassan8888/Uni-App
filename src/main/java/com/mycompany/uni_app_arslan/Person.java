@@ -1,5 +1,10 @@
 package com.mycompany.uni_app_arslan;
 
+/**
+ *
+ * @author Arslan Hassan
+ */
+
 /* Person class represents a general person in the university halls system.
 
    This class is a parent class.
@@ -7,6 +12,8 @@ package com.mycompany.uni_app_arslan;
 */
 public class Person {
 
+    // I used private so other classes cannot directly change data
+    // without using getter and setter
     // The full name of the person
     private String name;
 
@@ -126,6 +133,7 @@ public class Person {
     // toString method
 
     /* Returns a readable version of the object. */
+    //
     @Override
     public String toString() {
         return "Person{" +
