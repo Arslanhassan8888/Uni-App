@@ -89,4 +89,48 @@ public class Store {
 
         return student;
     }
+
+    // Returns the next employee in the list
+    public Employee getNextEmployee() {
+
+        // Check if the list is empty
+        if (employees.isEmpty()) {
+            return null;
+        }
+
+        // If the end is reached, go back to the start
+        if (employeeIndex >= employees.size()) {
+            employeeIndex = 0;
+        }
+
+        // Get the current employee
+        Employee employee = employees.get(employeeIndex);
+
+        // Move to the next position
+        employeeIndex++;
+
+        return employee;
+    }
+
+    // Returns the next hall in the list
+    public Hall getNextHall() {
+
+        // Check if the list is empty
+        if (halls.isEmpty()) {
+            return null;
+        }
+
+        // If the end is reached, go back to the start
+        if (hallIndex >= halls.size()) {
+            hallIndex = 0;
+        }
+
+        // Get the current hall
+        Hall hall = halls.get(hallIndex);
+
+        // Move to the next position
+        hallIndex++;
+
+        return hall;
+    }
 }

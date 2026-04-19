@@ -17,6 +17,7 @@ public class Uni_App_Arslan {
         testStudent();
         testEmployee();
         testHall();
+        testStore();
     }
 
     // Test Person class
@@ -97,6 +98,95 @@ public class Uni_App_Arslan {
 
         System.out.println("Hall Test:");
         System.out.println(h);
+        System.out.println("-------------------");
+    }
+
+    // Test Store class
+    public static void testStore() {
+
+        // Create a Store object
+        Store store = new Store();
+
+        // Create students
+        Student s1 = new Student(
+                "Ali Khan",
+                "Male",
+                "01/01/2000",
+                "Manchester",
+                "British",
+                "None",
+                "Today",
+                "S1001",
+                1,
+                "Vegetarian",
+                true,
+                120.50,
+                "Maple Hall",
+                false
+        );
+
+        Student s2 = new Student(
+                "Sara Ahmed",
+                "Female",
+                "02/02/2001",
+                "Leeds",
+                "British",
+                "Asthma",
+                "Today",
+                "S1002",
+                2,
+                "Vegan",
+                false,
+                130.00,
+                "Oak Hall",
+                true
+        );
+
+        // Create employee
+        Employee e1 = new Employee(
+                "John Smith",
+                "Male",
+                "10/10/1985",
+                "London",
+                "British",
+                "None",
+                "Today",
+                "E2001",
+                "Manager",
+                2500.00,
+                "Maple Hall"
+        );
+
+        // Create hall
+        Hall h1 = new Hall(
+                "Maple Hall",
+                "Mixed",
+                100,
+                true,
+                true
+        );
+
+        // Add objects to Store
+        store.addStudent(s1);
+        store.addStudent(s2);
+        store.addEmployee(e1);
+        store.addHall(h1);
+
+        // Display next student records
+        System.out.println("Store Student Test:");
+        System.out.println(store.getNextStudent());
+        System.out.println(store.getNextStudent());
+        System.out.println(store.getNextStudent());
+        System.out.println("-------------------");
+
+        // Display next employee record
+        System.out.println("Store Employee Test:");
+        System.out.println(store.getNextEmployee());
+        System.out.println("-------------------");
+
+        // Display next hall record
+        System.out.println("Store Hall Test:");
+        System.out.println(store.getNextHall());
         System.out.println("-------------------");
     }
 }
