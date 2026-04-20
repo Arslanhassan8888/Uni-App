@@ -1,4 +1,5 @@
 package com.mycompany.uni_app_arslan;
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
@@ -185,45 +186,100 @@ public class Uni_App_Arslan {
         infoPanel.add(Box.createVerticalStrut(10));
         infoPanel.add(descriptionLabel);
 
-        // Add info panel to main panel
-        mainPanel.add(infoPanel, BorderLayout.NORTH);
+        // Create form panel
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(Color.WHITE);
+        formPanel.setBorder(new CompoundBorder(
+                new TitledBorder(
+                        new LineBorder(new Color(180, 190, 210), 1, true),
+                        "Student Details",
+                        TitledBorder.LEFT,
+                        TitledBorder.TOP,
+                        new Font("Arial", Font.BOLD, 14),
+                        new Color(33, 76, 140)
+                ),
+                new EmptyBorder(20, 20, 20, 20)
+        ));
 
+        // GridBag settings
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Create first fields
+        studentNameField = new JTextField(15);
+        studentDobField = new JTextField(15);
+        studentAddressField = new JTextField(15);
+
+        // Row 1 - Name
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formPanel.add(new JLabel("Name:"), gbc);
+
+        gbc.gridx = 1;
+        formPanel.add(studentNameField, gbc);
+
+        // Row 2 - Date of Birth
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formPanel.add(new JLabel("Date of Birth:"), gbc);
+
+        gbc.gridx = 1;
+        formPanel.add(studentDobField, gbc);
+
+        // Row 3 - Address
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        formPanel.add(new JLabel("Address:"), gbc);
+
+        gbc.gridx = 1;
+        formPanel.add(studentAddressField, gbc);
+
+        // Wrapper panel to hold info section and form
+        JPanel wrapperPanel = new JPanel(new BorderLayout(0, 15));
+        wrapperPanel.setBackground(new Color(245, 247, 250));
+        wrapperPanel.add(infoPanel, BorderLayout.NORTH);
+        wrapperPanel.add(formPanel, BorderLayout.CENTER);
+
+        // Add wrapper to main panel
+        mainPanel.add(wrapperPanel, BorderLayout.CENTER);
+
+// Return the panel
         return mainPanel;
     }
-
     /*
      Creates the bottom button area.
     */
-    public static JPanel createButtonPanel() {
+        public static JPanel createButtonPanel () {
 
-        // Create button panel
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
-        buttonPanel.setBackground(new Color(230, 236, 245));
-        buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+            // Create button panel
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+            buttonPanel.setBackground(new Color(230, 236, 245));
+            buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Create buttons
-        JButton saveButton = new JButton("Save Record");
-        JButton nextButton = new JButton("Next Record");
-        JButton clearButton = new JButton("Clear Form");
-        JButton saveFileButton = new JButton("Save To File");
-        JButton loadFileButton = new JButton("Load From File");
+            // Create buttons
+            JButton saveButton = new JButton("Save Record");
+            JButton nextButton = new JButton("Next Record");
+            JButton clearButton = new JButton("Clear Form");
+            JButton saveFileButton = new JButton("Save To File");
+            JButton loadFileButton = new JButton("Load From File");
 
-        // Style buttons
-        styleButton(saveButton);
-        styleButton(nextButton);
-        styleButton(clearButton);
-        styleButton(saveFileButton);
-        styleButton(loadFileButton);
+            // Style buttons
+            styleButton(saveButton);
+            styleButton(nextButton);
+            styleButton(clearButton);
+            styleButton(saveFileButton);
+            styleButton(loadFileButton);
 
-        // Add buttons to panel
-        buttonPanel.add(saveButton);
-        buttonPanel.add(nextButton);
-        buttonPanel.add(clearButton);
-        buttonPanel.add(saveFileButton);
-        buttonPanel.add(loadFileButton);
+            // Add buttons to panel
+            buttonPanel.add(saveButton);
+            buttonPanel.add(nextButton);
+            buttonPanel.add(clearButton);
+            buttonPanel.add(saveFileButton);
+            buttonPanel.add(loadFileButton);
 
-        return buttonPanel;
-    }
+            return buttonPanel;
+        }
 
 
     /*
@@ -234,94 +290,94 @@ public class Uni_App_Arslan {
      a description
      a preview section area
     */
-    public static JPanel createStyledTabPanel(String heading, String description) {
+        public static JPanel createStyledTabPanel (String heading, String description){
 
-        // Create main panel for the tab
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(new Color(245, 247, 250));
-        mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
+            // Create main panel for the tab
+            JPanel mainPanel = new JPanel(new BorderLayout());
+            mainPanel.setBackground(new Color(245, 247, 250));
+            mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        // Create top info panel
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-        infoPanel.setBackground(Color.WHITE);
-        infoPanel.setBorder(new CompoundBorder(
-                new LineBorder(new Color(200, 210, 225), 1, true),
-                new EmptyBorder(15, 15, 15, 15)
-        ));
+            // Create top info panel
+            JPanel infoPanel = new JPanel();
+            infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+            infoPanel.setBackground(Color.WHITE);
+            infoPanel.setBorder(new CompoundBorder(
+                    new LineBorder(new Color(200, 210, 225), 1, true),
+                    new EmptyBorder(15, 15, 15, 15)
+            ));
 
-        // Create heading label
-        JLabel headingLabel = new JLabel(heading);
-        headingLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        headingLabel.setForeground(new Color(33, 76, 140));
-        headingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            // Create heading label
+            JLabel headingLabel = new JLabel(heading);
+            headingLabel.setFont(new Font("Arial", Font.BOLD, 20));
+            headingLabel.setForeground(new Color(33, 76, 140));
+            headingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // Create description label
-        JLabel descriptionLabel = new JLabel(description);
-        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        descriptionLabel.setForeground(new Color(70, 70, 70));
-        descriptionLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            // Create description label
+            JLabel descriptionLabel = new JLabel(description);
+            descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            descriptionLabel.setForeground(new Color(70, 70, 70));
+            descriptionLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // Add heading and description
-        infoPanel.add(headingLabel);
-        infoPanel.add(Box.createVerticalStrut(10));
-        infoPanel.add(descriptionLabel);
+            // Add heading and description
+            infoPanel.add(headingLabel);
+            infoPanel.add(Box.createVerticalStrut(10));
+            infoPanel.add(descriptionLabel);
 
-        // Create preview area
-        JPanel previewPanel = new JPanel(new GridBagLayout());
-        previewPanel.setBackground(Color.WHITE);
-        previewPanel.setBorder(new CompoundBorder(
-                new TitledBorder(
-                        new LineBorder(new Color(180, 190, 210), 1, true),
-                        "Form Preview Area",
-                        TitledBorder.LEFT,
-                        TitledBorder.TOP,
-                        new Font("Arial", Font.BOLD, 14),
-                        new Color(33, 76, 140)
-                ),
-                new EmptyBorder(20, 20, 20, 20)
-        ));
+            // Create preview area
+            JPanel previewPanel = new JPanel(new GridBagLayout());
+            previewPanel.setBackground(Color.WHITE);
+            previewPanel.setBorder(new CompoundBorder(
+                    new TitledBorder(
+                            new LineBorder(new Color(180, 190, 210), 1, true),
+                            "Form Preview Area",
+                            TitledBorder.LEFT,
+                            TitledBorder.TOP,
+                            new Font("Arial", Font.BOLD, 14),
+                            new Color(33, 76, 140)
+                    ),
+                    new EmptyBorder(20, 20, 20, 20)
+            ));
 
-        // Placeholder label
-        JLabel previewLabel = new JLabel("Form fields will be added here step by step.");
-        previewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-        previewLabel.setForeground(new Color(90, 90, 90));
-        previewPanel.add(previewLabel);
+            // Placeholder label
+            JLabel previewLabel = new JLabel("Form fields will be added here step by step.");
+            previewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+            previewLabel.setForeground(new Color(90, 90, 90));
+            previewPanel.add(previewLabel);
 
-        // Wrapper panel
-        JPanel wrapperPanel = new JPanel(new BorderLayout(0, 15));
-        wrapperPanel.setBackground(new Color(245, 247, 250));
-        wrapperPanel.add(infoPanel, BorderLayout.NORTH);
-        wrapperPanel.add(previewPanel, BorderLayout.CENTER);
+            // Wrapper panel
+            JPanel wrapperPanel = new JPanel(new BorderLayout(0, 15));
+            wrapperPanel.setBackground(new Color(245, 247, 250));
+            wrapperPanel.add(infoPanel, BorderLayout.NORTH);
+            wrapperPanel.add(previewPanel, BorderLayout.CENTER);
 
-        // Add wrapper panel to main panel
-        mainPanel.add(wrapperPanel, BorderLayout.CENTER);
+            // Add wrapper panel to main panel
+            mainPanel.add(wrapperPanel, BorderLayout.CENTER);
 
-        return mainPanel;
-    }
+            return mainPanel;
+        }
 
 
     /*
      Styles buttons so the GUI looks cleaner and more professional.
     */
-    public static void styleButton(JButton button) {
+        public static void styleButton (JButton button){
 
-        // Set font
-        button.setFont(new Font("Arial", Font.BOLD, 13));
+            // Set font
+            button.setFont(new Font("Arial", Font.BOLD, 13));
 
-        // Set preferred size
-        button.setPreferredSize(new Dimension(140, 38));
+            // Set preferred size
+            button.setPreferredSize(new Dimension(140, 38));
 
-        // Remove focus border
-        button.setFocusPainted(false);
+            // Remove focus border
+            button.setFocusPainted(false);
 
-        // Set background colour
-        button.setBackground(new Color(33, 76, 140));
+            // Set background colour
+            button.setBackground(new Color(33, 76, 140));
 
-        // Set text colour
-        button.setForeground(Color.WHITE);
+            // Set text colour
+            button.setForeground(Color.WHITE);
 
-        // Add border
-        button.setBorder(new LineBorder(new Color(25, 60, 110), 1, true));
+            // Add border
+            button.setBorder(new LineBorder(new Color(25, 60, 110), 1, true));
+        }
     }
-}
