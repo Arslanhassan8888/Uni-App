@@ -43,7 +43,10 @@ public class Uni_App_Arslan {
     // Check boxes for student options
     static JCheckBox studentGroundFloorCheck;
     static JCheckBox studentSeniorCheck;
+    // Store object
+    static Store store = new Store();
 
+    
     // MAIN METHOD
     // Starts the program
     public static void main(String[] args) {
@@ -73,7 +76,7 @@ public class Uni_App_Arslan {
     }
 
     /*
-     Creates the header panel.
+      HEADER PANEL.
     */
     public static JPanel createHeaderPanel() {
 
@@ -93,7 +96,7 @@ public class Uni_App_Arslan {
     }
 
     /*
-     Creates the centre panel with tabs.
+     CREATES CENTRE PANEL WITH TABS.
     */
     public static JPanel createCenterPanel() {
 
@@ -116,7 +119,7 @@ public class Uni_App_Arslan {
     }
 
     /*
-     Creates the Student tab.
+     Creates STUDENT TAB.
      This includes:
      personal details
      student details
@@ -129,9 +132,9 @@ public class Uni_App_Arslan {
         // Use vertical layout
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        // ============================
+
         // PERSONAL DETAILS SECTION
-        // ============================
+
 
         JPanel personalPanel = new JPanel();
 
@@ -204,9 +207,9 @@ public class Uni_App_Arslan {
         personalPanel.add(healthPanel);
         personalPanel.add(registrationPanel);
 
-        // ============================
+
         // STUDENT DETAILS SECTION
-        // ============================
+
 
         JPanel studentPanel = new JPanel();
 
