@@ -1,5 +1,6 @@
 package com.mycompany.uni_app_arslan;
 import javax.swing.*;
+import java.awt.*;
 /**
  *
  * @author Arslan Hassan
@@ -26,12 +27,26 @@ public class Uni_App_Arslan {
         // Create the main window
         JFrame frame = new JFrame("University Halls System");
 
+        // Set window size
+        frame.setSize(700, 500);
+
+        // Centre the window on screen
+        frame.setLocationRelativeTo(null);
+
         // Close program when the window is closed
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Create main panel
+        JPanel panel = new JPanel();
+
+        // Set layout (Grid: 8 rows, 2 columns, spacing)
+        panel.setLayout(new GridLayout(8, 2, 10, 10));
+
+        // Add panel to frame
+        frame.add(panel);
+
         // Make the window visible
         frame.setVisible(true);
-
 
 
 
