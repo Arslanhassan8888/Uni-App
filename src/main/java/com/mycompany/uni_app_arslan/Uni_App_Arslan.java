@@ -121,10 +121,8 @@ public class Uni_App_Arslan {
         tabbedPane.setBackground(Color.WHITE);
 
         // Create tab panels
-        JPanel studentPanel = createStyledTabPanel(
-                "Student Record Form",
-                "This section will contain person details and student details."
-        );
+        JPanel studentPanel = createStudentTab();
+
 
         JPanel employeePanel = createStyledTabPanel(
                 "Employee Record Form",
@@ -153,6 +151,45 @@ public class Uni_App_Arslan {
         return centerPanel;
     }
 
+    /*
+ Creates the Student tab
+*/
+    public static JPanel createStudentTab() {
+
+        // Main panel for Student tab
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(new Color(245, 247, 250));
+        mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
+
+        // Info panel (top section)
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.WHITE);
+        infoPanel.setBorder(new CompoundBorder(
+                new LineBorder(new Color(200, 210, 225), 1, true),
+                new EmptyBorder(15, 15, 15, 15)
+        ));
+
+        // Title
+        JLabel headingLabel = new JLabel("Student Record Form");
+        headingLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        headingLabel.setForeground(new Color(33, 76, 140));
+
+        // Description
+        JLabel descriptionLabel = new JLabel("Enter student and personal details below.");
+        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        descriptionLabel.setForeground(new Color(70, 70, 70));
+
+        // Add to panel
+        infoPanel.add(headingLabel);
+        infoPanel.add(Box.createVerticalStrut(10));
+        infoPanel.add(descriptionLabel);
+
+        // Add info panel to main panel
+        mainPanel.add(infoPanel, BorderLayout.NORTH);
+
+        return mainPanel;
+    }
 
     /*
      Creates the bottom button area.
