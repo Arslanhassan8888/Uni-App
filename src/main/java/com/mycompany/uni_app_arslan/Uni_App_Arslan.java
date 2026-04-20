@@ -1,7 +1,10 @@
 package com.mycompany.uni_app_arslan;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
@@ -43,19 +46,30 @@ public class Uni_App_Arslan {
     // Check boxes for student options
     static JCheckBox studentGroundFloorCheck;
     static JCheckBox studentSeniorCheck;
+
+    // Text area for record display
+    static JTextArea studentRecordArea;
+
+    // Scroll pane for record area
+    static JScrollPane studentRecordScrollPane;
+
+    // Record panel
+    static JPanel recordPanel;
+
     // Store object
     static Store store = new Store();
 
-    
-    // MAIN METHOD
-    // Starts the program
+    /*
+     MAIN METHOD
+     Starts the program
+    */
     public static void main(String[] args) {
 
         // Create main window
         JFrame frame = new JFrame("University Hall Management System");
 
         // Set window size
-        frame.setSize(800, 700);
+        frame.setSize(1000, 700);
 
         // Centre window on screen
         frame.setLocationRelativeTo(null);
@@ -76,7 +90,7 @@ public class Uni_App_Arslan {
     }
 
     /*
-      HEADER PANEL.
+     HEADER PANEL.
     */
     public static JPanel createHeaderPanel() {
 
@@ -123,36 +137,40 @@ public class Uni_App_Arslan {
      This includes:
      personal details
      student details
+     record display area
     */
     public static JPanel createStudentTab() {
 
         // Main panel for Student tab
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 
-        // Use vertical layout
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
+        // FORM CONTAINER
+        // This holds the form sections on the left
+        JPanel formContainer = new JPanel();
+        formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.Y_AXIS));
+        formContainer.setBorder(BorderFactory.createTitledBorder("Student Form"));
 
         // PERSONAL DETAILS SECTION
-
-
         JPanel personalPanel = new JPanel();
-
-        // Vertical layout for rows
         personalPanel.setLayout(new BoxLayout(personalPanel, BoxLayout.Y_AXIS));
-
-        // Add border title
         personalPanel.setBorder(BorderFactory.createTitledBorder("Personal Details"));
 
+        // Common label size
+        Dimension labelSize = new Dimension(140, 25);
+
         // Name row
-        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        namePanel.add(new JLabel("Name:"));
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setPreferredSize(labelSize);
         studentNameField = new JTextField(15);
+        namePanel.add(nameLabel);
         namePanel.add(studentNameField);
 
         // Gender row
-        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        genderPanel.add(new JLabel("Gender:"));
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel genderLabel = new JLabel("Gender:");
+        genderLabel.setPreferredSize(labelSize);
+        genderPanel.add(genderLabel);
 
         studentMaleButton = new JRadioButton("Male");
         studentFemaleButton = new JRadioButton("Female");
@@ -169,33 +187,43 @@ public class Uni_App_Arslan {
         genderPanel.add(studentOtherButton);
 
         // Date of Birth row
-        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        dobPanel.add(new JLabel("Date of Birth:"));
+        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel dobLabel = new JLabel("Date of Birth:");
+        dobLabel.setPreferredSize(labelSize);
         studentDobField = new JTextField(15);
+        dobPanel.add(dobLabel);
         dobPanel.add(studentDobField);
 
         // Address row
-        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        addressPanel.add(new JLabel("Address:"));
+        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel addressLabel = new JLabel("Address:");
+        addressLabel.setPreferredSize(labelSize);
         studentAddressField = new JTextField(15);
+        addressPanel.add(addressLabel);
         addressPanel.add(studentAddressField);
 
         // Nationality row
-        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        nationalityPanel.add(new JLabel("Nationality:"));
+        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel nationalityLabel = new JLabel("Nationality:");
+        nationalityLabel.setPreferredSize(labelSize);
         studentNationalityField = new JTextField(15);
+        nationalityPanel.add(nationalityLabel);
         nationalityPanel.add(studentNationalityField);
 
         // Health Conditions row
-        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        healthPanel.add(new JLabel("Health Conditions:"));
+        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel healthLabel = new JLabel("Health Conditions:");
+        healthLabel.setPreferredSize(labelSize);
         studentHealthField = new JTextField(15);
+        healthPanel.add(healthLabel);
         healthPanel.add(studentHealthField);
 
         // Registration Date row
-        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        registrationPanel.add(new JLabel("Registration Date:"));
+        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel registrationLabel = new JLabel("Registration Date:");
+        registrationLabel.setPreferredSize(labelSize);
         studentRegistrationDateField = new JTextField(15);
+        registrationPanel.add(registrationLabel);
         registrationPanel.add(studentRegistrationDateField);
 
         // Add all rows to personal panel
@@ -207,74 +235,73 @@ public class Uni_App_Arslan {
         personalPanel.add(healthPanel);
         personalPanel.add(registrationPanel);
 
-
         // STUDENT DETAILS SECTION
-
-
         JPanel studentPanel = new JPanel();
-
-        // Vertical layout for rows
         studentPanel.setLayout(new BoxLayout(studentPanel, BoxLayout.Y_AXIS));
-
-        // Add border title
         studentPanel.setBorder(BorderFactory.createTitledBorder("Student Details"));
 
-        // Student ID row
-        JPanel idPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        idPanel.add(new JLabel("Student ID:"));
+        // Create fields
         studentIdField = new JTextField(15);
-        idPanel.add(studentIdField);
-
-        // Year of Study row
-        JPanel yearPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        yearPanel.add(new JLabel("Year of Study:"));
         studentYearField = new JTextField(15);
-        yearPanel.add(studentYearField);
-
-        // Diet row
-        JPanel dietPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        dietPanel.add(new JLabel("Dietary Preference:"));
-        studentDietCombo = new JComboBox<>(new String[]{
-                "Normal", "Vegetarian", "Vegan"
-        });
-        dietPanel.add(studentDietCombo);
-
-        // Ground floor row
-        JPanel groundFloorPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        studentGroundFloorCheck = new JCheckBox("Ground Floor Required");
-        groundFloorPanel.add(studentGroundFloorCheck);
-
-        // Rent row
-        JPanel rentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        rentPanel.add(new JLabel("Rent Amount:"));
         studentRentField = new JTextField(15);
-        rentPanel.add(studentRentField);
-
-        // Hall row
-        JPanel hallPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        hallPanel.add(new JLabel("Hall Name:"));
         studentHallField = new JTextField(15);
-        hallPanel.add(studentHallField);
 
-        // Senior student row
-        JPanel seniorPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        studentSeniorCheck = new JCheckBox("Senior Student");
-        seniorPanel.add(studentSeniorCheck);
+        // Create options
+        studentDietCombo = new JComboBox<>(new String[]{"Normal", "Vegetarian", "Vegan"});
+        studentGroundFloorCheck = new JCheckBox("Required");
+        studentSeniorCheck = new JCheckBox("Yes");
 
         // Add rows to student panel
-        studentPanel.add(idPanel);
-        studentPanel.add(yearPanel);
-        studentPanel.add(dietPanel);
-        studentPanel.add(groundFloorPanel);
-        studentPanel.add(rentPanel);
-        studentPanel.add(hallPanel);
-        studentPanel.add(seniorPanel);
+        studentPanel.add(makeRow("Student ID:", studentIdField, labelSize));
+        studentPanel.add(makeRow("Year of Study:", studentYearField, labelSize));
+        studentPanel.add(makeRow("Dietary Preference:", studentDietCombo, labelSize));
+        studentPanel.add(makeRow("Ground Floor:", studentGroundFloorCheck, labelSize));
+        studentPanel.add(makeRow("Rent Amount:", studentRentField, labelSize));
+        studentPanel.add(makeRow("Hall Name:", studentHallField, labelSize));
+        studentPanel.add(makeRow("Senior Student:", studentSeniorCheck, labelSize));
 
-        // Add both sections to main panel
-        mainPanel.add(personalPanel);
-        mainPanel.add(studentPanel);
+        // Add both sections to form container
+        formContainer.add(personalPanel);
+        formContainer.add(studentPanel);
+
+        // RECORD DISPLAY SECTION
+        // This shows the saved record on the right
+        recordPanel = new JPanel(new BorderLayout());
+        recordPanel.setBorder(BorderFactory.createTitledBorder("Student Record Display"));
+
+        studentRecordArea = new JTextArea(20, 30);
+        studentRecordArea.setEditable(false);
+        studentRecordArea.setLineWrap(true);
+        studentRecordArea.setWrapStyleWord(true);
+
+        studentRecordScrollPane = new JScrollPane(studentRecordArea);
+
+        recordPanel.add(studentRecordScrollPane, BorderLayout.CENTER);
+
+        // Add form and record display to main panel
+        mainPanel.add(formContainer);
+        mainPanel.add(recordPanel);
 
         return mainPanel;
+    }
+
+    /*
+     Creates a simple helper row.
+    */
+    public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
+
+        // Create row panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+
+        // Create label
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(size);
+
+        // Add label and field
+        panel.add(label);
+        panel.add(field);
+
+        return panel;
     }
 
     /*
@@ -282,37 +309,223 @@ public class Uni_App_Arslan {
     */
     public static JPanel createSimpleTab(String title) {
 
+        // Create panel
         JPanel panel = new JPanel();
 
+        // Add border title
         panel.setBorder(BorderFactory.createTitledBorder(title));
 
-        JLabel label = new JLabel("This section will be completed later.");
-        panel.add(label);
+        // Add placeholder label
+        panel.add(new JLabel("This section will be completed later."));
 
         return panel;
     }
 
     /*
      Creates the button panel.
+     This includes:
+     Save Record
+     Next Record
+     Clear Form
+     Save To File
+     Load From File
     */
     public static JPanel createButtonPanel() {
 
-        JPanel buttonPanel = new JPanel();
+        // Create panel
+        JPanel panel = new JPanel();
 
         // Create buttons
-        JButton saveButton = new JButton("Save Record");
-        JButton nextButton = new JButton("Next Record");
-        JButton clearButton = new JButton("Clear Form");
-        JButton saveFileButton = new JButton("Save To File");
-        JButton loadFileButton = new JButton("Load From File");
+        JButton save = new JButton("Save Record");
+        JButton next = new JButton("Next Record");
+        JButton clear = new JButton("Clear Form");
+        JButton saveFile = new JButton("Save To File");
+        JButton loadFile = new JButton("Load From File");
+
+        // Save student record
+        save.addActionListener(e -> saveStudentRecord());
+
+        // Show next student record
+        next.addActionListener(e -> showNextStudentRecord());
+
+        // Clear form
+        clear.addActionListener(e -> clearStudentForm());
+
+        // Save to file
+        saveFile.addActionListener(e -> JOptionPane.showMessageDialog(null, "Save to file not implemented."));
+
+        // Load from file
+        loadFile.addActionListener(e -> JOptionPane.showMessageDialog(null, "Load from file not implemented."));
 
         // Add buttons to panel
-        buttonPanel.add(saveButton);
-        buttonPanel.add(nextButton);
-        buttonPanel.add(clearButton);
-        buttonPanel.add(saveFileButton);
-        buttonPanel.add(loadFileButton);
+        panel.add(save);
+        panel.add(next);
+        panel.add(clear);
+        panel.add(saveFile);
+        panel.add(loadFile);
 
-        return buttonPanel;
+        return panel;
+    }
+
+    /*
+     Saves Student record into Store.
+    */
+    public static void saveStudentRecord() {
+
+        try {
+            String gender = "";
+
+            if (studentMaleButton.isSelected()) {
+                gender = "Male";
+            } else if (studentFemaleButton.isSelected()) {
+                gender = "Female";
+            } else if (studentOtherButton.isSelected()) {
+                gender = "Other";
+            }
+
+            Student student = new Student(
+                    studentNameField.getText(),
+                    gender,
+                    studentDobField.getText(),
+                    studentAddressField.getText(),
+                    studentNationalityField.getText(),
+                    studentHealthField.getText(),
+                    studentRegistrationDateField.getText(),
+                    studentIdField.getText(),
+                    Integer.parseInt(studentYearField.getText()),
+                    (String) studentDietCombo.getSelectedItem(),
+                    studentGroundFloorCheck.isSelected(),
+                    Double.parseDouble(studentRentField.getText()),
+                    studentHallField.getText(),
+                    studentSeniorCheck.isSelected()
+            );
+
+            store.addStudent(student);
+            JOptionPane.showMessageDialog(null, "Student record saved.");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Please enter valid student data.");
+        }
+    }
+
+    /*
+     Shows next Student record from Store.
+    */
+    public static void showNextStudentRecord() {
+
+        Student s = store.getNextStudent();
+
+        if (s == null) {
+            JOptionPane.showMessageDialog(null, "No student records saved.");
+            return;
+        }
+
+        // Show green background only when Next Record is clicked
+        Color lightGreen = new Color(230, 250, 230);
+        studentRecordArea.setBackground(lightGreen);
+        studentRecordScrollPane.getViewport().setBackground(lightGreen);
+        recordPanel.setBackground(lightGreen);
+
+        // Show personal details in form
+        studentNameField.setText(s.getName());
+        studentDobField.setText(s.getDateOfBirth());
+        studentAddressField.setText(s.getAddress());
+        studentNationalityField.setText(s.getNationality());
+        studentHealthField.setText(s.getHealthConditions());
+        studentRegistrationDateField.setText(s.getRegistrationDate());
+
+        // Show gender
+        if (s.getGender().equals("Male")) {
+            studentMaleButton.setSelected(true);
+        } else if (s.getGender().equals("Female")) {
+            studentFemaleButton.setSelected(true);
+        } else {
+            studentOtherButton.setSelected(true);
+        }
+
+        // Show student details in form
+        studentIdField.setText(s.getStudentId());
+        studentYearField.setText(String.valueOf(s.getYearOfStudy()));
+        studentDietCombo.setSelectedItem(s.getDietaryPreference());
+        studentGroundFloorCheck.setSelected(s.isGroundFloorRequired());
+        studentRentField.setText(String.valueOf(s.getRentAmount()));
+        studentHallField.setText(s.getHallName());
+        studentSeniorCheck.setSelected(s.isSeniorStudent());
+
+        // Show record in display area
+        studentRecordArea.setText(
+                "STUDENT RECORD\n\n" +
+                        formatLine("Name:", s.getName()) +
+                        formatLine("Gender:", s.getGender()) +
+                        formatLine("Date of Birth:", s.getDateOfBirth()) +
+                        formatLine("Address:", s.getAddress()) +
+                        formatLine("Nationality:", s.getNationality()) +
+                        formatLine("Health Conditions:", s.getHealthConditions()) +
+                        formatLine("Registration Date:", s.getRegistrationDate()) +
+                        formatLine("Student ID:", s.getStudentId()) +
+                        formatLine("Year of Study:", String.valueOf(s.getYearOfStudy())) +
+                        formatLine("Dietary Preference:", s.getDietaryPreference()) +
+                        formatLine("Ground Floor Required:", yesNo(s.isGroundFloorRequired())) +
+                        formatLine("Rent Amount:", String.valueOf(s.getRentAmount())) +
+                        formatLine("Hall Name:", s.getHallName()) +
+                        formatLine("Senior Student:", yesNo(s.isSeniorStudent()))
+        );
+    }
+
+    /*
+     Formats one display line.
+    */
+    public static String formatLine(String label, String value) {
+
+        if (value == null || value.trim().isEmpty()) {
+            value = "NA";
+        }
+
+        return label + " " + value + "\n\n";
+    }
+
+    /*
+     Converts boolean to Yes or No.
+    */
+    public static String yesNo(boolean value) {
+
+        if (value) {
+            return "Yes";
+        }
+
+        return "No";
+    }
+
+    /*
+     Clears Student form fields.
+    */
+    public static void clearStudentForm() {
+
+        studentNameField.setText("");
+        studentDobField.setText("");
+        studentAddressField.setText("");
+        studentNationalityField.setText("");
+        studentHealthField.setText("");
+        studentRegistrationDateField.setText("");
+
+        studentIdField.setText("");
+        studentYearField.setText("");
+        studentRentField.setText("");
+        studentHallField.setText("");
+
+        studentMaleButton.setSelected(false);
+        studentFemaleButton.setSelected(false);
+        studentOtherButton.setSelected(false);
+
+        studentDietCombo.setSelectedIndex(0);
+        studentGroundFloorCheck.setSelected(false);
+        studentSeniorCheck.setSelected(false);
+
+        studentRecordArea.setText("");
+
+        // Reset background when form is cleared
+        studentRecordArea.setBackground(Color.WHITE);
+        studentRecordScrollPane.getViewport().setBackground(Color.WHITE);
+        recordPanel.setBackground(null);
     }
 }
