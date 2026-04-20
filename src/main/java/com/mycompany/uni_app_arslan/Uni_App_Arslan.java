@@ -156,7 +156,7 @@ public class Uni_App_Arslan {
 
         // Add tabs
         tabbedPane.addTab("Student", createStudentTab());
-        tabbedPane.addTab("Employee", createSimpleTab("Employee Form"));
+        tabbedPane.addTab("Employee", createEmployeeTab());
         tabbedPane.addTab("Hall", createSimpleTab("Hall Form"));
         tabbedPane.addTab("Payment", createSimpleTab("Payment Form"));
 
@@ -320,6 +320,151 @@ public class Uni_App_Arslan {
     }
 
     /*
+ Creates EMPLOYEE TAB.
+ This includes:
+ personal details
+ employee details
+ record display area
+*/
+    public static JPanel createEmployeeTab() {
+
+        // Main panel for Employee tab
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+
+        // FORM CONTAINER
+        // This holds the form sections on the left
+        JPanel formContainer = new JPanel();
+        formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.Y_AXIS));
+        formContainer.setBorder(BorderFactory.createTitledBorder("Employee Form"));
+
+        // PERSONAL DETAILS SECTION
+        JPanel personalPanel = new JPanel();
+        personalPanel.setLayout(new BoxLayout(personalPanel, BoxLayout.Y_AXIS));
+        personalPanel.setBorder(BorderFactory.createTitledBorder("Personal Details"));
+
+        // Common label size
+        Dimension labelSize = new Dimension(140, 25);
+
+        // Name row
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setPreferredSize(labelSize);
+        employeeNameField = new JTextField(15);
+        namePanel.add(nameLabel);
+        namePanel.add(employeeNameField);
+
+        // Gender row
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel genderLabel = new JLabel("Gender:");
+        genderLabel.setPreferredSize(labelSize);
+        genderPanel.add(genderLabel);
+
+        employeeMaleButton = new JRadioButton("Male");
+        employeeFemaleButton = new JRadioButton("Female");
+        employeeOtherButton = new JRadioButton("Other");
+
+        // Group radio buttons
+        ButtonGroup genderGroup = new ButtonGroup();
+        genderGroup.add(employeeMaleButton);
+        genderGroup.add(employeeFemaleButton);
+        genderGroup.add(employeeOtherButton);
+
+        genderPanel.add(employeeMaleButton);
+        genderPanel.add(employeeFemaleButton);
+        genderPanel.add(employeeOtherButton);
+
+        // Date of Birth row
+        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel dobLabel = new JLabel("Date of Birth:");
+        dobLabel.setPreferredSize(labelSize);
+        employeeDobField = new JTextField(15);
+        dobPanel.add(dobLabel);
+        dobPanel.add(employeeDobField);
+
+        // Address row
+        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel addressLabel = new JLabel("Address:");
+        addressLabel.setPreferredSize(labelSize);
+        employeeAddressField = new JTextField(15);
+        addressPanel.add(addressLabel);
+        addressPanel.add(employeeAddressField);
+
+        // Nationality row
+        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel nationalityLabel = new JLabel("Nationality:");
+        nationalityLabel.setPreferredSize(labelSize);
+        employeeNationalityField = new JTextField(15);
+        nationalityPanel.add(nationalityLabel);
+        nationalityPanel.add(employeeNationalityField);
+
+        // Health Conditions row
+        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel healthLabel = new JLabel("Health Conditions:");
+        healthLabel.setPreferredSize(labelSize);
+        employeeHealthField = new JTextField(15);
+        healthPanel.add(healthLabel);
+        healthPanel.add(employeeHealthField);
+
+        // Registration Date row
+        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JLabel registrationLabel = new JLabel("Registration Date:");
+        registrationLabel.setPreferredSize(labelSize);
+        employeeRegistrationDateField = new JTextField(15);
+        registrationPanel.add(registrationLabel);
+        registrationPanel.add(employeeRegistrationDateField);
+
+        // Add all rows to personal panel
+        personalPanel.add(namePanel);
+        personalPanel.add(genderPanel);
+        personalPanel.add(dobPanel);
+        personalPanel.add(addressPanel);
+        personalPanel.add(nationalityPanel);
+        personalPanel.add(healthPanel);
+        personalPanel.add(registrationPanel);
+
+        // EMPLOYEE DETAILS SECTION
+        JPanel employeePanel = new JPanel();
+        employeePanel.setLayout(new BoxLayout(employeePanel, BoxLayout.Y_AXIS));
+        employeePanel.setBorder(BorderFactory.createTitledBorder("Employee Details"));
+
+        // Create fields
+        employeeIdField = new JTextField(15);
+        employeeJobRoleField = new JTextField(15);
+        employeeSalaryField = new JTextField(15);
+        employeeHallField = new JTextField(15);
+
+        // Add rows to employee panel
+        employeePanel.add(makeRow("Employee ID:", employeeIdField, labelSize));
+        employeePanel.add(makeRow("Job Role:", employeeJobRoleField, labelSize));
+        employeePanel.add(makeRow("Salary:", employeeSalaryField, labelSize));
+        employeePanel.add(makeRow("Hall Name:", employeeHallField, labelSize));
+
+        // Add both sections to form container
+        formContainer.add(personalPanel);
+        formContainer.add(employeePanel);
+
+        // RECORD DISPLAY SECTION
+        // This shows the saved record on the right
+        employeeRecordPanel = new JPanel(new BorderLayout());
+        employeeRecordPanel.setBorder(BorderFactory.createTitledBorder("Employee Record Display"));
+
+        employeeRecordArea = new JTextArea(20, 30);
+        employeeRecordArea.setEditable(false);
+        employeeRecordArea.setLineWrap(true);
+        employeeRecordArea.setWrapStyleWord(true);
+
+        employeeRecordScrollPane = new JScrollPane(employeeRecordArea);
+
+        employeeRecordPanel.add(employeeRecordScrollPane, BorderLayout.CENTER);
+
+        // Add form and record display to main panel
+        mainPanel.add(formContainer);
+        mainPanel.add(employeeRecordPanel);
+
+        return mainPanel;
+    }
+
+    /*
      Creates a simple helper row.
     */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
@@ -435,10 +580,10 @@ public class Uni_App_Arslan {
             );
 
             store.addStudent(student);
-            JOptionPane.showMessageDialog(null, "Student record saved.");
+            JOptionPane.showMessageDialog(null, "Record Saved Successfully.");
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Please enter valid student data.");
+            JOptionPane.showMessageDialog(null, "Please fill all the required field.");
         }
     }
 
@@ -450,7 +595,7 @@ public class Uni_App_Arslan {
         Student s = store.getNextStudent();
 
         if (s == null) {
-            JOptionPane.showMessageDialog(null, "No student records saved.");
+            JOptionPane.showMessageDialog(null, "No records saved.");
             return;
         }
 
