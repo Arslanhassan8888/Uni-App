@@ -15,6 +15,27 @@ import javax.swing.border.*;
 
 public class Uni_App_Arslan {
 
+    // Student form fields
+    static JTextField studentNameField;
+    static JTextField studentDobField;
+    static JTextField studentAddressField;
+    static JTextField studentNationalityField;
+    static JTextField studentHealthField;
+    static JTextField studentRegistrationDateField;
+    static JTextField studentIdField;
+    static JTextField studentYearField;
+    static JTextField studentRentField;
+    static JTextField studentHallField;
+
+    static JRadioButton studentMaleButton;
+    static JRadioButton studentFemaleButton;
+    static JRadioButton studentOtherButton;
+
+    static JComboBox<String> studentDietCombo;
+
+    static JCheckBox studentGroundFloorCheck;
+    static JCheckBox studentSeniorCheck;
+
     public static void main(String[] args) {
 
         // Create the main window
