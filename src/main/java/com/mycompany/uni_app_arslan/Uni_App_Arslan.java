@@ -29,11 +29,20 @@ public class Uni_App_Arslan {
     // Text fields for student details
     static JTextField studentIdField;
     static JTextField studentYearField;
+    static JTextField studentRentField;
+    static JTextField studentHallField;
 
     // Radio buttons for gender selection
     static JRadioButton studentMaleButton;
     static JRadioButton studentFemaleButton;
     static JRadioButton studentOtherButton;
+
+    // Combo box for diet
+    static JComboBox<String> studentDietCombo;
+
+    // Check boxes for student options
+    static JCheckBox studentGroundFloorCheck;
+    static JCheckBox studentSeniorCheck;
 
     // MAIN METHOD
     // Starts the program
@@ -120,8 +129,10 @@ public class Uni_App_Arslan {
         // Use vertical layout
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+        // ============================
         // PERSONAL DETAILS SECTION
-        
+        // ============================
+
         JPanel personalPanel = new JPanel();
 
         // Vertical layout for rows
@@ -131,13 +142,13 @@ public class Uni_App_Arslan {
         personalPanel.setBorder(BorderFactory.createTitledBorder("Personal Details"));
 
         // Name row
-        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         namePanel.add(new JLabel("Name:"));
         studentNameField = new JTextField(15);
         namePanel.add(studentNameField);
 
         // Gender row
-        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         genderPanel.add(new JLabel("Gender:"));
 
         studentMaleButton = new JRadioButton("Male");
@@ -155,31 +166,31 @@ public class Uni_App_Arslan {
         genderPanel.add(studentOtherButton);
 
         // Date of Birth row
-        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         dobPanel.add(new JLabel("Date of Birth:"));
         studentDobField = new JTextField(15);
         dobPanel.add(studentDobField);
 
         // Address row
-        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         addressPanel.add(new JLabel("Address:"));
         studentAddressField = new JTextField(15);
         addressPanel.add(studentAddressField);
 
         // Nationality row
-        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         nationalityPanel.add(new JLabel("Nationality:"));
         studentNationalityField = new JTextField(15);
         nationalityPanel.add(studentNationalityField);
 
         // Health Conditions row
-        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         healthPanel.add(new JLabel("Health Conditions:"));
         studentHealthField = new JTextField(15);
         healthPanel.add(studentHealthField);
 
         // Registration Date row
-        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         registrationPanel.add(new JLabel("Registration Date:"));
         studentRegistrationDateField = new JTextField(15);
         registrationPanel.add(studentRegistrationDateField);
@@ -193,7 +204,9 @@ public class Uni_App_Arslan {
         personalPanel.add(healthPanel);
         personalPanel.add(registrationPanel);
 
+        // ============================
         // STUDENT DETAILS SECTION
+        // ============================
 
         JPanel studentPanel = new JPanel();
 
@@ -204,20 +217,55 @@ public class Uni_App_Arslan {
         studentPanel.setBorder(BorderFactory.createTitledBorder("Student Details"));
 
         // Student ID row
-        JPanel idPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel idPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         idPanel.add(new JLabel("Student ID:"));
         studentIdField = new JTextField(15);
         idPanel.add(studentIdField);
 
         // Year of Study row
-        JPanel yearPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel yearPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         yearPanel.add(new JLabel("Year of Study:"));
         studentYearField = new JTextField(15);
         yearPanel.add(studentYearField);
 
+        // Diet row
+        JPanel dietPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        dietPanel.add(new JLabel("Dietary Preference:"));
+        studentDietCombo = new JComboBox<>(new String[]{
+                "Normal", "Vegetarian", "Vegan"
+        });
+        dietPanel.add(studentDietCombo);
+
+        // Ground floor row
+        JPanel groundFloorPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        studentGroundFloorCheck = new JCheckBox("Ground Floor Required");
+        groundFloorPanel.add(studentGroundFloorCheck);
+
+        // Rent row
+        JPanel rentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        rentPanel.add(new JLabel("Rent Amount:"));
+        studentRentField = new JTextField(15);
+        rentPanel.add(studentRentField);
+
+        // Hall row
+        JPanel hallPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        hallPanel.add(new JLabel("Hall Name:"));
+        studentHallField = new JTextField(15);
+        hallPanel.add(studentHallField);
+
+        // Senior student row
+        JPanel seniorPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        studentSeniorCheck = new JCheckBox("Senior Student");
+        seniorPanel.add(studentSeniorCheck);
+
         // Add rows to student panel
         studentPanel.add(idPanel);
         studentPanel.add(yearPanel);
+        studentPanel.add(dietPanel);
+        studentPanel.add(groundFloorPanel);
+        studentPanel.add(rentPanel);
+        studentPanel.add(hallPanel);
+        studentPanel.add(seniorPanel);
 
         // Add both sections to main panel
         mainPanel.add(personalPanel);
