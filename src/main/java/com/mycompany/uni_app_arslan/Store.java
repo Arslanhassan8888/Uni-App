@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /*
  Store class stores records for the university halls system.
 
- This class will be used to keep students and employees in memory.
+ This class will be used to keep students, employees halls adn payment  in memory.
 */
 
 public class Store {
@@ -24,6 +24,9 @@ public class Store {
     // List to store halls
     private ArrayList<Hall> halls;
 
+    //List to store payments
+    private ArrayList<Payment>payments;
+
     // Current position in student list
     private int studentIndex;
 
@@ -32,6 +35,9 @@ public class Store {
 
     // Current position in hall list
     private int hallIndex;
+
+    // Current position in payment list
+    private int paymentIndex;
 
     // Constructor
 
@@ -47,11 +53,16 @@ public class Store {
         // Create the hall list
         halls = new ArrayList<>();
 
+        // Create the payment list
+        payments = new ArrayList<>();
+
         // Start all indexes at 0
         studentIndex = 0;
         employeeIndex = 0;
         hallIndex = 0;
+        paymentIndex = 0;
     }
+
 
     //Methods to add data
 
@@ -66,6 +77,11 @@ public class Store {
     // Adds a hall to the list
     public void addHall(Hall hall){
         halls.add(hall);
+    }
+
+    // Adds a payment to the list
+    public void addPayment(Payment payment) {
+        payments.add(payment);
     }
 
     // Returns the next student in the list
@@ -133,4 +149,27 @@ public class Store {
 
         return hall;
     }
+
+    // Returns the next payment in the list
+    public Payment getNextPayment() {
+
+        // Check if the list is empty
+        if (payments.isEmpty()) {
+            return null;
+        }
+
+        // If the end is reached, go back to the start
+        if (paymentIndex >= payments.size()) {
+            paymentIndex = 0;
+        }
+
+        // Get the current payment
+        Payment payment = payments.get(paymentIndex);
+
+        // Move to the next position
+        paymentIndex++;
+
+        return payment;
+    }
+
 }
