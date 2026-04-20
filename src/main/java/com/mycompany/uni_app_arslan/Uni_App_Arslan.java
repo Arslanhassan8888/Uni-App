@@ -18,6 +18,27 @@ import javax.swing.*;
 */
 public class Uni_App_Arslan {
 
+    // HALL OPTIONS
+    // These are used in Student and Employee tabs
+    static final String[] HALL_OPTIONS = {
+            "Ground Floor Hall",
+            "First Floor Hall",
+            "Second Floor Hall",
+            "Third Floor Hall",
+            "Fourth Floor Hall"
+    };
+
+    // JOB ROLE OPTIONS
+    // These are used in Employee tab
+    static final String[] JOB_ROLE_OPTIONS = {
+            "Cleaner",
+            "Security",
+            "Receptionist",
+            "Hall Manager",
+            "Maintenance",
+            "Warden"
+    };
+
     // STUDENT FORM FIELDS
     // These will store user input
 
@@ -33,7 +54,9 @@ public class Uni_App_Arslan {
     static JTextField studentIdField;
     static JTextField studentYearField;
     static JTextField studentRentField;
-    static JTextField studentHallField;
+
+    // Combo box for hall selection
+    static JComboBox<String> studentHallCombo;
 
     // Radio buttons for gender selection
     static JRadioButton studentMaleButton;
@@ -54,7 +77,7 @@ public class Uni_App_Arslan {
     static JScrollPane studentRecordScrollPane;
 
     // Record panel
-    static JPanel recordPanel;
+    static JPanel studentRecordPanel;
 
     // EMPLOYEE FORM FIELDS
     // These will store employee input
@@ -69,9 +92,11 @@ public class Uni_App_Arslan {
 
     // Text fields for employee details
     static JTextField employeeIdField;
-    static JTextField employeeJobRoleField;
     static JTextField employeeSalaryField;
-    static JTextField employeeHallField;
+
+    // Combo boxes for employee details
+    static JComboBox<String> employeeJobRoleCombo;
+    static JComboBox<String> employeeHallCombo;
 
     // Radio buttons for gender selection
     static JRadioButton employeeMaleButton;
@@ -87,11 +112,11 @@ public class Uni_App_Arslan {
     // Record panel
     static JPanel employeeRecordPanel;
 
+    // Tabbed pane
+    static JTabbedPane tabbedPane;
+
     // Store object
     static Store store = new Store();
-
-
-
 
     /*
      MAIN METHOD
@@ -152,7 +177,7 @@ public class Uni_App_Arslan {
         JPanel centerPanel = new JPanel(new BorderLayout());
 
         // Create tabbed pane
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
 
         // Add tabs
         tabbedPane.addTab("Student", createStudentTab());
@@ -278,12 +303,25 @@ public class Uni_App_Arslan {
         studentIdField = new JTextField(15);
         studentYearField = new JTextField(15);
         studentRentField = new JTextField(15);
-        studentHallField = new JTextField(15);
 
         // Create options
         studentDietCombo = new JComboBox<>(new String[]{"Normal", "Vegetarian", "Vegan"});
+        studentHallCombo = new JComboBox<>(HALL_OPTIONS);
         studentGroundFloorCheck = new JCheckBox("Required");
         studentSeniorCheck = new JCheckBox("Yes");
+
+        // If ground floor is required
+        // force the hall choice to Ground Floor Hall
+        // and disable manual selection
+        studentGroundFloorCheck.addActionListener(e -> {
+
+            if (studentGroundFloorCheck.isSelected()) {
+                studentHallCombo.setSelectedItem("Ground Floor Hall");
+                studentHallCombo.setEnabled(false);
+            } else {
+                studentHallCombo.setEnabled(true);
+            }
+        });
 
         // Add rows to student panel
         studentPanel.add(makeRow("Student ID:", studentIdField, labelSize));
@@ -291,7 +329,7 @@ public class Uni_App_Arslan {
         studentPanel.add(makeRow("Dietary Preference:", studentDietCombo, labelSize));
         studentPanel.add(makeRow("Ground Floor:", studentGroundFloorCheck, labelSize));
         studentPanel.add(makeRow("Rent Amount:", studentRentField, labelSize));
-        studentPanel.add(makeRow("Hall Name:", studentHallField, labelSize));
+        studentPanel.add(makeRow("Hall Name:", studentHallCombo, labelSize));
         studentPanel.add(makeRow("Senior Student:", studentSeniorCheck, labelSize));
 
         // Add both sections to form container
@@ -300,8 +338,8 @@ public class Uni_App_Arslan {
 
         // RECORD DISPLAY SECTION
         // This shows the saved record on the right
-        recordPanel = new JPanel(new BorderLayout());
-        recordPanel.setBorder(BorderFactory.createTitledBorder("Student Record Display"));
+        studentRecordPanel = new JPanel(new BorderLayout());
+        studentRecordPanel.setBorder(BorderFactory.createTitledBorder("Student Record Display"));
 
         studentRecordArea = new JTextArea(20, 30);
         studentRecordArea.setEditable(false);
@@ -310,22 +348,22 @@ public class Uni_App_Arslan {
 
         studentRecordScrollPane = new JScrollPane(studentRecordArea);
 
-        recordPanel.add(studentRecordScrollPane, BorderLayout.CENTER);
+        studentRecordPanel.add(studentRecordScrollPane, BorderLayout.CENTER);
 
         // Add form and record display to main panel
         mainPanel.add(formContainer);
-        mainPanel.add(recordPanel);
+        mainPanel.add(studentRecordPanel);
 
         return mainPanel;
     }
 
     /*
- Creates EMPLOYEE TAB.
- This includes:
- personal details
- employee details
- record display area
-*/
+     Creates EMPLOYEE TAB.
+     This includes:
+     personal details
+     employee details
+     record display area
+    */
     public static JPanel createEmployeeTab() {
 
         // Main panel for Employee tab
@@ -429,15 +467,17 @@ public class Uni_App_Arslan {
 
         // Create fields
         employeeIdField = new JTextField(15);
-        employeeJobRoleField = new JTextField(15);
         employeeSalaryField = new JTextField(15);
-        employeeHallField = new JTextField(15);
+
+        // Create combo boxes
+        employeeJobRoleCombo = new JComboBox<>(JOB_ROLE_OPTIONS);
+        employeeHallCombo = new JComboBox<>(HALL_OPTIONS);
 
         // Add rows to employee panel
         employeePanel.add(makeRow("Employee ID:", employeeIdField, labelSize));
-        employeePanel.add(makeRow("Job Role:", employeeJobRoleField, labelSize));
+        employeePanel.add(makeRow("Job Role:", employeeJobRoleCombo, labelSize));
         employeePanel.add(makeRow("Salary:", employeeSalaryField, labelSize));
-        employeePanel.add(makeRow("Hall Name:", employeeHallField, labelSize));
+        employeePanel.add(makeRow("Hall Name:", employeeHallCombo, labelSize));
 
         // Add both sections to form container
         formContainer.add(personalPanel);
@@ -521,20 +561,60 @@ public class Uni_App_Arslan {
         JButton saveFile = new JButton("Save To File");
         JButton loadFile = new JButton("Load From File");
 
-        // Save student record
-        save.addActionListener(e -> saveStudentRecord());
+        // Save record
+        save.addActionListener(e -> {
 
-        // Show next student record
-        next.addActionListener(e -> showNextStudentRecord());
+            // Check which tab is selected
+            int selectedTab = tabbedPane.getSelectedIndex();
+
+            if (selectedTab == 0) {
+                saveStudentRecord();
+            } else if (selectedTab == 1) {
+                saveEmployeeRecord();
+            } else {
+                JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
+            }
+        });
+
+        // Show next record
+        next.addActionListener(e -> {
+
+            // Check which tab is selected
+            int selectedTab = tabbedPane.getSelectedIndex();
+
+            if (selectedTab == 0) {
+                showNextStudentRecord();
+            } else if (selectedTab == 1) {
+                showNextEmployeeRecord();
+            } else {
+                JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
+            }
+        });
 
         // Clear form
-        clear.addActionListener(e -> clearStudentForm());
+        clear.addActionListener(e -> {
+
+            // Check which tab is selected
+            int selectedTab = tabbedPane.getSelectedIndex();
+
+            if (selectedTab == 0) {
+                clearStudentForm();
+            } else if (selectedTab == 1) {
+                clearEmployeeForm();
+            } else {
+                JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
+            }
+        });
 
         // Save to file
-        saveFile.addActionListener(e -> JOptionPane.showMessageDialog(null, "Save to file not implemented."));
+        saveFile.addActionListener(e ->
+                JOptionPane.showMessageDialog(null, "Save to file not implemented yet.")
+        );
 
         // Load from file
-        loadFile.addActionListener(e -> JOptionPane.showMessageDialog(null, "Load from file not implemented."));
+        loadFile.addActionListener(e ->
+                JOptionPane.showMessageDialog(null, "Load from file not implemented yet.")
+        );
 
         // Add buttons to panel
         panel.add(save);
@@ -547,24 +627,46 @@ public class Uni_App_Arslan {
     }
 
     /*
+     Gets selected gender from Student radio buttons.
+    */
+    public static String getStudentGender() {
+
+        if (studentMaleButton.isSelected()) {
+            return "Male";
+        } else if (studentFemaleButton.isSelected()) {
+            return "Female";
+        } else if (studentOtherButton.isSelected()) {
+            return "Other";
+        }
+
+        return "";
+    }
+
+    /*
+     Gets selected gender from Employee radio buttons.
+    */
+    public static String getEmployeeGender() {
+
+        if (employeeMaleButton.isSelected()) {
+            return "Male";
+        } else if (employeeFemaleButton.isSelected()) {
+            return "Female";
+        } else if (employeeOtherButton.isSelected()) {
+            return "Other";
+        }
+
+        return "";
+    }
+
+    /*
      Saves Student record into Store.
     */
     public static void saveStudentRecord() {
 
         try {
-            String gender = "";
-
-            if (studentMaleButton.isSelected()) {
-                gender = "Male";
-            } else if (studentFemaleButton.isSelected()) {
-                gender = "Female";
-            } else if (studentOtherButton.isSelected()) {
-                gender = "Other";
-            }
-
             Student student = new Student(
                     studentNameField.getText(),
-                    gender,
+                    getStudentGender(),
                     studentDobField.getText(),
                     studentAddressField.getText(),
                     studentNationalityField.getText(),
@@ -575,45 +677,36 @@ public class Uni_App_Arslan {
                     (String) studentDietCombo.getSelectedItem(),
                     studentGroundFloorCheck.isSelected(),
                     Double.parseDouble(studentRentField.getText()),
-                    studentHallField.getText(),
+                    (String) studentHallCombo.getSelectedItem(),
                     studentSeniorCheck.isSelected()
             );
 
             store.addStudent(student);
-            JOptionPane.showMessageDialog(null, "Record Saved Successfully.");
+            JOptionPane.showMessageDialog(null, "Student record saved.");
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Please fill all the required field.");
         }
     }
+
     /*
- Saves Employee record into Store.
-*/
+     Saves Employee record into Store.
+    */
     public static void saveEmployeeRecord() {
 
         try {
-            String gender = "";
-
-            if (employeeMaleButton.isSelected()) {
-                gender = "Male";
-            } else if (employeeFemaleButton.isSelected()) {
-                gender = "Female";
-            } else if (employeeOtherButton.isSelected()) {
-                gender = "Other";
-            }
-
             Employee employee = new Employee(
                     employeeNameField.getText(),
-                    gender,
+                    getEmployeeGender(),
                     employeeDobField.getText(),
                     employeeAddressField.getText(),
                     employeeNationalityField.getText(),
                     employeeHealthField.getText(),
                     employeeRegistrationDateField.getText(),
                     employeeIdField.getText(),
-                    employeeJobRoleField.getText(),
+                    (String) employeeJobRoleCombo.getSelectedItem(),
                     Double.parseDouble(employeeSalaryField.getText()),
-                    employeeHallField.getText()
+                    (String) employeeHallCombo.getSelectedItem()
             );
 
             store.addEmployee(employee);
@@ -632,7 +725,7 @@ public class Uni_App_Arslan {
         Student s = store.getNextStudent();
 
         if (s == null) {
-            JOptionPane.showMessageDialog(null, "No records saved.");
+            JOptionPane.showMessageDialog(null, "No student records saved.");
             return;
         }
 
@@ -640,7 +733,7 @@ public class Uni_App_Arslan {
         Color lightGreen = new Color(230, 250, 230);
         studentRecordArea.setBackground(lightGreen);
         studentRecordScrollPane.getViewport().setBackground(lightGreen);
-        recordPanel.setBackground(lightGreen);
+        studentRecordPanel.setBackground(lightGreen);
 
         // Show personal details in form
         studentNameField.setText(s.getName());
@@ -664,8 +757,16 @@ public class Uni_App_Arslan {
         studentYearField.setText(String.valueOf(s.getYearOfStudy()));
         studentDietCombo.setSelectedItem(s.getDietaryPreference());
         studentGroundFloorCheck.setSelected(s.isGroundFloorRequired());
+
+        if (s.isGroundFloorRequired()) {
+            studentHallCombo.setSelectedItem("Ground Floor Hall");
+            studentHallCombo.setEnabled(false);
+        } else {
+            studentHallCombo.setEnabled(true);
+            studentHallCombo.setSelectedItem(s.getHallName());
+        }
+
         studentRentField.setText(String.valueOf(s.getRentAmount()));
-        studentHallField.setText(s.getHallName());
         studentSeniorCheck.setSelected(s.isSeniorStudent());
 
         // Show record in display area
@@ -687,9 +788,10 @@ public class Uni_App_Arslan {
                         formatLine("Senior Student:", yesNo(s.isSeniorStudent()))
         );
     }
+
     /*
- Shows next Employee record from Store.
-*/
+     Shows next Employee record from Store.
+    */
     public static void showNextEmployeeRecord() {
 
         Employee e = store.getNextEmployee();
@@ -724,9 +826,9 @@ public class Uni_App_Arslan {
 
         // Show employee details in form
         employeeIdField.setText(e.getEmployeeId());
-        employeeJobRoleField.setText(e.getJobRole());
+        employeeJobRoleCombo.setSelectedItem(e.getJobRole());
         employeeSalaryField.setText(String.valueOf(e.getSalary()));
-        employeeHallField.setText(e.getHallName());
+        employeeHallCombo.setSelectedItem(e.getHallName());
 
         // Show record in display area
         employeeRecordArea.setText(
@@ -784,7 +886,6 @@ public class Uni_App_Arslan {
         studentIdField.setText("");
         studentYearField.setText("");
         studentRentField.setText("");
-        studentHallField.setText("");
 
         studentMaleButton.setSelected(false);
         studentFemaleButton.setSelected(false);
@@ -792,6 +893,8 @@ public class Uni_App_Arslan {
 
         studentDietCombo.setSelectedIndex(0);
         studentGroundFloorCheck.setSelected(false);
+        studentHallCombo.setEnabled(true);
+        studentHallCombo.setSelectedIndex(0);
         studentSeniorCheck.setSelected(false);
 
         studentRecordArea.setText("");
@@ -799,6 +902,36 @@ public class Uni_App_Arslan {
         // Reset background when form is cleared
         studentRecordArea.setBackground(Color.WHITE);
         studentRecordScrollPane.getViewport().setBackground(Color.WHITE);
-        recordPanel.setBackground(null);
+        studentRecordPanel.setBackground(null);
+    }
+
+    /*
+     Clears Employee form fields.
+    */
+    public static void clearEmployeeForm() {
+
+        employeeNameField.setText("");
+        employeeDobField.setText("");
+        employeeAddressField.setText("");
+        employeeNationalityField.setText("");
+        employeeHealthField.setText("");
+        employeeRegistrationDateField.setText("");
+
+        employeeIdField.setText("");
+        employeeSalaryField.setText("");
+
+        employeeMaleButton.setSelected(false);
+        employeeFemaleButton.setSelected(false);
+        employeeOtherButton.setSelected(false);
+
+        employeeJobRoleCombo.setSelectedIndex(0);
+        employeeHallCombo.setSelectedIndex(0);
+
+        employeeRecordArea.setText("");
+
+        // Reset background when form is cleared
+        employeeRecordArea.setBackground(Color.WHITE);
+        employeeRecordScrollPane.getViewport().setBackground(Color.WHITE);
+        employeeRecordPanel.setBackground(null);
     }
 }
