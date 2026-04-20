@@ -56,8 +56,42 @@ public class Uni_App_Arslan {
     // Record panel
     static JPanel recordPanel;
 
+    // EMPLOYEE FORM FIELDS
+    // These will store employee input
+
+    // Text fields for personal details
+    static JTextField employeeNameField;
+    static JTextField employeeDobField;
+    static JTextField employeeAddressField;
+    static JTextField employeeNationalityField;
+    static JTextField employeeHealthField;
+    static JTextField employeeRegistrationDateField;
+
+    // Text fields for employee details
+    static JTextField employeeIdField;
+    static JTextField employeeJobRoleField;
+    static JTextField employeeSalaryField;
+    static JTextField employeeHallField;
+
+    // Radio buttons for gender selection
+    static JRadioButton employeeMaleButton;
+    static JRadioButton employeeFemaleButton;
+    static JRadioButton employeeOtherButton;
+
+    // Text area for record display
+    static JTextArea employeeRecordArea;
+
+    // Scroll pane for record area
+    static JScrollPane employeeRecordScrollPane;
+
+    // Record panel
+    static JPanel employeeRecordPanel;
+
     // Store object
     static Store store = new Store();
+
+
+
 
     /*
      MAIN METHOD
