@@ -586,6 +586,43 @@ public class Uni_App_Arslan {
             JOptionPane.showMessageDialog(null, "Please fill all the required field.");
         }
     }
+    /*
+ Saves Employee record into Store.
+*/
+    public static void saveEmployeeRecord() {
+
+        try {
+            String gender = "";
+
+            if (employeeMaleButton.isSelected()) {
+                gender = "Male";
+            } else if (employeeFemaleButton.isSelected()) {
+                gender = "Female";
+            } else if (employeeOtherButton.isSelected()) {
+                gender = "Other";
+            }
+
+            Employee employee = new Employee(
+                    employeeNameField.getText(),
+                    gender,
+                    employeeDobField.getText(),
+                    employeeAddressField.getText(),
+                    employeeNationalityField.getText(),
+                    employeeHealthField.getText(),
+                    employeeRegistrationDateField.getText(),
+                    employeeIdField.getText(),
+                    employeeJobRoleField.getText(),
+                    Double.parseDouble(employeeSalaryField.getText()),
+                    employeeHallField.getText()
+            );
+
+            store.addEmployee(employee);
+            JOptionPane.showMessageDialog(null, "Employee record saved.");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Please enter valid employee data.");
+        }
+    }
 
     /*
      Shows next Student record from Store.
