@@ -687,6 +687,63 @@ public class Uni_App_Arslan {
                         formatLine("Senior Student:", yesNo(s.isSeniorStudent()))
         );
     }
+    /*
+ Shows next Employee record from Store.
+*/
+    public static void showNextEmployeeRecord() {
+
+        Employee e = store.getNextEmployee();
+
+        if (e == null) {
+            JOptionPane.showMessageDialog(null, "No employee records saved.");
+            return;
+        }
+
+        // Show light blue background only when Next Record is clicked
+        Color lightBlue = new Color(230, 240, 255);
+        employeeRecordArea.setBackground(lightBlue);
+        employeeRecordScrollPane.getViewport().setBackground(lightBlue);
+        employeeRecordPanel.setBackground(lightBlue);
+
+        // Show personal details in form
+        employeeNameField.setText(e.getName());
+        employeeDobField.setText(e.getDateOfBirth());
+        employeeAddressField.setText(e.getAddress());
+        employeeNationalityField.setText(e.getNationality());
+        employeeHealthField.setText(e.getHealthConditions());
+        employeeRegistrationDateField.setText(e.getRegistrationDate());
+
+        // Show gender
+        if (e.getGender().equals("Male")) {
+            employeeMaleButton.setSelected(true);
+        } else if (e.getGender().equals("Female")) {
+            employeeFemaleButton.setSelected(true);
+        } else {
+            employeeOtherButton.setSelected(true);
+        }
+
+        // Show employee details in form
+        employeeIdField.setText(e.getEmployeeId());
+        employeeJobRoleField.setText(e.getJobRole());
+        employeeSalaryField.setText(String.valueOf(e.getSalary()));
+        employeeHallField.setText(e.getHallName());
+
+        // Show record in display area
+        employeeRecordArea.setText(
+                "EMPLOYEE RECORD\n\n" +
+                        formatLine("Name:", e.getName()) +
+                        formatLine("Gender:", e.getGender()) +
+                        formatLine("Date of Birth:", e.getDateOfBirth()) +
+                        formatLine("Address:", e.getAddress()) +
+                        formatLine("Nationality:", e.getNationality()) +
+                        formatLine("Health Conditions:", e.getHealthConditions()) +
+                        formatLine("Registration Date:", e.getRegistrationDate()) +
+                        formatLine("Employee ID:", e.getEmployeeId()) +
+                        formatLine("Job Role:", e.getJobRole()) +
+                        formatLine("Salary:", String.valueOf(e.getSalary())) +
+                        formatLine("Hall Name:", e.getHallName())
+        );
+    }
 
     /*
      Formats one display line.
