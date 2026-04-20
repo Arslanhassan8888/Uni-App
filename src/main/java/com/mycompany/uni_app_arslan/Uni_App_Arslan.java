@@ -12,19 +12,10 @@ import javax.swing.border.*;
  Main class for testing the application.
  And for the University Hall
 */
+
 public class Uni_App_Arslan {
 
     public static void main(String[] args) {
-//
-//        // Run one test at a time
-//
-//        testPerson();
-//        testStudent();
-//        testEmployee();
-//        testHall();
-//        testStore();
-//    }
-
 
         // Create the main window
         JFrame frame = new JFrame("University Halls Management System");
@@ -41,55 +32,62 @@ public class Uni_App_Arslan {
         // Use BorderLayout for the frame
         frame.setLayout(new BorderLayout());
 
-        // Set background colour for the frame content
-        frame.getContentPane().setBackground(new Color(104, 143, 55));
+        // Set background colour
+        frame.getContentPane().setBackground(new Color(245, 247, 250));
+
+        // Add the main GUI parts
+        frame.add(createHeaderPanel(), BorderLayout.NORTH);
+        frame.add(createCenterPanel(), BorderLayout.CENTER);
+        frame.add(createButtonPanel(), BorderLayout.SOUTH);
+
+        // Make the window visible
+        frame.setVisible(true);
+    }
 
 
-        // NORTH PANEL - TITLE AREA
-
+    /*
+     Creates the title area at the top of the window.
+    */
+    public static JPanel createHeaderPanel() {
 
         // Create title panel
         JPanel titlePanel = new JPanel(new BorderLayout());
-
-        // Set title panel background colour
         titlePanel.setBackground(new Color(33, 76, 140));
-
-        // Add padding around title panel
         titlePanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Create main title label
+        // Create title label
         JLabel titleLabel = new JLabel("University Halls Management System");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Create subtitle label
         JLabel subTitleLabel = new JLabel("Student, Employee, Hall and Payment Records");
         subTitleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         subTitleLabel.setForeground(new Color(230, 235, 245));
-        subTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create panel for title text
+        // Create title text panel
         JPanel titleTextPanel = new JPanel();
         titleTextPanel.setLayout(new BoxLayout(titleTextPanel, BoxLayout.Y_AXIS));
         titleTextPanel.setBackground(new Color(33, 76, 140));
 
-        // Add labels to title text panel
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Add labels to title panel
         titleTextPanel.add(titleLabel);
         titleTextPanel.add(Box.createVerticalStrut(8));
         titleTextPanel.add(subTitleLabel);
 
-        // Add title text panel to title panel
+        // Add title text panel to main title panel
         titlePanel.add(titleTextPanel, BorderLayout.CENTER);
 
-        // Add title panel to frame
-        frame.add(titlePanel, BorderLayout.NORTH);
+        return titlePanel;
+    }
 
 
-        // CENTER PANEL - MAIN AREA
-
+    /*
+     Creates the centre area with all tabs.
+    */
+    public static JPanel createCenterPanel() {
 
         // Create main centre panel
         JPanel centerPanel = new JPanel(new BorderLayout());
@@ -131,12 +129,14 @@ public class Uni_App_Arslan {
         // Add tabbed pane to centre panel
         centerPanel.add(tabbedPane, BorderLayout.CENTER);
 
-        // Add centre panel to frame
-        frame.add(centerPanel, BorderLayout.CENTER);
+        return centerPanel;
+    }
 
 
-        // SOUTH PANEL - BUTTON AREA
-
+    /*
+     Creates the bottom button area.
+    */
+    public static JPanel createButtonPanel() {
 
         // Create button panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
@@ -164,12 +164,7 @@ public class Uni_App_Arslan {
         buttonPanel.add(saveFileButton);
         buttonPanel.add(loadFileButton);
 
-        // Add button panel to frame
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-
-        // Make the window visible
-        frame.setVisible(true);
+        return buttonPanel;
     }
 
 
@@ -209,14 +204,13 @@ public class Uni_App_Arslan {
         descriptionLabel.setForeground(new Color(70, 70, 70));
         descriptionLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // Add heading and description to info panel
+        // Add heading and description
         infoPanel.add(headingLabel);
         infoPanel.add(Box.createVerticalStrut(10));
         infoPanel.add(descriptionLabel);
 
-        // Create form preview panel
-        JPanel previewPanel = new JPanel();
-        previewPanel.setLayout(new GridBagLayout());
+        // Create preview area
+        JPanel previewPanel = new JPanel(new GridBagLayout());
         previewPanel.setBackground(Color.WHITE);
         previewPanel.setBorder(new CompoundBorder(
                 new TitledBorder(
@@ -230,15 +224,13 @@ public class Uni_App_Arslan {
                 new EmptyBorder(20, 20, 20, 20)
         ));
 
-        // Create placeholder label
-        JLabel previewLabel = new JLabel();
+        // Placeholder label
+        JLabel previewLabel = new JLabel("Form fields will be added here step by step.");
         previewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         previewLabel.setForeground(new Color(90, 90, 90));
-
-        // Add placeholder label to preview panel
         previewPanel.add(previewLabel);
 
-        // Create wrapper panel for spacing
+        // Wrapper panel
         JPanel wrapperPanel = new JPanel(new BorderLayout(0, 15));
         wrapperPanel.setBackground(new Color(245, 247, 250));
         wrapperPanel.add(infoPanel, BorderLayout.NORTH);
@@ -252,7 +244,7 @@ public class Uni_App_Arslan {
 
 
     /*
-     Styles buttons so the GUI .
+     Styles buttons so the GUI looks cleaner and more professional.
     */
     public static void styleButton(JButton button) {
 
@@ -274,227 +266,4 @@ public class Uni_App_Arslan {
         // Add border
         button.setBorder(new LineBorder(new Color(25, 60, 110), 1, true));
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    // Test Person class
-//    public static void testPerson() {
-//
-//        Person p = new Person(
-//                "Ali Khan",
-//                "Male",
-//                "01/01/2000",
-//                "Manchester",
-//                "British",
-//                "None",
-//                "Today"
-//        );
-//
-//        System.out.println("Person Test:");
-//        System.out.println(p);
-//        System.out.println("-------------------");
-//    }
-//
-//    // Test Student class
-//    public static void testStudent() {
-//
-//        Student s = new Student(
-//                "Arslan Hassan",
-//                "Male",
-//                "01/01/2000",
-//                "Manchester",
-//                "British",
-//                "None",
-//                "Today",
-//                "S1001",
-//                2,
-//                "Vegetarian",
-//                true,
-//                120.50,
-//                "Maple Hall",
-//                false
-//        );
-//
-//        System.out.println("Student Test:");
-//        System.out.println(s);
-//        System.out.println("-------------------");
-//    }
-//
-//    // Test Employee class
-//    public static void testEmployee() {
-//
-//        Employee e = new Employee(
-//                "John Smith",
-//                "Male",
-//                "02/02/1985",
-//                "London",
-//                "British",
-//                "None",
-//                "Today",
-//                "E2001",
-//                "Manager",
-//                2500.00,
-//                "Oak Hall"
-//        );
-//
-//        System.out.println("Employee Test:");
-//        System.out.println(e);
-//        System.out.println("-------------------");
-//    }
-//
-//    // Test Hall class
-//    public static void testHall() {
-//
-//        Hall h = new Hall(
-//                "Maple Hall",
-//                "Mixed",
-//                100,
-//                true,
-//                true
-//        );
-//
-//        System.out.println("Hall Test:");
-//        System.out.println(h);
-//        System.out.println("-------------------");
-//    }
-//
-//    // Test Store class
-//    public static void testStore() {
-//
-//        // Create a Store object
-//        Store store = new Store();
-//
-//        // Create students
-//        Student s1 = new Student(
-//                "Ali Khan",
-//                "Male",
-//                "01/01/2000",
-//                "Manchester",
-//                "British",
-//                "None",
-//                "Today",
-//                "S1001",
-//                1,
-//                "Vegetarian",
-//                true,
-//                120.50,
-//                "Maple Hall",
-//                false
-//        );
-//
-//        Student s2 = new Student(
-//                "Sara Ahmed",
-//                "Female",
-//                "02/02/2001",
-//                "Leeds",
-//                "British",
-//                "Asthma",
-//                "Today",
-//                "S1002",
-//                2,
-//                "Vegan",
-//                false,
-//                130.00,
-//                "Oak Hall",
-//                true
-//        );
-//
-//        // Create employee
-//        Employee e1 = new Employee(
-//                "John Smith",
-//                "Male",
-//                "10/10/1985",
-//                "London",
-//                "British",
-//                "None",
-//                "Today",
-//                "E2001",
-//                "Manager",
-//                2500.00,
-//                "Maple Hall"
-//        );
-//
-//        // Create hall
-//        Hall h1 = new Hall(
-//                "Maple Hall",
-//                "Mixed",
-//                100,
-//                true,
-//                true
-//        );
-//
-//        // Add objects to Store
-//        store.addStudent(s1);
-//        store.addStudent(s2);
-//        store.addEmployee(e1);
-//        store.addHall(h1);
-//
-//        // Display next student records
-//        System.out.println("Store Student Test:");
-//        System.out.println(store.getNextStudent());
-//        System.out.println(store.getNextStudent());
-//        System.out.println(store.getNextStudent());
-//        System.out.println("-------------------");
-//
-//        // Display next employee record
-//        System.out.println("Store Employee Test:");
-//        System.out.println(store.getNextEmployee());
-//        System.out.println("-------------------");
-//
-//        // Display next hall record
-//        System.out.println("Store Hall Test:");
-//        System.out.println(store.getNextHall());
-//        System.out.println("-------------------");
-//
-//        // Test Payment and Store
-//        Payment p1 = new Payment(
-//                "P1001",
-//                "S1001",
-//                "Arslan Hassan",
-//                250.00,
-//                "20/04/2026",
-//                "Card",
-//                true
-//        );
-//
-//        Payment p2 = new Payment(
-//                "P1002",
-//                "S1002",
-//                "Sara Ahmed",
-//                180.00,
-//                "21/04/2026",
-//                "Cash",
-//                false
-//        );
-//
-//        ;
-//
-//        // Add payments to store
-//        store.addPayment(p1);
-//        store.addPayment(p2);
-//
-//        // Display payments one by one
-//        System.out.println("Payment Test:");
-//        System.out.println(store.getNextPayment());
-//        System.out.println(store.getNextPayment());
-//        System.out.println(store.getNextPayment());
-//        System.out.println("-------------------");
-//
-//    }
-//}
