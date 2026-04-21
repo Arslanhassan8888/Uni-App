@@ -178,6 +178,68 @@ public class PaymentUI {
     }
 
     /*
+     Shows next Payment record from Store.
+    */
+    public static void showNextPaymentRecord() {
+
+        Payment p = Uni_App_Arslan.store.getNextPayment();
+
+        if (p == null) {
+            JOptionPane.showMessageDialog(null, "No payment records saved.");
+            return;
+        }
+
+        // Show colour only when Next Record is clicked
+        java.awt.Color lightPink = new java.awt.Color(255, 240, 245);
+        paymentRecordArea.setBackground(lightPink);
+        paymentRecordScrollPane.getViewport().setBackground(lightPink);
+        paymentRecordPanel.setBackground(lightPink);
+
+        // Show payment details in form
+        paymentIdField.setText(p.getPaymentId());
+        paymentStudentIdField.setText(p.getStudentId());
+        paymentStudentNameField.setText(p.getStudentName());
+        paymentAmountField.setText(String.valueOf(p.getAmount()));
+        paymentDateField.setText(p.getPaymentDate());
+        paymentMethodCombo.setSelectedItem(p.getPaymentMethod());
+        paymentPaidCheck.setSelected(p.isPaid());
+
+        // Show record in display area
+        paymentRecordArea.setText(
+                "PAYMENT RECORD\n\n" +
+                        formatLine("Payment ID:", p.getPaymentId()) +
+                        formatLine("Student ID:", p.getStudentId()) +
+                        formatLine("Student Name:", p.getStudentName()) +
+                        formatLine("Amount:", String.valueOf(p.getAmount())) +
+                        formatLine("Payment Date:", p.getPaymentDate()) +
+                        formatLine("Payment Method:", p.getPaymentMethod()) +
+                        formatLine("Paid:", yesNo(p.isPaid()))
+        );
+    }
+
+    /*
+     Clears Payment form fields.
+    */
+    public static void clearPaymentForm() {
+
+        paymentIdField.setText("");
+        paymentStudentIdField.setText("");
+        paymentStudentNameField.setText("");
+        paymentAmountField.setText("");
+        paymentDateField.setText("");
+
+        paymentMethodCombo.setSelectedIndex(0);
+        paymentPaidCheck.setSelected(false);
+
+        paymentRecordArea.setText("");
+
+        // Reset background when form is cleared
+        paymentRecordArea.setBackground(java.awt.Color.WHITE);
+        paymentRecordScrollPane.getViewport().setBackground(java.awt.Color.WHITE);
+        paymentRecordPanel.setBackground(null);
+    }
+
+    /*
      Formats one display line.
     */
     public static String formatLine(String label, String value) {
@@ -201,4 +263,3 @@ public class PaymentUI {
         return "No";
     }
 }
-

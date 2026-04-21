@@ -131,8 +131,6 @@ public class Uni_App_Arslan {
         return panel;
     }
 
-
-
     /*
      Creates the button panel.
      This includes:
@@ -166,6 +164,8 @@ public class Uni_App_Arslan {
                 EmployeeUI.saveEmployeeRecord();
             } else if (selectedTab == 2) {
                 HallUI.saveHallRecord();
+            } else if (selectedTab == 3) {
+                PaymentUI.savePaymentRecord();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
@@ -184,7 +184,7 @@ public class Uni_App_Arslan {
             } else if (selectedTab == 2) {
                 HallUI.showNextHallRecord();
             } else if (selectedTab == 3) {
-                PaymentUI.savePaymentRecord();
+                PaymentUI.showNextPaymentRecord();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
@@ -202,6 +202,8 @@ public class Uni_App_Arslan {
                 EmployeeUI.clearEmployeeForm();
             } else if (selectedTab == 2) {
                 HallUI.clearHallForm();
+            } else if (selectedTab == 3) {
+                PaymentUI.clearPaymentForm();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
