@@ -208,16 +208,32 @@ public class Uni_App_Arslan {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
         });
-
         // Save to file
-        saveFile.addActionListener(e ->
-                JOptionPane.showMessageDialog(null, "Save to file not implemented yet.")
-        );
+        saveFile.addActionListener(e -> {
 
+            // Check which tab is selected
+            int selectedTab = tabbedPane.getSelectedIndex();
+
+            if (selectedTab == 0) {
+                FileManager.saveStudents(store);
+                JOptionPane.showMessageDialog(null, "Student records saved to file.");
+            } else {
+                JOptionPane.showMessageDialog(null, "File save for this tab is not ready yet.");
+            }
+        });
         // Load from file
-        loadFile.addActionListener(e ->
-                JOptionPane.showMessageDialog(null, "Load from file not implemented yet.")
-        );
+        loadFile.addActionListener(e -> {
+
+            // Check which tab is selected
+            int selectedTab = tabbedPane.getSelectedIndex();
+
+            if (selectedTab == 0) {
+                FileManager.loadStudents(store);
+                JOptionPane.showMessageDialog(null, "Student records loaded from file.");
+            } else {
+                JOptionPane.showMessageDialog(null, "File load for this tab is not ready yet.");
+            }
+        });
 
         // Add buttons to panel
         panel.add(save);
