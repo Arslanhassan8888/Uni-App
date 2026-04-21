@@ -158,4 +158,28 @@ public class HallUI {
 
         return panel;
     }
+
+    /*
+ Saves Hall record into Store.
+*/
+    public static void saveHallRecord() {
+
+        try {
+            Hall hall = new Hall(
+                    (String) hallNameCombo.getSelectedItem(),
+                    (String) hallTypeCombo.getSelectedItem(),
+                    (String) residentTypeCombo.getSelectedItem(),
+                    residentIdField.getText(),
+                    (String) roomTypeCombo.getSelectedItem(),
+                    hallVegetarianCheck.isSelected(),
+                    hallVeganCheck.isSelected()
+            );
+
+            Uni_App_Arslan.store.addHall(hall);
+            JOptionPane.showMessageDialog(null, "Hall record saved.");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Please enter valid hall data.");
+        }
+    }
 }
