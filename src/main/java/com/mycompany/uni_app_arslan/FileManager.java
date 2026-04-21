@@ -22,6 +22,9 @@ public class FileManager {
     // File name for employee records
     private static final String EMPLOYEE_FILE = "employees.txt";
 
+    // File name for hall records
+    private static final String HALL_FILE = "halls.txt";
+
     // Saves all student records to file
     public static void saveStudents(Store store) {
 
@@ -177,6 +180,74 @@ public class FileManager {
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error loading employee records.");
+        }
+    }
+
+    // Saves all hall records to file
+    public static void saveHalls(Store store) {
+
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter(HALL_FILE));
+
+            // Get all hall records
+            ArrayList<Hall> halls = store.getHalls();
+
+            // Write each hall to file
+            for (Hall hall : halls) {
+
+                writer.println(
+                        hall.getHallName() + "," +
+                                hall.getHallType() + "," +
+                                hall.getResidentType() + "," +
+                                hall.getResidentId() + "," +
+                                hall.getRoomType() + "," +
+                                hall.isVegetarianFriendly() + "," +
+                                hall.isVeganFriendly()
+                );
+            }
+
+            // Close writer
+            writer.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error saving hall records.");
+        }
+    }
+
+    // Loads all hall records from file
+    public static void loadHalls(Store store) {
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(HALL_FILE));
+
+            // Clear old hall records before loading new ones
+            store.clearHalls();
+
+            String line;
+
+            // Read each line from file
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(",");
+
+                Hall hall = new Hall(
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        parts[4],
+                        Boolean.parseBoolean(parts[5]),
+                        Boolean.parseBoolean(parts[6])
+                );
+
+                store.addHall(hall);
+            }
+
+            // Close reader
+            reader.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error loading hall records.");
         }
     }
 }
