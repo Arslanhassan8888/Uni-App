@@ -211,28 +211,22 @@ public class Uni_App_Arslan {
         // Save to file
         saveFile.addActionListener(e -> {
 
-            // Check which tab is selected
-            int selectedTab = tabbedPane.getSelectedIndex();
+            FileManager.saveStudents(store);
+            FileManager.saveEmployees(store);
+            FileManager.saveHalls(store);
+            FileManager.savePayments(store);
 
-            if (selectedTab == 0) {
-                FileManager.saveStudents(store);
-                JOptionPane.showMessageDialog(null, "Student records saved to file.");
-            } else {
-                JOptionPane.showMessageDialog(null, "File save for this tab is not ready yet.");
-            }
+            JOptionPane.showMessageDialog(null, "All records saved to file.");
         });
         // Load from file
         loadFile.addActionListener(e -> {
 
-            // Check which tab is selected
-            int selectedTab = tabbedPane.getSelectedIndex();
+            FileManager.loadStudents(store);
+            FileManager.loadEmployees(store);
+            FileManager.loadHalls(store);
+            FileManager.loadPayments(store);
 
-            if (selectedTab == 0) {
-                FileManager.loadStudents(store);
-                JOptionPane.showMessageDialog(null, "Student records loaded from file.");
-            } else {
-                JOptionPane.showMessageDialog(null, "File load for this tab is not ready yet.");
-            }
+            JOptionPane.showMessageDialog(null, "All records loaded from file.");
         });
 
         // Add buttons to panel

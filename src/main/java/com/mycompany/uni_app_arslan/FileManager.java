@@ -25,6 +25,9 @@ public class FileManager {
     // File name for hall records
     private static final String HALL_FILE = "halls.txt";
 
+    // File name for payment records
+    private static final String PAYMENT_FILE = "payments.txt";
+
     // Saves all student records to file
     public static void saveStudents(Store store) {
 
@@ -248,6 +251,74 @@ public class FileManager {
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error loading hall records.");
+        }
+    }
+
+    // Saves all payment records to file
+    public static void savePayments(Store store) {
+
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter(PAYMENT_FILE));
+
+            // Get all payment records
+            ArrayList<Payment> payments = store.getPayments();
+
+            // Write each payment to file
+            for (Payment payment : payments) {
+
+                writer.println(
+                        payment.getPaymentId() + "," +
+                                payment.getStudentId() + "," +
+                                payment.getStudentName() + "," +
+                                payment.getAmount() + "," +
+                                payment.getPaymentDate() + "," +
+                                payment.getPaymentMethod() + "," +
+                                payment.isPaid()
+                );
+            }
+
+            // Close writer
+            writer.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error saving payment records.");
+        }
+    }
+
+    // Loads all payment records from file
+    public static void loadPayments(Store store) {
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(PAYMENT_FILE));
+
+            // Clear old payment records before loading new ones
+            store.clearPayments();
+
+            String line;
+
+            // Read each line from file
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(",");
+
+                Payment payment = new Payment(
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        Double.parseDouble(parts[3]),
+                        parts[4],
+                        parts[5],
+                        Boolean.parseBoolean(parts[6])
+                );
+
+                store.addPayment(payment);
+            }
+
+            // Close reader
+            reader.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error loading payment records.");
         }
     }
 }

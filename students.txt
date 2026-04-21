@@ -1,2 +1,2 @@
-Arslan,Male,06/05/1988,,,,,129,2,Normal,true,150.0,Ground Floor Hall,true
-Ramnne,Female,20/07/1996,,,,,156,1,Vegan,false,180.0,Second Floor Hall,false
+arslan,Male,,,,,,129,1,Normal,true,150.0,Ground Floor Hall,false
+rammen,Female,,,pakistani,,,150,2,Vegetarian,false,180.0,First Floor Hall,false
