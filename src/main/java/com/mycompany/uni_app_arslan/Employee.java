@@ -91,6 +91,11 @@ public class Employee extends Person {
         this.hallName = hallName;
     }
 
+    @Override
+    public String getRole() {
+        return "Employee";
+    }
+
     // toString method
 
     // Returns a readable version of the employee object

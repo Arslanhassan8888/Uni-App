@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 
 /**
@@ -28,11 +30,11 @@ public class StudentUI {
 
     // Text fields for personal details
     static JTextField studentNameField;
-    static JTextField studentDobField;
+    static JSpinner studentDobSpinner;
     static JTextField studentAddressField;
     static JTextField studentNationalityField;
     static JTextField studentHealthField;
-    static JTextField studentRegistrationDateField;
+    static JSpinner studentRegistrationDateSpinner;
 
     // Text fields for student details
     static JTextField studentIdField;
@@ -63,6 +65,20 @@ public class StudentUI {
     // Record panel
     static JPanel studentRecordPanel;
 
+    // STUDENT ERROR LABELS
+    // These show inline validation messages
+
+    static JLabel studentNameError;
+    static JLabel studentGenderError;
+    static JLabel studentDobError;
+    static JLabel studentAddressError;
+    static JLabel studentNationalityError;
+    static JLabel studentHealthError;
+    static JLabel studentRegistrationError;
+    static JLabel studentIdError;
+    static JLabel studentYearError;
+    static JLabel studentRentError;
+
     /*
      Creates STUDENT TAB.
      This includes:
@@ -89,11 +105,24 @@ public class StudentUI {
         // Common label size
         Dimension labelSize = new Dimension(140, 25);
 
+        // Create error labels
+        studentNameError = createErrorLabel();
+        studentGenderError = createErrorLabel();
+        studentDobError = createErrorLabel();
+        studentAddressError = createErrorLabel();
+        studentNationalityError = createErrorLabel();
+        studentHealthError = createErrorLabel();
+        studentRegistrationError = createErrorLabel();
+        studentIdError = createErrorLabel();
+        studentYearError = createErrorLabel();
+        studentRentError = createErrorLabel();
+
         // Name row
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setPreferredSize(labelSize);
         studentNameField = new JTextField(15);
+        studentNameField.setToolTipText("Enter full name");
         namePanel.add(nameLabel);
         namePanel.add(studentNameField);
 
@@ -121,15 +150,17 @@ public class StudentUI {
         JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         JLabel dobLabel = new JLabel("Date of Birth:");
         dobLabel.setPreferredSize(labelSize);
-        studentDobField = new JTextField(15);
+        studentDobSpinner = createDateSpinner();
+        studentDobSpinner.setToolTipText("Select date of birth");
         dobPanel.add(dobLabel);
-        dobPanel.add(studentDobField);
+        dobPanel.add(studentDobSpinner);
 
         // Address row
         JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setPreferredSize(labelSize);
         studentAddressField = new JTextField(15);
+        studentAddressField.setToolTipText("Enter address");
         addressPanel.add(addressLabel);
         addressPanel.add(studentAddressField);
 
@@ -138,6 +169,7 @@ public class StudentUI {
         JLabel nationalityLabel = new JLabel("Nationality:");
         nationalityLabel.setPreferredSize(labelSize);
         studentNationalityField = new JTextField(15);
+        studentNationalityField.setToolTipText("Enter nationality");
         nationalityPanel.add(nationalityLabel);
         nationalityPanel.add(studentNationalityField);
 
@@ -146,6 +178,7 @@ public class StudentUI {
         JLabel healthLabel = new JLabel("Health Conditions:");
         healthLabel.setPreferredSize(labelSize);
         studentHealthField = new JTextField(15);
+        studentHealthField.setToolTipText("Enter health conditions");
         healthPanel.add(healthLabel);
         healthPanel.add(studentHealthField);
 
@@ -153,18 +186,19 @@ public class StudentUI {
         JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         JLabel registrationLabel = new JLabel("Registration Date:");
         registrationLabel.setPreferredSize(labelSize);
-        studentRegistrationDateField = new JTextField(15);
+        studentRegistrationDateSpinner = createDateSpinner();
+        studentRegistrationDateSpinner.setToolTipText("Select registration date");
         registrationPanel.add(registrationLabel);
-        registrationPanel.add(studentRegistrationDateField);
+        registrationPanel.add(studentRegistrationDateSpinner);
 
         // Add all rows to personal panel
-        personalPanel.add(namePanel);
-        personalPanel.add(genderPanel);
-        personalPanel.add(dobPanel);
-        personalPanel.add(addressPanel);
-        personalPanel.add(nationalityPanel);
-        personalPanel.add(healthPanel);
-        personalPanel.add(registrationPanel);
+        personalPanel.add(makeFieldBlock(namePanel, studentNameError));
+        personalPanel.add(makeFieldBlock(genderPanel, studentGenderError));
+        personalPanel.add(makeFieldBlock(dobPanel, studentDobError));
+        personalPanel.add(makeFieldBlock(addressPanel, studentAddressError));
+        personalPanel.add(makeFieldBlock(nationalityPanel, studentNationalityError));
+        personalPanel.add(makeFieldBlock(healthPanel, studentHealthError));
+        personalPanel.add(makeFieldBlock(registrationPanel, studentRegistrationError));
 
         // STUDENT DETAILS SECTION
         JPanel studentPanel = new JPanel();
@@ -175,6 +209,10 @@ public class StudentUI {
         studentIdField = new JTextField(15);
         studentYearField = new JTextField(15);
         studentRentField = new JTextField(15);
+
+        studentIdField.setToolTipText("Enter numbers only");
+        studentYearField.setToolTipText("Enter 1 to 3");
+        studentRentField.setToolTipText("Enter positive amount");
 
         // Create options
         studentDietCombo = new JComboBox<>(new String[]{"Normal", "Vegetarian", "Vegan"});
@@ -196,13 +234,13 @@ public class StudentUI {
         });
 
         // Add rows to student panel
-        studentPanel.add(makeRow("Student ID:", studentIdField, labelSize));
-        studentPanel.add(makeRow("Year of Study:", studentYearField, labelSize));
-        studentPanel.add(makeRow("Dietary Preference:", studentDietCombo, labelSize));
-        studentPanel.add(makeRow("Ground Floor:", studentGroundFloorCheck, labelSize));
-        studentPanel.add(makeRow("Rent Amount:", studentRentField, labelSize));
-        studentPanel.add(makeRow("Hall Name:", studentHallCombo, labelSize));
-        studentPanel.add(makeRow("Senior Student:", studentSeniorCheck, labelSize));
+        studentPanel.add(makeFieldBlock(makeRow("Student ID:", studentIdField, labelSize), studentIdError));
+        studentPanel.add(makeFieldBlock(makeRow("Year of Study:", studentYearField, labelSize), studentYearError));
+        studentPanel.add(makeFieldBlock(makeRow("Dietary Preference:", studentDietCombo, labelSize), createErrorLabel()));
+        studentPanel.add(makeFieldBlock(makeRow("Ground Floor:", studentGroundFloorCheck, labelSize), createErrorLabel()));
+        studentPanel.add(makeFieldBlock(makeRow("Rent Amount:", studentRentField, labelSize), studentRentError));
+        studentPanel.add(makeFieldBlock(makeRow("Hall Name:", studentHallCombo, labelSize), createErrorLabel()));
+        studentPanel.add(makeFieldBlock(makeRow("Senior Student:", studentSeniorCheck, labelSize), createErrorLabel()));
 
         // Add both sections to form container
         formContainer.add(personalPanel);
@@ -249,6 +287,47 @@ public class StudentUI {
     }
 
     /*
+     Creates a field block.
+     This puts the error label under the row.
+    */
+    public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        errorLabel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+        rowPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+
+        panel.add(rowPanel);
+        panel.add(errorLabel);
+
+        return panel;
+    }
+
+    /*
+     Creates an error label.
+    */
+    public static JLabel createErrorLabel() {
+
+        JLabel label = new JLabel(" ");
+        label.setForeground(Color.RED);
+        return label;
+    }
+
+    /*
+     Creates a simple date spinner.
+    */
+    public static JSpinner createDateSpinner() {
+
+        SpinnerDateModel model = new SpinnerDateModel();
+        JSpinner spinner = new JSpinner(model);
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
+        spinner.setEditor(editor);
+
+        return spinner;
+    }
+
+    /*
      Gets selected gender from Student radio buttons.
     */
     public static String getStudentGender() {
@@ -265,24 +344,151 @@ public class StudentUI {
     }
 
     /*
+     Gets date text from spinner.
+    */
+    public static String getDateText(JSpinner spinner) {
+
+        Date date = (Date) spinner.getValue();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(date);
+    }
+
+    /*
+     Sets spinner date from text.
+    */
+    public static void setDateText(JSpinner spinner, String text) {
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = format.parse(text);
+            spinner.setValue(date);
+        } catch (Exception ex) {
+            spinner.setValue(new Date());
+        }
+    }
+
+    /*
+     Clears all Student error labels.
+    */
+    public static void clearStudentErrors() {
+
+        studentNameError.setText(" ");
+        studentGenderError.setText(" ");
+        studentDobError.setText(" ");
+        studentAddressError.setText(" ");
+        studentNationalityError.setText(" ");
+        studentHealthError.setText(" ");
+        studentRegistrationError.setText(" ");
+        studentIdError.setText(" ");
+        studentYearError.setText(" ");
+        studentRentError.setText(" ");
+    }
+
+    /*
+     Validates Student form.
+    */
+    public static boolean validateStudentForm() {
+
+        boolean valid = true;
+
+        clearStudentErrors();
+
+        if (studentNameField.getText().trim().isEmpty()) {
+            studentNameError.setText("Name is required.");
+            valid = false;
+        }
+
+        if (getStudentGender().isEmpty()) {
+            studentGenderError.setText("Please select gender.");
+            valid = false;
+        }
+
+        if (studentAddressField.getText().trim().isEmpty()) {
+            studentAddressError.setText("Address is required.");
+            valid = false;
+        }
+
+        if (studentNationalityField.getText().trim().isEmpty()) {
+            studentNationalityError.setText("Nationality is required.");
+            valid = false;
+        }
+
+        if (studentHealthField.getText().trim().isEmpty()) {
+            studentHealthError.setText("Health conditions are required.");
+            valid = false;
+        }
+
+        if (studentIdField.getText().trim().isEmpty()) {
+            studentIdError.setText("Student ID is required.");
+            valid = false;
+        } else if (!studentIdField.getText().trim().matches("\\d+")) {
+            studentIdError.setText("Student ID must be numbers only.");
+            valid = false;
+        }
+
+        if (studentYearField.getText().trim().isEmpty()) {
+            studentYearError.setText("Year of Study is required.");
+            valid = false;
+        } else {
+            try {
+                int year = Integer.parseInt(studentYearField.getText().trim());
+
+                if (year < 1 || year > 3) {
+                    studentYearError.setText("Year of Study must be 1 to 3.");
+                    valid = false;
+                }
+
+            } catch (Exception ex) {
+                studentYearError.setText("Year of Study must be a number.");
+                valid = false;
+            }
+        }
+
+        if (studentRentField.getText().trim().isEmpty()) {
+            studentRentError.setText("Rent amount is required.");
+            valid = false;
+        } else {
+            try {
+                double rent = Double.parseDouble(studentRentField.getText().trim());
+
+                if (rent <= 0) {
+                    studentRentError.setText("Rent must be a positive number.");
+                    valid = false;
+                }
+
+            } catch (Exception ex) {
+                studentRentError.setText("Rent must be a valid number.");
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
+    /*
      Saves Student record into Store.
     */
     public static void saveStudentRecord() {
 
+        if (!validateStudentForm()) {
+            JOptionPane.showMessageDialog(null, "Please correct the highlighted fields.");
+            return;
+        }
+
         try {
             Student student = new Student(
-                    studentNameField.getText(),
+                    studentNameField.getText().trim(),
                     getStudentGender(),
-                    studentDobField.getText(),
-                    studentAddressField.getText(),
-                    studentNationalityField.getText(),
-                    studentHealthField.getText(),
-                    studentRegistrationDateField.getText(),
-                    studentIdField.getText(),
-                    Integer.parseInt(studentYearField.getText()),
+                    getDateText(studentDobSpinner),
+                    studentAddressField.getText().trim(),
+                    studentNationalityField.getText().trim(),
+                    studentHealthField.getText().trim(),
+                    getDateText(studentRegistrationDateSpinner),
+                    studentIdField.getText().trim(),
+                    Integer.parseInt(studentYearField.getText().trim()),
                     (String) studentDietCombo.getSelectedItem(),
                     studentGroundFloorCheck.isSelected(),
-                    Double.parseDouble(studentRentField.getText()),
+                    Double.parseDouble(studentRentField.getText().trim()),
                     (String) studentHallCombo.getSelectedItem(),
                     studentSeniorCheck.isSelected()
             );
@@ -313,13 +519,16 @@ public class StudentUI {
         studentRecordScrollPane.getViewport().setBackground(lightGreen);
         studentRecordPanel.setBackground(lightGreen);
 
+        // Clear old errors
+        clearStudentErrors();
+
         // Show personal details in form
         studentNameField.setText(s.getName());
-        studentDobField.setText(s.getDateOfBirth());
+        setDateText(studentDobSpinner, s.getDateOfBirth());
         studentAddressField.setText(s.getAddress());
         studentNationalityField.setText(s.getNationality());
         studentHealthField.setText(s.getHealthConditions());
-        studentRegistrationDateField.setText(s.getRegistrationDate());
+        setDateText(studentRegistrationDateSpinner, s.getRegistrationDate());
 
         // Show gender
         if (s.getGender().equals("Male")) {
@@ -344,7 +553,7 @@ public class StudentUI {
             studentHallCombo.setSelectedItem(s.getHallName());
         }
 
-        studentRentField.setText(String.valueOf(s.getRentAmount()));
+        studentRentField.setText(String.format("%.2f", s.getRentAmount()));
         studentSeniorCheck.setSelected(s.isSeniorStudent());
 
         // Show record in display area
@@ -361,7 +570,7 @@ public class StudentUI {
                         formatLine("Year of Study:", String.valueOf(s.getYearOfStudy())) +
                         formatLine("Dietary Preference:", s.getDietaryPreference()) +
                         formatLine("Ground Floor Required:", yesNo(s.isGroundFloorRequired())) +
-                        formatLine("Rent Amount:", String.valueOf(s.getRentAmount())) +
+                        formatLine("Rent Amount:", formatPounds(s.getRentAmount())) +
                         formatLine("Hall Name:", s.getHallName()) +
                         formatLine("Senior Student:", yesNo(s.isSeniorStudent()))
         );
@@ -377,6 +586,13 @@ public class StudentUI {
         }
 
         return label + " " + value + "\n\n";
+    }
+
+    /*
+     Formats amount as British pounds.
+    */
+    public static String formatPounds(double amount) {
+        return String.format("£%.2f", amount);
     }
 
     /*
@@ -397,11 +613,9 @@ public class StudentUI {
     public static void clearStudentForm() {
 
         studentNameField.setText("");
-        studentDobField.setText("");
         studentAddressField.setText("");
         studentNationalityField.setText("");
         studentHealthField.setText("");
-        studentRegistrationDateField.setText("");
 
         studentIdField.setText("");
         studentYearField.setText("");
@@ -417,7 +631,12 @@ public class StudentUI {
         studentHallCombo.setSelectedIndex(0);
         studentSeniorCheck.setSelected(false);
 
+        studentDobSpinner.setValue(new Date());
+        studentRegistrationDateSpinner.setValue(new Date());
+
         studentRecordArea.setText("");
+
+        clearStudentErrors();
 
         // Reset background when form is cleared
         studentRecordArea.setBackground(Color.WHITE);

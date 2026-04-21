@@ -142,8 +142,11 @@ public class Student extends Person {
         this.seniorStudent = seniorStudent;
     }
 
-
-
+    /* Gets the role of the person. */
+    @Override
+    public String getRole() {
+        return "Student";
+    }
     // toString method
 
     // Returns a readable version of the student object

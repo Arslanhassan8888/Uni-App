@@ -10,7 +10,7 @@ package com.mycompany.uni_app_arslan;
    This class is a parent class.
    It stores common information shared by students and employees.
 */
-public class Person {
+public abstract class Person {
 
     // I used private so other classes cannot directly change data
     // without using getter and setter
@@ -129,6 +129,9 @@ public class Person {
     public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
     }
+
+    /* Gets the role of the person. */
+    public abstract String getRole();
 
     // toString method
 
