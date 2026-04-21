@@ -19,6 +19,9 @@ public class FileManager {
     // File name for student records
     private static final String STUDENT_FILE = "students.txt";
 
+    // File name for employee records
+    private static final String EMPLOYEE_FILE = "employees.txt";
+
     // Saves all student records to file
     public static void saveStudents(Store store) {
 
@@ -98,6 +101,82 @@ public class FileManager {
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error loading student records.");
+        }
+    }
+
+    // Saves all employee records to file
+    public static void saveEmployees(Store store) {
+
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter(EMPLOYEE_FILE));
+
+            // Get all employee records
+            ArrayList<Employee> employees = store.getEmployees();
+
+            // Write each employee to file
+            for (Employee employee : employees) {
+
+                writer.println(
+                        employee.getName() + "," +
+                                employee.getGender() + "," +
+                                employee.getDateOfBirth() + "," +
+                                employee.getAddress() + "," +
+                                employee.getNationality() + "," +
+                                employee.getHealthConditions() + "," +
+                                employee.getRegistrationDate() + "," +
+                                employee.getEmployeeId() + "," +
+                                employee.getJobRole() + "," +
+                                employee.getSalary() + "," +
+                                employee.getHallName()
+                );
+            }
+
+            // Close writer
+            writer.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error saving employee records.");
+        }
+    }
+
+    // Loads all employee records from file
+    public static void loadEmployees(Store store) {
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(EMPLOYEE_FILE));
+
+            // Clear old employee records before loading new ones
+            store.clearEmployees();
+
+            String line;
+
+            // Read each line from file
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(",");
+
+                Employee employee = new Employee(
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        parts[4],
+                        parts[5],
+                        parts[6],
+                        parts[7],
+                        parts[8],
+                        Double.parseDouble(parts[9]),
+                        parts[10]
+                );
+
+                store.addEmployee(employee);
+            }
+
+            // Close reader
+            reader.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error loading employee records.");
         }
     }
 }
