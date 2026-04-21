@@ -182,4 +182,89 @@ public class HallUI {
             JOptionPane.showMessageDialog(null, "Please enter valid hall data.");
         }
     }
+
+    /*
+ Shows next Hall record from Store.
+*/
+    public static void showNextHallRecord() {
+
+        Hall h = Uni_App_Arslan.store.getNextHall();
+
+        if (h == null) {
+            JOptionPane.showMessageDialog(null, "No hall records saved.");
+            return;
+        }
+
+        // Show colour only when Next Record is clicked
+        java.awt.Color lightYellow = new java.awt.Color(255, 250, 230);
+        hallRecordArea.setBackground(lightYellow);
+        hallRecordScrollPane.getViewport().setBackground(lightYellow);
+        hallRecordPanel.setBackground(lightYellow);
+
+        // Show hall details in form
+        residentTypeCombo.setSelectedItem(h.getResidentType());
+        residentIdField.setText(h.getResidentId());
+        hallNameCombo.setSelectedItem(h.getHallName());
+        hallTypeCombo.setSelectedItem(h.getHallType());
+        roomTypeCombo.setSelectedItem(h.getRoomType());
+        hallVegetarianCheck.setSelected(h.isVegetarianFriendly());
+        hallVeganCheck.setSelected(h.isVeganFriendly());
+
+        // Show record in display area
+        hallRecordArea.setText(
+                "HALL RECORD\n\n" +
+                        formatLine("Resident Type:", h.getResidentType()) +
+                        formatLine("Resident ID:", h.getResidentId()) +
+                        formatLine("Hall Name:", h.getHallName()) +
+                        formatLine("Hall Type:", h.getHallType()) +
+                        formatLine("Room Type:", h.getRoomType()) +
+                        formatLine("Vegetarian Friendly:", yesNo(h.isVegetarianFriendly())) +
+                        formatLine("Vegan Friendly:", yesNo(h.isVeganFriendly()))
+        );
+    }
+
+    /*
+     Formats one display line.
+    */
+    public static String formatLine(String label, String value) {
+
+        if (value == null || value.trim().isEmpty()) {
+            value = "NA";
+        }
+
+        return label + " " + value + "\n\n";
+    }
+
+    /*
+     Converts boolean to Yes or No.
+    */
+    public static String yesNo(boolean value) {
+
+        if (value) {
+            return "Yes";
+        }
+
+        return "No";
+    }
+
+    /*
+     Clears Hall form fields.
+    */
+    public static void clearHallForm() {
+
+        residentTypeCombo.setSelectedIndex(0);
+        residentIdField.setText("");
+        hallNameCombo.setSelectedIndex(0);
+        hallTypeCombo.setSelectedIndex(0);
+        roomTypeCombo.setSelectedIndex(0);
+        hallVegetarianCheck.setSelected(false);
+        hallVeganCheck.setSelected(false);
+
+        hallRecordArea.setText("");
+
+        // Reset background when form is cleared
+        hallRecordArea.setBackground(java.awt.Color.WHITE);
+        hallRecordScrollPane.getViewport().setBackground(java.awt.Color.WHITE);
+        hallRecordPanel.setBackground(null);
+    }
 }
