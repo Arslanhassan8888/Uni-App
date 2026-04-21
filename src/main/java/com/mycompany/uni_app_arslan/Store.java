@@ -1,4 +1,5 @@
 package com.mycompany.uni_app_arslan;
+
 import java.util.ArrayList;
 
 /**
@@ -25,7 +26,7 @@ public class Store {
     private ArrayList<Hall> halls;
 
     //List to store payments
-    private ArrayList<Payment>payments;
+    private ArrayList<Payment> payments;
 
     // Current position in student list
     private int studentIndex;
@@ -70,10 +71,12 @@ public class Store {
     public void addStudent(Student student) {
         students.add(student);
     }
+
     // Adds an employee to the list
     public void addEmployee(Employee employee){
         employees.add(employee);
     }
+
     // Adds a hall to the list
     public void addHall(Hall hall){
         halls.add(hall);
@@ -172,4 +175,47 @@ public class Store {
         return payment;
     }
 
+    // Returns the student list
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    // Returns the employee list
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    // Returns the hall list
+    public ArrayList<Hall> getHalls() {
+        return halls;
+    }
+
+    // Returns the payment list
+    public ArrayList<Payment> getPayments() {
+        return payments;
+    }
+
+    // Clears the student list
+    public void clearStudents() {
+        students.clear();
+        studentIndex = 0;
+    }
+
+    // Clears the employee list
+    public void clearEmployees() {
+        employees.clear();
+        employeeIndex = 0;
+    }
+
+    // Clears the hall list
+    public void clearHalls() {
+        halls.clear();
+        hallIndex = 0;
+    }
+
+    // Clears the payment list
+    public void clearPayments() {
+        payments.clear();
+        paymentIndex = 0;
+    }
 }
