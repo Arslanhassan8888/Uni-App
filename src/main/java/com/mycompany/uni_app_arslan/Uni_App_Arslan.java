@@ -164,6 +164,8 @@ public class Uni_App_Arslan {
                 StudentUI.saveStudentRecord();
             } else if (selectedTab == 1) {
                 EmployeeUI.saveEmployeeRecord();
+            } else if (selectedTab == 2) {
+                HallUI.saveHallRecord();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
@@ -179,6 +181,8 @@ public class Uni_App_Arslan {
                 StudentUI.showNextStudentRecord();
             } else if (selectedTab == 1) {
                 EmployeeUI.showNextEmployeeRecord();
+            } else if (selectedTab == 2) {
+                HallUI.showNextHallRecord();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
@@ -194,6 +198,8 @@ public class Uni_App_Arslan {
                 StudentUI.clearStudentForm();
             } else if (selectedTab == 1) {
                 EmployeeUI.clearEmployeeForm();
+            } else if (selectedTab == 2) {
+                HallUI.clearHallForm();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
