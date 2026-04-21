@@ -106,7 +106,7 @@ public class Uni_App_Arslan {
         tabbedPane.addTab("Student", StudentUI.createStudentTab());
         tabbedPane.addTab("Employee", EmployeeUI.createEmployeeTab());
         tabbedPane.addTab("Hall", HallUI.createHallTab());
-        tabbedPane.addTab("Payment", createSimpleTab("Payment Form"));
+        tabbedPane.addTab("Payment", PaymentUI.createPaymentTab());
 
         // Add tabbed pane to centre panel
         centerPanel.add(tabbedPane, BorderLayout.CENTER);
@@ -183,6 +183,8 @@ public class Uni_App_Arslan {
                 EmployeeUI.showNextEmployeeRecord();
             } else if (selectedTab == 2) {
                 HallUI.showNextHallRecord();
+            } else if (selectedTab == 3) {
+                PaymentUI.savePaymentRecord();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
