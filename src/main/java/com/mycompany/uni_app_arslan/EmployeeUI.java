@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 
 /**
@@ -28,11 +30,11 @@ public class EmployeeUI {
 
     // Text fields for personal details
     static JTextField employeeNameField;
-    static JTextField employeeDobField;
+    static JSpinner employeeDobSpinner;
     static JTextField employeeAddressField;
     static JTextField employeeNationalityField;
     static JTextField employeeHealthField;
-    static JTextField employeeRegistrationDateField;
+    static JSpinner employeeRegistrationDateSpinner;
 
     // Text fields for employee details
     static JTextField employeeIdField;
@@ -55,6 +57,19 @@ public class EmployeeUI {
 
     // Record panel
     static JPanel employeeRecordPanel;
+
+    // EMPLOYEE ERROR LABELS
+    // These show inline validation messages
+
+    static JLabel employeeNameError;
+    static JLabel employeeGenderError;
+    static JLabel employeeDobError;
+    static JLabel employeeAddressError;
+    static JLabel employeeNationalityError;
+    static JLabel employeeHealthError;
+    static JLabel employeeRegistrationError;
+    static JLabel employeeIdError;
+    static JLabel employeeSalaryError;
 
     /*
      Creates EMPLOYEE TAB.
@@ -82,8 +97,19 @@ public class EmployeeUI {
         // Common label size
         Dimension labelSize = new Dimension(140, 25);
 
+        // Create error labels
+        employeeNameError = createErrorLabel();
+        employeeGenderError = createErrorLabel();
+        employeeDobError = createErrorLabel();
+        employeeAddressError = createErrorLabel();
+        employeeNationalityError = createErrorLabel();
+        employeeHealthError = createErrorLabel();
+        employeeRegistrationError = createErrorLabel();
+        employeeIdError = createErrorLabel();
+        employeeSalaryError = createErrorLabel();
+
         // Name row
-        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setPreferredSize(labelSize);
         employeeNameField = new JTextField(15);
@@ -91,7 +117,7 @@ public class EmployeeUI {
         namePanel.add(employeeNameField);
 
         // Gender row
-        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel genderLabel = new JLabel("Gender:");
         genderLabel.setPreferredSize(labelSize);
         genderPanel.add(genderLabel);
@@ -111,15 +137,15 @@ public class EmployeeUI {
         genderPanel.add(employeeOtherButton);
 
         // Date of Birth row
-        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel dobLabel = new JLabel("Date of Birth:");
         dobLabel.setPreferredSize(labelSize);
-        employeeDobField = new JTextField(15);
+        employeeDobSpinner = createDateSpinner();
         dobPanel.add(dobLabel);
-        dobPanel.add(employeeDobField);
+        dobPanel.add(employeeDobSpinner);
 
         // Address row
-        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setPreferredSize(labelSize);
         employeeAddressField = new JTextField(15);
@@ -127,7 +153,7 @@ public class EmployeeUI {
         addressPanel.add(employeeAddressField);
 
         // Nationality row
-        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel nationalityLabel = new JLabel("Nationality:");
         nationalityLabel.setPreferredSize(labelSize);
         employeeNationalityField = new JTextField(15);
@@ -135,7 +161,7 @@ public class EmployeeUI {
         nationalityPanel.add(employeeNationalityField);
 
         // Health Conditions row
-        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel healthLabel = new JLabel("Health Conditions:");
         healthLabel.setPreferredSize(labelSize);
         employeeHealthField = new JTextField(15);
@@ -143,21 +169,21 @@ public class EmployeeUI {
         healthPanel.add(employeeHealthField);
 
         // Registration Date row
-        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel registrationLabel = new JLabel("Registration Date:");
         registrationLabel.setPreferredSize(labelSize);
-        employeeRegistrationDateField = new JTextField(15);
+        employeeRegistrationDateSpinner = createDateSpinner();
         registrationPanel.add(registrationLabel);
-        registrationPanel.add(employeeRegistrationDateField);
+        registrationPanel.add(employeeRegistrationDateSpinner);
 
         // Add all rows to personal panel
-        personalPanel.add(namePanel);
-        personalPanel.add(genderPanel);
-        personalPanel.add(dobPanel);
-        personalPanel.add(addressPanel);
-        personalPanel.add(nationalityPanel);
-        personalPanel.add(healthPanel);
-        personalPanel.add(registrationPanel);
+        personalPanel.add(makeFieldBlock(namePanel, employeeNameError));
+        personalPanel.add(makeFieldBlock(genderPanel, employeeGenderError));
+        personalPanel.add(makeFieldBlock(dobPanel, employeeDobError));
+        personalPanel.add(makeFieldBlock(addressPanel, employeeAddressError));
+        personalPanel.add(makeFieldBlock(nationalityPanel, employeeNationalityError));
+        personalPanel.add(makeFieldBlock(healthPanel, employeeHealthError));
+        personalPanel.add(makeFieldBlock(registrationPanel, employeeRegistrationError));
 
         // EMPLOYEE DETAILS SECTION
         JPanel employeePanel = new JPanel();
@@ -173,10 +199,10 @@ public class EmployeeUI {
         employeeHallCombo = new JComboBox<>(Uni_App_Arslan.HALL_OPTIONS);
 
         // Add rows to employee panel
-        employeePanel.add(makeRow("Employee ID:", employeeIdField, labelSize));
-        employeePanel.add(makeRow("Job Role:", employeeJobRoleCombo, labelSize));
-        employeePanel.add(makeRow("Salary:", employeeSalaryField, labelSize));
-        employeePanel.add(makeRow("Hall Name:", employeeHallCombo, labelSize));
+        employeePanel.add(makeFieldBlock(makeRow("Employee ID:", employeeIdField, labelSize), employeeIdError));
+        employeePanel.add(makeFieldBlock(makeRow("Job Role:", employeeJobRoleCombo, labelSize), createErrorLabel()));
+        employeePanel.add(makeFieldBlock(makeRow("Salary:", employeeSalaryField, labelSize), employeeSalaryError));
+        employeePanel.add(makeFieldBlock(makeRow("Hall Name:", employeeHallCombo, labelSize), createErrorLabel()));
 
         // Add both sections to form container
         formContainer.add(personalPanel);
@@ -209,7 +235,7 @@ public class EmployeeUI {
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
         // Create row panel
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
 
         // Create label
         JLabel label = new JLabel(labelText);
@@ -220,6 +246,47 @@ public class EmployeeUI {
         panel.add(field);
 
         return panel;
+    }
+
+    /*
+     Creates a field block.
+     This puts the error label under the row.
+    */
+    public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        errorLabel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+        rowPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+
+        panel.add(rowPanel);
+        panel.add(errorLabel);
+
+        return panel;
+    }
+
+    /*
+     Creates an error label.
+    */
+    public static JLabel createErrorLabel() {
+
+        JLabel label = new JLabel(" ");
+        label.setForeground(Color.RED);
+        return label;
+    }
+
+    /*
+     Creates a simple date spinner.
+    */
+    public static JSpinner createDateSpinner() {
+
+        SpinnerDateModel model = new SpinnerDateModel();
+        JSpinner spinner = new JSpinner(model);
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
+        spinner.setEditor(editor);
+
+        return spinner;
     }
 
     /*
@@ -239,22 +306,130 @@ public class EmployeeUI {
     }
 
     /*
+     Gets date text from spinner.
+    */
+    public static String getDateText(JSpinner spinner) {
+
+        Date date = (Date) spinner.getValue();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(date);
+    }
+
+    /*
+     Sets spinner date from text.
+    */
+    public static void setDateText(JSpinner spinner, String text) {
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = format.parse(text);
+            spinner.setValue(date);
+        } catch (Exception ex) {
+            spinner.setValue(new Date());
+        }
+    }
+
+    /*
+     Clears all Employee error labels.
+    */
+    public static void clearEmployeeErrors() {
+
+        employeeNameError.setText(" ");
+        employeeGenderError.setText(" ");
+        employeeDobError.setText(" ");
+        employeeAddressError.setText(" ");
+        employeeNationalityError.setText(" ");
+        employeeHealthError.setText(" ");
+        employeeRegistrationError.setText(" ");
+        employeeIdError.setText(" ");
+        employeeSalaryError.setText(" ");
+    }
+
+    /*
+     Validates Employee form.
+    */
+    public static boolean validateEmployeeForm() {
+
+        boolean valid = true;
+
+        clearEmployeeErrors();
+
+        if (employeeNameField.getText().trim().isEmpty()) {
+            employeeNameError.setText("Name is required.");
+            valid = false;
+        }
+
+        if (getEmployeeGender().isEmpty()) {
+            employeeGenderError.setText("Please select gender.");
+            valid = false;
+        }
+
+        if (employeeAddressField.getText().trim().isEmpty()) {
+            employeeAddressError.setText("Address is required.");
+            valid = false;
+        }
+
+        if (employeeNationalityField.getText().trim().isEmpty()) {
+            employeeNationalityError.setText("Nationality is required.");
+            valid = false;
+        }
+
+        if (employeeHealthField.getText().trim().isEmpty()) {
+            employeeHealthError.setText("Health conditions are required.");
+            valid = false;
+        }
+
+        if (employeeIdField.getText().trim().isEmpty()) {
+            employeeIdError.setText("Employee ID is required.");
+            valid = false;
+        } else if (!employeeIdField.getText().trim().matches("\\d+")) {
+            employeeIdError.setText("Employee ID must be positive numbers only.");
+            valid = false;
+        }
+
+        if (employeeSalaryField.getText().trim().isEmpty()) {
+            employeeSalaryError.setText("Salary is required.");
+            valid = false;
+        } else {
+            try {
+                double salary = Double.parseDouble(employeeSalaryField.getText().trim());
+
+                if (salary < 0) {
+                    employeeSalaryError.setText("Salary must not be negative.");
+                    valid = false;
+                }
+
+            } catch (Exception ex) {
+                employeeSalaryError.setText("Salary must be a valid number.");
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
+    /*
      Saves Employee record into Store.
     */
     public static void saveEmployeeRecord() {
 
+        if (!validateEmployeeForm()) {
+            JOptionPane.showMessageDialog(null, "Please correct the highlighted fields.");
+            return;
+        }
+
         try {
             Employee employee = new Employee(
-                    employeeNameField.getText(),
+                    employeeNameField.getText().trim(),
                     getEmployeeGender(),
-                    employeeDobField.getText(),
-                    employeeAddressField.getText(),
-                    employeeNationalityField.getText(),
-                    employeeHealthField.getText(),
-                    employeeRegistrationDateField.getText(),
-                    employeeIdField.getText(),
+                    getDateText(employeeDobSpinner),
+                    employeeAddressField.getText().trim(),
+                    employeeNationalityField.getText().trim(),
+                    employeeHealthField.getText().trim(),
+                    getDateText(employeeRegistrationDateSpinner),
+                    employeeIdField.getText().trim(),
                     (String) employeeJobRoleCombo.getSelectedItem(),
-                    Double.parseDouble(employeeSalaryField.getText()),
+                    Double.parseDouble(employeeSalaryField.getText().trim()),
                     (String) employeeHallCombo.getSelectedItem()
             );
 
@@ -284,13 +459,16 @@ public class EmployeeUI {
         employeeRecordScrollPane.getViewport().setBackground(lightBlue);
         employeeRecordPanel.setBackground(lightBlue);
 
+        // Clear old errors
+        clearEmployeeErrors();
+
         // Show personal details in form
         employeeNameField.setText(e.getName());
-        employeeDobField.setText(e.getDateOfBirth());
+        setDateText(employeeDobSpinner, e.getDateOfBirth());
         employeeAddressField.setText(e.getAddress());
         employeeNationalityField.setText(e.getNationality());
         employeeHealthField.setText(e.getHealthConditions());
-        employeeRegistrationDateField.setText(e.getRegistrationDate());
+        setDateText(employeeRegistrationDateSpinner, e.getRegistrationDate());
 
         // Show gender
         if (e.getGender().equals("Male")) {
@@ -304,7 +482,7 @@ public class EmployeeUI {
         // Show employee details in form
         employeeIdField.setText(e.getEmployeeId());
         employeeJobRoleCombo.setSelectedItem(e.getJobRole());
-        employeeSalaryField.setText(String.valueOf(e.getSalary()));
+        employeeSalaryField.setText(String.format("%.2f", e.getSalary()));
         employeeHallCombo.setSelectedItem(e.getHallName());
 
         // Show record in display area
@@ -319,7 +497,7 @@ public class EmployeeUI {
                         formatLine("Registration Date:", e.getRegistrationDate()) +
                         formatLine("Employee ID:", e.getEmployeeId()) +
                         formatLine("Job Role:", e.getJobRole()) +
-                        formatLine("Salary:", String.valueOf(e.getSalary())) +
+                        formatLine("Salary:", formatPounds(e.getSalary())) +
                         formatLine("Hall Name:", e.getHallName())
         );
     }
@@ -337,16 +515,21 @@ public class EmployeeUI {
     }
 
     /*
+     Formats amount as British pounds.
+    */
+    public static String formatPounds(double amount) {
+        return String.format("£%.2f", amount);
+    }
+
+    /*
      Clears Employee form fields.
     */
     public static void clearEmployeeForm() {
 
         employeeNameField.setText("");
-        employeeDobField.setText("");
         employeeAddressField.setText("");
         employeeNationalityField.setText("");
         employeeHealthField.setText("");
-        employeeRegistrationDateField.setText("");
 
         employeeIdField.setText("");
         employeeSalaryField.setText("");
@@ -358,7 +541,12 @@ public class EmployeeUI {
         employeeJobRoleCombo.setSelectedIndex(0);
         employeeHallCombo.setSelectedIndex(0);
 
+        employeeDobSpinner.setValue(new Date());
+        employeeRegistrationDateSpinner.setValue(new Date());
+
         employeeRecordArea.setText("");
+
+        clearEmployeeErrors();
 
         // Reset background when form is cleared
         employeeRecordArea.setBackground(Color.WHITE);

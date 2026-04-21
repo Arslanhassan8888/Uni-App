@@ -118,7 +118,7 @@ public class StudentUI {
         studentRentError = createErrorLabel();
 
         // Name row
-        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setPreferredSize(labelSize);
         studentNameField = new JTextField(15);
@@ -127,7 +127,7 @@ public class StudentUI {
         namePanel.add(studentNameField);
 
         // Gender row
-        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel genderLabel = new JLabel("Gender:");
         genderLabel.setPreferredSize(labelSize);
         genderPanel.add(genderLabel);
@@ -147,7 +147,7 @@ public class StudentUI {
         genderPanel.add(studentOtherButton);
 
         // Date of Birth row
-        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel dobLabel = new JLabel("Date of Birth:");
         dobLabel.setPreferredSize(labelSize);
         studentDobSpinner = createDateSpinner();
@@ -156,7 +156,7 @@ public class StudentUI {
         dobPanel.add(studentDobSpinner);
 
         // Address row
-        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 4));
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setPreferredSize(labelSize);
         studentAddressField = new JTextField(15);
@@ -165,7 +165,7 @@ public class StudentUI {
         addressPanel.add(studentAddressField);
 
         // Nationality row
-        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel nationalityLabel = new JLabel("Nationality:");
         nationalityLabel.setPreferredSize(labelSize);
         studentNationalityField = new JTextField(15);
@@ -174,7 +174,7 @@ public class StudentUI {
         nationalityPanel.add(studentNationalityField);
 
         // Health Conditions row
-        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel healthLabel = new JLabel("Health Conditions:");
         healthLabel.setPreferredSize(labelSize);
         studentHealthField = new JTextField(15);
@@ -183,7 +183,7 @@ public class StudentUI {
         healthPanel.add(studentHealthField);
 
         // Registration Date row
-        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel registrationLabel = new JLabel("Registration Date:");
         registrationLabel.setPreferredSize(labelSize);
         studentRegistrationDateSpinner = createDateSpinner();
@@ -260,6 +260,11 @@ public class StudentUI {
 
         studentRecordPanel.add(studentRecordScrollPane, BorderLayout.CENTER);
 
+        // Put form container inside scroll pane
+        JScrollPane formScrollPane = new JScrollPane(formContainer);
+        formScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        formScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
         // Add form and record display to main panel
         mainPanel.add(formContainer);
         mainPanel.add(studentRecordPanel);
@@ -273,7 +278,7 @@ public class StudentUI {
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
         // Create row panel
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
 
         // Create label
         JLabel label = new JLabel(labelText);
