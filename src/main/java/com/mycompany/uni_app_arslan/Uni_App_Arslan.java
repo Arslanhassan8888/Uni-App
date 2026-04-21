@@ -105,7 +105,7 @@ public class Uni_App_Arslan {
         // Add tabs
         tabbedPane.addTab("Student", StudentUI.createStudentTab());
         tabbedPane.addTab("Employee", EmployeeUI.createEmployeeTab());
-        tabbedPane.addTab("Hall", createSimpleTab("Hall Form"));
+        tabbedPane.addTab("Hall", HallUI.createHallTab());
         tabbedPane.addTab("Payment", createSimpleTab("Payment Form"));
 
         // Add tabbed pane to centre panel

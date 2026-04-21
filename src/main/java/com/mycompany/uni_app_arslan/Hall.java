@@ -6,9 +6,16 @@ package com.mycompany.uni_app_arslan;
  */
 
 /*
- Hall class represents a hall of residence in the university halls system.
+ Hall class represents a hall record in the university halls system.
 
- This class stores information about a hall.
+ This class stores information about:
+ hall name
+ hall type
+ who the hall record is for
+ the related person ID
+ room type
+ vegetarian option
+ vegan option
 */
 public class Hall {
 
@@ -18,31 +25,39 @@ public class Hall {
     // Type of hall (e.g. mixed, female only, quiet)
     private String hallType;
 
-    // Maximum number of residents
-    private int capacity;
+    // Is this hall record for a student or employee?
+    private String residentType;
 
-    // Is the hall suitable for vegetarian students?
+    // ID of the student or employee
+    private String residentId;
+
+    // Room type (e.g. 1 Person, 2 Person)
+    private String roomType;
+
+    // Is the hall suitable for vegetarian people?
     private boolean vegetarianFriendly;
 
-    // Does the hall have ground floor rooms?
-    private boolean groundFloorAvailable;
+    // Is the hall suitable for vegan people?
+    private boolean veganFriendly;
 
-
-// Constructors
+    // Constructors
 
     // Default constructor
     public Hall() {
     }
 
     // Full constructor
-    public Hall(String hallName, String hallType, int capacity,
-                boolean vegetarianFriendly, boolean groundFloorAvailable) {
+    public Hall(String hallName, String hallType, String residentType,
+                String residentId, String roomType,
+                boolean vegetarianFriendly, boolean veganFriendly) {
 
         this.hallName = hallName;
         this.hallType = hallType;
-        this.capacity = capacity;
+        this.residentType = residentType;
+        this.residentId = residentId;
+        this.roomType = roomType;
         this.vegetarianFriendly = vegetarianFriendly;
-        this.groundFloorAvailable = groundFloorAvailable;
+        this.veganFriendly = veganFriendly;
     }
 
     // Getters and Setters
@@ -63,12 +78,28 @@ public class Hall {
         this.hallType = hallType;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public String getResidentType() {
+        return residentType;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setResidentType(String residentType) {
+        this.residentType = residentType;
+    }
+
+    public String getResidentId() {
+        return residentId;
+    }
+
+    public void setResidentId(String residentId) {
+        this.residentId = residentId;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public boolean isVegetarianFriendly() {
@@ -79,12 +110,12 @@ public class Hall {
         this.vegetarianFriendly = vegetarianFriendly;
     }
 
-    public boolean isGroundFloorAvailable() {
-        return groundFloorAvailable;
+    public boolean isVeganFriendly() {
+        return veganFriendly;
     }
 
-    public void setGroundFloorAvailable(boolean groundFloorAvailable) {
-        this.groundFloorAvailable = groundFloorAvailable;
+    public void setVeganFriendly(boolean veganFriendly) {
+        this.veganFriendly = veganFriendly;
     }
 
     // toString method
@@ -92,11 +123,12 @@ public class Hall {
     @Override
     public String toString() {
         return "Hall: " +
-                "Name = " + hallName +
-                ", Type = " + hallType +
-                ", Capacity = " + capacity +
+                "Hall Name = " + hallName +
+                ", Hall Type = " + hallType +
+                ", Resident Type = " + residentType +
+                ", Resident ID = " + residentId +
+                ", Room Type = " + roomType +
                 ", Vegetarian Friendly = " + vegetarianFriendly +
-                ", Ground Floor Available = " + groundFloorAvailable;
+                ", Vegan Friendly = " + veganFriendly;
     }
-
 }
