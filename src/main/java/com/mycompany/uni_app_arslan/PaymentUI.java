@@ -1,9 +1,12 @@
 package com.mycompany.uni_app_arslan;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 
 /**
@@ -30,7 +33,7 @@ public class PaymentUI {
     static JTextField paymentStudentIdField;
     static JTextField paymentStudentNameField;
     static JTextField paymentAmountField;
-    static JTextField paymentDateField;
+    static JSpinner paymentDateSpinner;
 
     // Combo box for payment method
     static JComboBox<String> paymentMethodCombo;
@@ -47,6 +50,15 @@ public class PaymentUI {
     // Record panel
     static JPanel paymentRecordPanel;
 
+    // PAYMENT ERROR LABELS
+    // These show inline validation messages
+
+    static JLabel paymentIdError;
+    static JLabel paymentStudentIdError;
+    static JLabel paymentStudentNameError;
+    static JLabel paymentAmountError;
+    static JLabel paymentDateError;
+
     /*
      Creates PAYMENT TAB.
      This includes:
@@ -56,7 +68,7 @@ public class PaymentUI {
     public static JPanel createPaymentTab() {
 
         // Main panel for Payment tab
-        JPanel mainPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2, 2, 2));
 
         // FORM CONTAINER
         // This holds the form section on the left
@@ -70,14 +82,31 @@ public class PaymentUI {
         paymentPanel.setBorder(BorderFactory.createTitledBorder("Payment Details"));
 
         // Common label size
-        Dimension labelSize = new Dimension(140, 25);
+        Dimension labelSize = new Dimension(120, 20);
+
+        // Create error labels
+        paymentIdError = createErrorLabel();
+        paymentStudentIdError = createErrorLabel();
+        paymentStudentNameError = createErrorLabel();
+        paymentAmountError = createErrorLabel();
+        paymentDateError = createErrorLabel();
 
         // Create fields
         paymentIdField = new JTextField(15);
         paymentStudentIdField = new JTextField(15);
         paymentStudentNameField = new JTextField(15);
         paymentAmountField = new JTextField(15);
-        paymentDateField = new JTextField(15);
+        paymentDateSpinner = createDateSpinner();
+
+        paymentIdField.setToolTipText("Enter positive numbers only");
+        paymentStudentIdField.setToolTipText("Enter positive numbers only");
+        paymentStudentNameField.setToolTipText("Enter student name");
+        paymentAmountField.setToolTipText("Enter positive amount");
+
+        paymentIdField.setPreferredSize(new Dimension(150, 22));
+        paymentStudentIdField.setPreferredSize(new Dimension(150, 22));
+        paymentStudentNameField.setPreferredSize(new Dimension(150, 22));
+        paymentAmountField.setPreferredSize(new Dimension(150, 22));
 
         // Create options
         paymentMethodCombo = new JComboBox<>(new String[]{
@@ -89,13 +118,13 @@ public class PaymentUI {
         paymentPaidCheck = new JCheckBox("Paid");
 
         // Add rows to payment panel
-        paymentPanel.add(makeRow("Payment ID:", paymentIdField, labelSize));
-        paymentPanel.add(makeRow("Student ID:", paymentStudentIdField, labelSize));
-        paymentPanel.add(makeRow("Student Name:", paymentStudentNameField, labelSize));
-        paymentPanel.add(makeRow("Amount:", paymentAmountField, labelSize));
-        paymentPanel.add(makeRow("Payment Date:", paymentDateField, labelSize));
-        paymentPanel.add(makeRow("Payment Method:", paymentMethodCombo, labelSize));
-        paymentPanel.add(makeRow("Paid Status:", paymentPaidCheck, labelSize));
+        paymentPanel.add(makeFieldBlock(makeRow("Payment ID:", paymentIdField, labelSize), paymentIdError));
+        paymentPanel.add(makeFieldBlock(makeRow("Student ID:", paymentStudentIdField, labelSize), paymentStudentIdError));
+        paymentPanel.add(makeFieldBlock(makeRow("Student Name:", paymentStudentNameField, labelSize), paymentStudentNameError));
+        paymentPanel.add(makeFieldBlock(makeRow("Amount:", paymentAmountField, labelSize), paymentAmountError));
+        paymentPanel.add(makeFieldBlock(makeRow("Payment Date:", paymentDateSpinner, labelSize), paymentDateError));
+        paymentPanel.add(makeFieldBlock(makeRow("Payment Method:", paymentMethodCombo, labelSize), createErrorLabel()));
+        paymentPanel.add(makeFieldBlock(makeRow("Paid Status:", paymentPaidCheck, labelSize), createErrorLabel()));
 
         // Add section to form container
         formContainer.add(paymentPanel);
@@ -114,8 +143,13 @@ public class PaymentUI {
 
         paymentRecordPanel.add(paymentRecordScrollPane, BorderLayout.CENTER);
 
+        // Put form container inside scroll pane
+        JScrollPane formScrollPane = new JScrollPane(formContainer);
+        formScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        formScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
         // Add form and record display to main panel
-        mainPanel.add(formContainer);
+        mainPanel.add(formScrollPane);
         mainPanel.add(paymentRecordPanel);
 
         return mainPanel;
@@ -127,7 +161,7 @@ public class PaymentUI {
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
         // Create row panel
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
 
         // Create label
         JLabel label = new JLabel(labelText);
@@ -141,17 +175,157 @@ public class PaymentUI {
     }
 
     /*
+     Creates a field block.
+     This puts the error label under the row.
+    */
+    public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        errorLabel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+        rowPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+
+        panel.add(rowPanel);
+        panel.add(errorLabel);
+
+        return panel;
+    }
+
+    /*
+     Creates an error label.
+    */
+    public static JLabel createErrorLabel() {
+
+        JLabel label = new JLabel("");
+        label.setForeground(Color.RED);
+        label.setPreferredSize(new Dimension(220, 12));
+        return label;
+    }
+
+    /*
+     Creates a simple date spinner.
+    */
+    public static JSpinner createDateSpinner() {
+
+        SpinnerDateModel model = new SpinnerDateModel();
+        JSpinner spinner = new JSpinner(model);
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
+        spinner.setEditor(editor);
+
+        return spinner;
+    }
+
+    /*
+     Gets date text from spinner.
+    */
+    public static String getDateText(JSpinner spinner) {
+
+        Date date = (Date) spinner.getValue();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(date);
+    }
+
+    /*
+     Sets spinner date from text.
+    */
+    public static void setDateText(JSpinner spinner, String text) {
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = format.parse(text);
+            spinner.setValue(date);
+        } catch (Exception ex) {
+            spinner.setValue(new Date());
+        }
+    }
+
+    /*
+     Clears Payment error labels.
+    */
+    public static void clearPaymentErrors() {
+
+        paymentIdError.setText("");
+        paymentStudentIdError.setText("");
+        paymentStudentNameError.setText("");
+        paymentAmountError.setText("");
+        paymentDateError.setText("");
+    }
+
+    /*
+     Validates Payment form.
+    */
+    public static boolean validatePaymentForm() {
+
+        boolean valid = true;
+
+        clearPaymentErrors();
+
+        if (paymentIdField.getText().trim().isEmpty()) {
+            paymentIdError.setText("Payment ID is required.");
+            valid = false;
+        } else if (!paymentIdField.getText().trim().matches("\\d+")) {
+            paymentIdError.setText("Payment ID must be positive numbers only.");
+            valid = false;
+        }
+
+        if (paymentStudentIdField.getText().trim().isEmpty()) {
+            paymentStudentIdError.setText("Student ID is required.");
+            valid = false;
+        } else if (!paymentStudentIdField.getText().trim().matches("\\d+")) {
+            paymentStudentIdError.setText("Student ID must be positive numbers only.");
+            valid = false;
+        }
+
+        if (paymentStudentNameField.getText().trim().isEmpty()) {
+            paymentStudentNameError.setText("Student name is required.");
+            valid = false;
+        }
+
+        if (paymentAmountField.getText().trim().isEmpty()) {
+            paymentAmountError.setText("Amount is required.");
+            valid = false;
+        } else {
+            try {
+                double amount = Double.parseDouble(paymentAmountField.getText().trim());
+
+                if (amount <= 0) {
+                    paymentAmountError.setText("Amount must be a positive number.");
+                    valid = false;
+                }
+
+            } catch (Exception ex) {
+                paymentAmountError.setText("Amount must be a valid number.");
+                valid = false;
+            }
+        }
+
+        String paymentDate = getDateText(paymentDateSpinner);
+        if (paymentDate == null || paymentDate.trim().isEmpty()) {
+            paymentDateError.setText("Payment date is required.");
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    /*
      Saves Payment record into Store.
     */
     public static void savePaymentRecord() {
 
+        if (!validatePaymentForm()) {
+            JOptionPane.showMessageDialog(null, "Please correct the highlighted fields.");
+            return;
+        }
+
         try {
             Payment payment = new Payment(
-                    paymentIdField.getText(),
-                    paymentStudentIdField.getText(),
-                    paymentStudentNameField.getText(),
-                    Double.parseDouble(paymentAmountField.getText()),
-                    paymentDateField.getText(),
+                    paymentIdField.getText().trim(),
+                    paymentStudentIdField.getText().trim(),
+                    paymentStudentNameField.getText().trim(),
+                    Double.parseDouble(paymentAmountField.getText().trim()),
+                    getDateText(paymentDateSpinner),
                     (String) paymentMethodCombo.getSelectedItem(),
                     paymentPaidCheck.isSelected()
             );
@@ -164,7 +338,7 @@ public class PaymentUI {
                             formatLine("Payment ID:", payment.getPaymentId()) +
                             formatLine("Student ID:", payment.getStudentId()) +
                             formatLine("Student Name:", payment.getStudentName()) +
-                            formatLine("Amount:", String.valueOf(payment.getAmount())) +
+                            formatLine("Amount:", formatPounds(payment.getAmount())) +
                             formatLine("Payment Date:", payment.getPaymentDate()) +
                             formatLine("Payment Method:", payment.getPaymentMethod()) +
                             formatLine("Paid:", yesNo(payment.isPaid()))
@@ -195,12 +369,15 @@ public class PaymentUI {
         paymentRecordScrollPane.getViewport().setBackground(lightPink);
         paymentRecordPanel.setBackground(lightPink);
 
+        // Clear old errors
+        clearPaymentErrors();
+
         // Show payment details in form
         paymentIdField.setText(p.getPaymentId());
         paymentStudentIdField.setText(p.getStudentId());
         paymentStudentNameField.setText(p.getStudentName());
-        paymentAmountField.setText(String.valueOf(p.getAmount()));
-        paymentDateField.setText(p.getPaymentDate());
+        paymentAmountField.setText(String.format("%.2f", p.getAmount()));
+        setDateText(paymentDateSpinner, p.getPaymentDate());
         paymentMethodCombo.setSelectedItem(p.getPaymentMethod());
         paymentPaidCheck.setSelected(p.isPaid());
 
@@ -210,7 +387,7 @@ public class PaymentUI {
                         formatLine("Payment ID:", p.getPaymentId()) +
                         formatLine("Student ID:", p.getStudentId()) +
                         formatLine("Student Name:", p.getStudentName()) +
-                        formatLine("Amount:", String.valueOf(p.getAmount())) +
+                        formatLine("Amount:", formatPounds(p.getAmount())) +
                         formatLine("Payment Date:", p.getPaymentDate()) +
                         formatLine("Payment Method:", p.getPaymentMethod()) +
                         formatLine("Paid:", yesNo(p.isPaid()))
@@ -226,12 +403,15 @@ public class PaymentUI {
         paymentStudentIdField.setText("");
         paymentStudentNameField.setText("");
         paymentAmountField.setText("");
-        paymentDateField.setText("");
 
         paymentMethodCombo.setSelectedIndex(0);
         paymentPaidCheck.setSelected(false);
 
+        paymentDateSpinner.setValue(new Date());
+
         paymentRecordArea.setText("");
+
+        clearPaymentErrors();
 
         // Reset background when form is cleared
         paymentRecordArea.setBackground(java.awt.Color.WHITE);
@@ -249,6 +429,13 @@ public class PaymentUI {
         }
 
         return label + " " + value + "\n\n";
+    }
+
+    /*
+     Formats amount as British pounds.
+    */
+    public static String formatPounds(double amount) {
+        return String.format("£%.2f", amount);
     }
 
     /*
