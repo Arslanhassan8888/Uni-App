@@ -581,6 +581,8 @@ public class StudentUI {
         );
     }
 
+    
+
     /*
      Formats one display line.
     */

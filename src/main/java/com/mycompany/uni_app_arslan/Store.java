@@ -218,4 +218,36 @@ public class Store {
         payments.clear();
         paymentIndex = 0;
     }
+
+    // Finds a student by ID
+    public Student findStudentById(String id) {
+
+        // Check each student in the list
+        for (Student student : students) {
+
+            // Return student if ID matches
+            if (student.getStudentId().equals(id)) {
+                return student;
+            }
+        }
+
+        // Return null if not found
+        return null;
+    }
+
+    // Finds an employee by ID
+    public Employee findEmployeeById(String id) {
+
+        // Check each employee in the list
+        for (Employee employee : employees) {
+
+            // Return employee if ID matches
+            if (employee.getEmployeeId().equals(id)) {
+                return employee;
+            }
+        }
+
+        // Return null if not found
+        return null;
+    }
 }
