@@ -216,6 +216,7 @@ public class StudentUI {
 
         // Create options
         studentDietCombo = new JComboBox<>(new String[]{"Normal", "Vegetarian", "Vegan"});
+        studentDietCombo.addActionListener(e -> updateHallSelection());
         studentHallCombo = new JComboBox<>(Uni_App_Arslan.HALL_OPTIONS);
         studentGroundFloorCheck = new JCheckBox("Required");
         studentSeniorCheck = new JCheckBox("Yes");
@@ -223,15 +224,7 @@ public class StudentUI {
         // If ground floor is required
         // force the hall choice to Ground Floor Hall
         // and disable manual selection
-        studentGroundFloorCheck.addActionListener(e -> {
-
-            if (studentGroundFloorCheck.isSelected()) {
-                studentHallCombo.setSelectedItem("Ground Floor Hall");
-                studentHallCombo.setEnabled(false);
-            } else {
-                studentHallCombo.setEnabled(true);
-            }
-        });
+        studentGroundFloorCheck.addActionListener(e -> updateHallSelection());
 
         // Add rows to student panel
         studentPanel.add(makeFieldBlock(makeRow("Student ID:", studentIdField, labelSize), studentIdError));
@@ -330,6 +323,39 @@ public class StudentUI {
         spinner.setEditor(editor);
 
         return spinner;
+    }
+
+    /*
+ Updates hall selection based on student needs.
+*/
+    public static void updateHallSelection() {
+
+        // If health condition is entered, force ground floor
+        if (!studentHealthField.getText().trim().isEmpty()) {
+            studentHallCombo.setSelectedItem("Ground Floor Hall");
+            studentHallCombo.setEnabled(false);
+            return;
+        }
+
+        // If ground floor is required, force ground floor
+        if (studentGroundFloorCheck.isSelected()) {
+            studentHallCombo.setSelectedItem("Ground Floor Hall");
+            studentHallCombo.setEnabled(false);
+            return;
+        }
+
+        // Check dietary preference
+        String diet = (String) studentDietCombo.getSelectedItem();
+
+        if (diet.equals("Vegetarian")) {
+            studentHallCombo.setSelectedItem("First Floor Hall");
+            studentHallCombo.setEnabled(false);
+        } else if (diet.equals("Vegan")) {
+            studentHallCombo.setSelectedItem("Second Floor Hall");
+            studentHallCombo.setEnabled(false);
+        } else {
+            studentHallCombo.setEnabled(true);
+        }
     }
 
     /*
