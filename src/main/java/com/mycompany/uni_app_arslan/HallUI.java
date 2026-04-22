@@ -1,6 +1,7 @@
 package com.mycompany.uni_app_arslan;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -53,6 +54,11 @@ public class HallUI {
     // Record panel
     static JPanel hallRecordPanel;
 
+    // HALL ERROR LABELS
+    // These show inline validation messages
+
+    static JLabel residentIdError;
+
     /*
      Creates HALL TAB.
      This includes:
@@ -76,7 +82,10 @@ public class HallUI {
         hallPanel.setBorder(BorderFactory.createTitledBorder("Hall Details"));
 
         // Common label size
-        Dimension labelSize = new Dimension(140, 25);
+        Dimension labelSize = new Dimension(120, 20);
+
+        // Create error labels
+        residentIdError = createErrorLabel();
 
         // Create options
         hallNameCombo = new JComboBox<>(Uni_App_Arslan.HALL_OPTIONS);
@@ -102,19 +111,21 @@ public class HallUI {
 
         // Create text field
         residentIdField = new JTextField(15);
+        residentIdField.setToolTipText("Enter positive numbers only");
+        residentIdField.setPreferredSize(new Dimension(150, 22));
 
         // Create check boxes
         hallVegetarianCheck = new JCheckBox("Yes");
         hallVeganCheck = new JCheckBox("Yes");
 
         // Add rows to hall panel
-        hallPanel.add(makeRow("Resident Type:", residentTypeCombo, labelSize));
-        hallPanel.add(makeRow("Resident ID:", residentIdField, labelSize));
-        hallPanel.add(makeRow("Hall Name:", hallNameCombo, labelSize));
-        hallPanel.add(makeRow("Hall Type:", hallTypeCombo, labelSize));
-        hallPanel.add(makeRow("Room Type:", roomTypeCombo, labelSize));
-        hallPanel.add(makeRow("Vegetarian Friendly:", hallVegetarianCheck, labelSize));
-        hallPanel.add(makeRow("Vegan Friendly:", hallVeganCheck, labelSize));
+        hallPanel.add(makeFieldBlock(makeRow("Resident Type:", residentTypeCombo, labelSize), createErrorLabel()));
+        hallPanel.add(makeFieldBlock(makeRow("Resident ID:", residentIdField, labelSize), residentIdError));
+        hallPanel.add(makeFieldBlock(makeRow("Hall Name:", hallNameCombo, labelSize), createErrorLabel()));
+        hallPanel.add(makeFieldBlock(makeRow("Hall Type:", hallTypeCombo, labelSize), createErrorLabel()));
+        hallPanel.add(makeFieldBlock(makeRow("Room Type:", roomTypeCombo, labelSize), createErrorLabel()));
+        hallPanel.add(makeFieldBlock(makeRow("Vegetarian Friendly:", hallVegetarianCheck, labelSize), createErrorLabel()));
+        hallPanel.add(makeFieldBlock(makeRow("Vegan Friendly:", hallVeganCheck, labelSize), createErrorLabel()));
 
         // Add section to form container
         formContainer.add(hallPanel);
@@ -133,8 +144,13 @@ public class HallUI {
 
         hallRecordPanel.add(hallRecordScrollPane, BorderLayout.CENTER);
 
+        // Put form container inside scroll pane
+        JScrollPane formScrollPane = new JScrollPane(formContainer);
+        formScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        formScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
         // Add form and record display to main panel
-        mainPanel.add(formContainer);
+        mainPanel.add(formScrollPane);
         mainPanel.add(hallRecordPanel);
 
         return mainPanel;
@@ -146,7 +162,7 @@ public class HallUI {
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
         // Create row panel
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
 
         // Create label
         JLabel label = new JLabel(labelText);
@@ -160,16 +176,77 @@ public class HallUI {
     }
 
     /*
- Saves Hall record into Store.
-*/
+     Creates a field block.
+     This puts the error label under the row.
+    */
+    public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        errorLabel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+        rowPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+
+        panel.add(rowPanel);
+        panel.add(errorLabel);
+
+        return panel;
+    }
+
+    /*
+     Creates an error label.
+    */
+    public static JLabel createErrorLabel() {
+
+        JLabel label = new JLabel("");
+        label.setForeground(Color.RED);
+        label.setPreferredSize(new Dimension(200, 12));
+        return label;
+    }
+
+    /*
+     Clears Hall error labels.
+    */
+    public static void clearHallErrors() {
+        residentIdError.setText("");
+    }
+
+    /*
+     Validates Hall form.
+    */
+    public static boolean validateHallForm() {
+
+        boolean valid = true;
+
+        clearHallErrors();
+
+        if (residentIdField.getText().trim().isEmpty()) {
+            residentIdError.setText("Resident ID is required.");
+            valid = false;
+        } else if (!residentIdField.getText().trim().matches("\\d+")) {
+            residentIdError.setText("Resident ID must be positive numbers only.");
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    /*
+     Saves Hall record into Store.
+    */
     public static void saveHallRecord() {
+
+        if (!validateHallForm()) {
+            JOptionPane.showMessageDialog(null, "Please correct the highlighted field.");
+            return;
+        }
 
         try {
             Hall hall = new Hall(
                     (String) hallNameCombo.getSelectedItem(),
                     (String) hallTypeCombo.getSelectedItem(),
                     (String) residentTypeCombo.getSelectedItem(),
-                    residentIdField.getText(),
+                    residentIdField.getText().trim(),
                     (String) roomTypeCombo.getSelectedItem(),
                     hallVegetarianCheck.isSelected(),
                     hallVeganCheck.isSelected()
@@ -184,8 +261,8 @@ public class HallUI {
     }
 
     /*
- Shows next Hall record from Store.
-*/
+     Shows next Hall record from Store.
+    */
     public static void showNextHallRecord() {
 
         Hall h = Uni_App_Arslan.store.getNextHall();
@@ -200,6 +277,9 @@ public class HallUI {
         hallRecordArea.setBackground(lightYellow);
         hallRecordScrollPane.getViewport().setBackground(lightYellow);
         hallRecordPanel.setBackground(lightYellow);
+
+        // Clear old errors
+        clearHallErrors();
 
         // Show hall details in form
         residentTypeCombo.setSelectedItem(h.getResidentType());
@@ -261,6 +341,8 @@ public class HallUI {
         hallVeganCheck.setSelected(false);
 
         hallRecordArea.setText("");
+
+        clearHallErrors();
 
         // Reset background when form is cleared
         hallRecordArea.setBackground(java.awt.Color.WHITE);
