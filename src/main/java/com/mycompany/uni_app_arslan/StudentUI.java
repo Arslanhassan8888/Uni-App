@@ -266,7 +266,7 @@ public class StudentUI {
         formScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         // Add form and record display to main panel
-        mainPanel.add(formContainer);
+        mainPanel.add(formScrollPane);
         mainPanel.add(studentRecordPanel);
 
         return mainPanel;
@@ -519,78 +519,6 @@ public class StudentUI {
         }
 
         // Show green background only when Next Record is clicked
-        Color lightGreen = new Color(230, 250, 230);
-        studentRecordArea.setBackground(lightGreen);
-        studentRecordScrollPane.getViewport().setBackground(lightGreen);
-        studentRecordPanel.setBackground(lightGreen);
-
-        // Clear old errors
-        clearStudentErrors();
-
-        // Show personal details in form
-        studentNameField.setText(s.getName());
-        setDateText(studentDobSpinner, s.getDateOfBirth());
-        studentAddressField.setText(s.getAddress());
-        studentNationalityField.setText(s.getNationality());
-        studentHealthField.setText(s.getHealthConditions());
-        setDateText(studentRegistrationDateSpinner, s.getRegistrationDate());
-
-        // Show gender
-        if (s.getGender().equals("Male")) {
-            studentMaleButton.setSelected(true);
-        } else if (s.getGender().equals("Female")) {
-            studentFemaleButton.setSelected(true);
-        } else {
-            studentOtherButton.setSelected(true);
-        }
-
-        // Show student details in form
-        studentIdField.setText(s.getStudentId());
-        studentYearField.setText(String.valueOf(s.getYearOfStudy()));
-        studentDietCombo.setSelectedItem(s.getDietaryPreference());
-        studentGroundFloorCheck.setSelected(s.isGroundFloorRequired());
-
-        if (s.isGroundFloorRequired()) {
-            studentHallCombo.setSelectedItem("Ground Floor Hall");
-            studentHallCombo.setEnabled(false);
-        } else {
-            studentHallCombo.setEnabled(true);
-            studentHallCombo.setSelectedItem(s.getHallName());
-        }
-
-        studentRentField.setText(String.format("%.2f", s.getRentAmount()));
-        studentSeniorCheck.setSelected(s.isSeniorStudent());
-
-        // Show record in display area
-        studentRecordArea.setText(
-                "STUDENT RECORD\n\n" +
-                        formatLine("Name:", s.getName()) +
-                        formatLine("Gender:", s.getGender()) +
-                        formatLine("Date of Birth:", s.getDateOfBirth()) +
-                        formatLine("Address:", s.getAddress()) +
-                        formatLine("Nationality:", s.getNationality()) +
-                        formatLine("Health Conditions:", s.getHealthConditions()) +
-                        formatLine("Registration Date:", s.getRegistrationDate()) +
-                        formatLine("Student ID:", s.getStudentId()) +
-                        formatLine("Year of Study:", String.valueOf(s.getYearOfStudy())) +
-                        formatLine("Dietary Preference:", s.getDietaryPreference()) +
-                        formatLine("Ground Floor Required:", yesNo(s.isGroundFloorRequired())) +
-                        formatLine("Rent Amount:", formatPounds(s.getRentAmount())) +
-                        formatLine("Hall Name:", s.getHallName()) +
-                        formatLine("Senior Student:", yesNo(s.isSeniorStudent()))
-        );
-    }
-
-    /*
- Displays a selected Student record.
-*/
-    public static void displayStudentRecord(Student s) {
-
-        if (s == null) {
-            return;
-        }
-
-        // Show green background
         Color lightGreen = new Color(230, 250, 230);
         studentRecordArea.setBackground(lightGreen);
         studentRecordScrollPane.getViewport().setBackground(lightGreen);

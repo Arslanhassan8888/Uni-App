@@ -38,9 +38,6 @@ public class Uni_App_Arslan {
     // Tabbed pane
     static JTabbedPane tabbedPane;
 
-    // Search field
-    static JTextField searchIdField;
-
     // Store object
     static Store store = new Store();
 
@@ -110,6 +107,7 @@ public class Uni_App_Arslan {
         tabbedPane.addTab("Employee", EmployeeUI.createEmployeeTab());
         tabbedPane.addTab("Hall", HallUI.createHallTab());
         tabbedPane.addTab("Payment", PaymentUI.createPaymentTab());
+        tabbedPane.addTab("Search Person", SearchUI.createSearchTab());
 
         // Add tabbed pane to centre panel
         centerPanel.add(tabbedPane, BorderLayout.CENTER);
@@ -154,10 +152,6 @@ public class Uni_App_Arslan {
         JButton clear = new JButton("Clear Form");
         JButton saveFile = new JButton("Save To File");
         JButton loadFile = new JButton("Load From File");
-        JButton searchButton = new JButton("Search Person");
-
-        // Create search field
-        searchIdField = new JTextField(10);
 
         // Save record
         save.addActionListener(e -> {
@@ -174,7 +168,7 @@ public class Uni_App_Arslan {
             } else if (selectedTab == 3) {
                 PaymentUI.savePaymentRecord();
             } else {
-                JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
+                JOptionPane.showMessageDialog(null, "This tab is not ready for saving.");
             }
         });
 
@@ -193,7 +187,7 @@ public class Uni_App_Arslan {
             } else if (selectedTab == 3) {
                 PaymentUI.showNextPaymentRecord();
             } else {
-                JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
+                JOptionPane.showMessageDialog(null, "This tab is not ready for next record.");
             }
         });
 
@@ -211,10 +205,13 @@ public class Uni_App_Arslan {
                 HallUI.clearHallForm();
             } else if (selectedTab == 3) {
                 PaymentUI.clearPaymentForm();
+            } else if (selectedTab == 4) {
+                SearchUI.clearSearchForm();
             } else {
                 JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
             }
         });
+
         // Save to file
         saveFile.addActionListener(e -> {
 
@@ -225,6 +222,7 @@ public class Uni_App_Arslan {
 
             JOptionPane.showMessageDialog(null, "All records saved to file.");
         });
+
         // Load from file
         loadFile.addActionListener(e -> {
 
@@ -236,20 +234,12 @@ public class Uni_App_Arslan {
             JOptionPane.showMessageDialog(null, "All records loaded from file.");
         });
 
-        // Search person
-        searchButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(null, "Search not connected yet.")
-        );
-
         // Add buttons to panel
         panel.add(save);
         panel.add(next);
         panel.add(clear);
         panel.add(saveFile);
         panel.add(loadFile);
-        panel.add(new JLabel("Search ID:"));
-        panel.add(searchIdField);
-        panel.add(searchButton);
 
         return panel;
     }
