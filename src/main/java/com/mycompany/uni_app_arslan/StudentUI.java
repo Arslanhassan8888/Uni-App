@@ -179,6 +179,13 @@ public class StudentUI {
         healthLabel.setPreferredSize(labelSize);
         studentHealthField = new JTextField(15);
         studentHealthField.setToolTipText("Enter health conditions");
+
+        // If user types health condition → update hall automatically
+        studentHealthField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                updateHallSelection();
+            }
+        });
         healthPanel.add(healthLabel);
         healthPanel.add(studentHealthField);
 
@@ -444,11 +451,6 @@ public class StudentUI {
             valid = false;
         }
 
-        if (studentHealthField.getText().trim().isEmpty()) {
-            studentHealthError.setText("Health conditions are required.");
-            valid = false;
-        }
-
         if (studentIdField.getText().trim().isEmpty()) {
             studentIdError.setText("Student ID is required.");
             valid = false;
@@ -576,13 +578,8 @@ public class StudentUI {
         studentDietCombo.setSelectedItem(s.getDietaryPreference());
         studentGroundFloorCheck.setSelected(s.isGroundFloorRequired());
 
-        if (s.isGroundFloorRequired()) {
-            studentHallCombo.setSelectedItem("Ground Floor Hall");
-            studentHallCombo.setEnabled(false);
-        } else {
-            studentHallCombo.setEnabled(true);
-            studentHallCombo.setSelectedItem(s.getHallName());
-        }
+        studentHallCombo.setSelectedItem(s.getHallName());
+        updateHallSelection();
 
         studentRentField.setText(String.format("%.2f", s.getRentAmount()));
         studentSeniorCheck.setSelected(s.isSeniorStudent());

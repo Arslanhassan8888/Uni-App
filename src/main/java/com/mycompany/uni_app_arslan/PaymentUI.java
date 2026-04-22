@@ -32,14 +32,16 @@ public class PaymentUI {
     static JTextField paymentIdField;
     static JTextField paymentStudentIdField;
     static JTextField paymentStudentNameField;
-    static JTextField paymentAmountField;
+    static JTextField paymentRentField;
+    static JTextField paymentAmountPaidField;
+    static JTextField paymentRemainingField;
+    static JTextField paymentStatusField;
+
+    // Date spinner for payment date
     static JSpinner paymentDateSpinner;
 
     // Combo box for payment method
     static JComboBox<String> paymentMethodCombo;
-
-    // Check box for paid status
-    static JCheckBox paymentPaidCheck;
 
     // Text area for record display
     static JTextArea paymentRecordArea;
@@ -55,8 +57,7 @@ public class PaymentUI {
 
     static JLabel paymentIdError;
     static JLabel paymentStudentIdError;
-    static JLabel paymentStudentNameError;
-    static JLabel paymentAmountError;
+    static JLabel paymentAmountPaidError;
     static JLabel paymentDateError;
 
     /*
@@ -87,26 +88,28 @@ public class PaymentUI {
         // Create error labels
         paymentIdError = createErrorLabel();
         paymentStudentIdError = createErrorLabel();
-        paymentStudentNameError = createErrorLabel();
-        paymentAmountError = createErrorLabel();
+        paymentAmountPaidError = createErrorLabel();
         paymentDateError = createErrorLabel();
 
         // Create fields
         paymentIdField = new JTextField(15);
         paymentStudentIdField = new JTextField(15);
         paymentStudentNameField = new JTextField(15);
-        paymentAmountField = new JTextField(15);
-        paymentDateSpinner = createDateSpinner();
+        paymentRentField = new JTextField(15);
+        paymentAmountPaidField = new JTextField(15);
+        paymentRemainingField = new JTextField(15);
+        paymentStatusField = new JTextField(15);
 
-        paymentIdField.setToolTipText("Enter positive numbers only");
-        paymentStudentIdField.setToolTipText("Enter positive numbers only");
-        paymentStudentNameField.setToolTipText("Enter student name");
-        paymentAmountField.setToolTipText("Enter positive amount");
+        // Auto fields should not be edited by user
+        paymentStudentNameField.setEditable(false);
+        paymentRentField.setEditable(false);
+        paymentRemainingField.setEditable(false);
+        paymentStatusField.setEditable(false);
 
-        paymentIdField.setPreferredSize(new Dimension(150, 22));
-        paymentStudentIdField.setPreferredSize(new Dimension(150, 22));
-        paymentStudentNameField.setPreferredSize(new Dimension(150, 22));
-        paymentAmountField.setPreferredSize(new Dimension(150, 22));
+        // Create date spinner
+        paymentDateSpinner = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor paymentDateEditor = new JSpinner.DateEditor(paymentDateSpinner, "dd/MM/yyyy");
+        paymentDateSpinner.setEditor(paymentDateEditor);
 
         // Create options
         paymentMethodCombo = new JComboBox<>(new String[]{
@@ -115,16 +118,16 @@ public class PaymentUI {
                 "Bank Transfer"
         });
 
-        paymentPaidCheck = new JCheckBox("Paid");
-
         // Add rows to payment panel
         paymentPanel.add(makeFieldBlock(makeRow("Payment ID:", paymentIdField, labelSize), paymentIdError));
         paymentPanel.add(makeFieldBlock(makeRow("Student ID:", paymentStudentIdField, labelSize), paymentStudentIdError));
-        paymentPanel.add(makeFieldBlock(makeRow("Student Name:", paymentStudentNameField, labelSize), paymentStudentNameError));
-        paymentPanel.add(makeFieldBlock(makeRow("Amount:", paymentAmountField, labelSize), paymentAmountError));
+        paymentPanel.add(makeFieldBlock(makeRow("Student Name:", paymentStudentNameField, labelSize), createErrorLabel()));
+        paymentPanel.add(makeFieldBlock(makeRow("Rent Amount:", paymentRentField, labelSize), createErrorLabel()));
+        paymentPanel.add(makeFieldBlock(makeRow("Amount Paid:", paymentAmountPaidField, labelSize), paymentAmountPaidError));
+        paymentPanel.add(makeFieldBlock(makeRow("Remaining:", paymentRemainingField, labelSize), createErrorLabel()));
         paymentPanel.add(makeFieldBlock(makeRow("Payment Date:", paymentDateSpinner, labelSize), paymentDateError));
         paymentPanel.add(makeFieldBlock(makeRow("Payment Method:", paymentMethodCombo, labelSize), createErrorLabel()));
-        paymentPanel.add(makeFieldBlock(makeRow("Paid Status:", paymentPaidCheck, labelSize), createErrorLabel()));
+        paymentPanel.add(makeFieldBlock(makeRow("Status:", paymentStatusField, labelSize), createErrorLabel()));
 
         // Add section to form container
         formContainer.add(paymentPanel);
@@ -247,8 +250,7 @@ public class PaymentUI {
 
         paymentIdError.setText("");
         paymentStudentIdError.setText("");
-        paymentStudentNameError.setText("");
-        paymentAmountError.setText("");
+        paymentAmountPaidError.setText("");
         paymentDateError.setText("");
     }
 
@@ -277,25 +279,20 @@ public class PaymentUI {
             valid = false;
         }
 
-        if (paymentStudentNameField.getText().trim().isEmpty()) {
-            paymentStudentNameError.setText("Student name is required.");
-            valid = false;
-        }
-
-        if (paymentAmountField.getText().trim().isEmpty()) {
-            paymentAmountError.setText("Amount is required.");
+        if (paymentAmountPaidField.getText().trim().isEmpty()) {
+            paymentAmountPaidError.setText("Amount paid is required.");
             valid = false;
         } else {
             try {
-                double amount = Double.parseDouble(paymentAmountField.getText().trim());
+                double amount = Double.parseDouble(paymentAmountPaidField.getText().trim());
 
-                if (amount <= 0) {
-                    paymentAmountError.setText("Amount must be a positive number.");
+                if (amount < 0) {
+                    paymentAmountPaidError.setText("Amount paid must not be negative.");
                     valid = false;
                 }
 
             } catch (Exception ex) {
-                paymentAmountError.setText("Amount must be a valid number.");
+                paymentAmountPaidError.setText("Amount paid must be a valid number.");
                 valid = false;
             }
         }
@@ -313,85 +310,14 @@ public class PaymentUI {
      Saves Payment record into Store.
     */
     public static void savePaymentRecord() {
-
-        if (!validatePaymentForm()) {
-            JOptionPane.showMessageDialog(null, "Please correct the highlighted fields.");
-            return;
-        }
-
-        try {
-            Payment payment = new Payment(
-                    paymentIdField.getText().trim(),
-                    paymentStudentIdField.getText().trim(),
-                    paymentStudentNameField.getText().trim(),
-                    Double.parseDouble(paymentAmountField.getText().trim()),
-                    getDateText(paymentDateSpinner),
-                    (String) paymentMethodCombo.getSelectedItem(),
-                    paymentPaidCheck.isSelected()
-            );
-
-            Uni_App_Arslan.store.addPayment(payment);
-
-            // Show saved payment in display area
-            paymentRecordArea.setText(
-                    "PAYMENT RECORD\n\n" +
-                            formatLine("Payment ID:", payment.getPaymentId()) +
-                            formatLine("Student ID:", payment.getStudentId()) +
-                            formatLine("Student Name:", payment.getStudentName()) +
-                            formatLine("Amount:", formatPounds(payment.getAmount())) +
-                            formatLine("Payment Date:", payment.getPaymentDate()) +
-                            formatLine("Payment Method:", payment.getPaymentMethod()) +
-                            formatLine("Paid:", yesNo(payment.isPaid()))
-            );
-
-            JOptionPane.showMessageDialog(null, "Payment record saved.");
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Please enter valid payment data.");
-        }
+        JOptionPane.showMessageDialog(null, "Payment save logic will be updated in next step.");
     }
 
     /*
      Shows next Payment record from Store.
     */
     public static void showNextPaymentRecord() {
-
-        Payment p = Uni_App_Arslan.store.getNextPayment();
-
-        if (p == null) {
-            JOptionPane.showMessageDialog(null, "No payment records saved.");
-            return;
-        }
-
-        // Show colour only when Next Record is clicked
-        java.awt.Color lightPink = new java.awt.Color(255, 240, 245);
-        paymentRecordArea.setBackground(lightPink);
-        paymentRecordScrollPane.getViewport().setBackground(lightPink);
-        paymentRecordPanel.setBackground(lightPink);
-
-        // Clear old errors
-        clearPaymentErrors();
-
-        // Show payment details in form
-        paymentIdField.setText(p.getPaymentId());
-        paymentStudentIdField.setText(p.getStudentId());
-        paymentStudentNameField.setText(p.getStudentName());
-        paymentAmountField.setText(String.format("%.2f", p.getAmount()));
-        setDateText(paymentDateSpinner, p.getPaymentDate());
-        paymentMethodCombo.setSelectedItem(p.getPaymentMethod());
-        paymentPaidCheck.setSelected(p.isPaid());
-
-        // Show record in display area
-        paymentRecordArea.setText(
-                "PAYMENT RECORD\n\n" +
-                        formatLine("Payment ID:", p.getPaymentId()) +
-                        formatLine("Student ID:", p.getStudentId()) +
-                        formatLine("Student Name:", p.getStudentName()) +
-                        formatLine("Amount:", formatPounds(p.getAmount())) +
-                        formatLine("Payment Date:", p.getPaymentDate()) +
-                        formatLine("Payment Method:", p.getPaymentMethod()) +
-                        formatLine("Paid:", yesNo(p.isPaid()))
-        );
+        JOptionPane.showMessageDialog(null, "Payment next record logic will be updated in next step.");
     }
 
     /*
@@ -402,10 +328,12 @@ public class PaymentUI {
         paymentIdField.setText("");
         paymentStudentIdField.setText("");
         paymentStudentNameField.setText("");
-        paymentAmountField.setText("");
+        paymentRentField.setText("");
+        paymentAmountPaidField.setText("");
+        paymentRemainingField.setText("");
+        paymentStatusField.setText("");
 
         paymentMethodCombo.setSelectedIndex(0);
-        paymentPaidCheck.setSelected(false);
 
         paymentDateSpinner.setValue(new Date());
 
