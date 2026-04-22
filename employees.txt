@@ -1,1 +1,3 @@
-usman,Other,30/05/2022,26 faraday avenue,pakistani,eczema,01/01/2026,1245,Security,150.0,First Floor Hall
+Michael Green,Male,05/06/1985,9 Oak Drive Liverpool,French,None,01/03/2019,2001,Cleaner,1800.0,Ground Floor Hall
+Emma White,Female,11/09/1990,17 River View Road Sheffield,Polish,None,01/02/2021,2002,Security,2000.0,First Floor Hall
+James Black,Male,20/12/1980,33 West End Street London,British,None,01/03/2019,2003,Hall Manager,3000.0,Third Floor Hall

@@ -1,1 +1,5 @@
-First Floor Hall,Female Only,Student,129,2 Person,true,false
+Third Floor Hall,Mixed,Student,1001,2 Person,false,false
+First Floor Hall,Mixed,Student,1002,3 Person,true,false
+Second Floor Hall,Mixed,Student,1003,4 Person,false,true
+Ground Floor Hall,Mixed,Student,1004,2 Person,false,false
+Ground Floor Hall,Mixed,Employee,2001,1 Person,false,false

@@ -94,11 +94,27 @@ public class PaymentUI {
         // Create fields
         paymentIdField = new JTextField(15);
         paymentStudentIdField = new JTextField(15);
+
+        // When user types Student ID → try to load student
+        paymentStudentIdField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                loadStudentDetails();
+                calculatePaymentDetails();
+            }
+        });
+
         paymentStudentNameField = new JTextField(15);
         paymentRentField = new JTextField(15);
         paymentAmountPaidField = new JTextField(15);
         paymentRemainingField = new JTextField(15);
         paymentStatusField = new JTextField(15);
+
+        // When user types Amount Paid → recalculate
+        paymentAmountPaidField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                calculatePaymentDetails();
+            }
+        });
 
         // Auto fields should not be edited by user
         paymentStudentNameField.setEditable(false);
@@ -244,6 +260,70 @@ public class PaymentUI {
     }
 
     /*
+     Loads student details into payment form.
+    */
+    public static void loadStudentDetails() {
+
+        String id = paymentStudentIdField.getText().trim();
+
+        // Only proceed if ID is numeric
+        if (!id.matches("\\d+")) {
+            paymentStudentNameField.setText("");
+            paymentRentField.setText("");
+            paymentRemainingField.setText("");
+            paymentStatusField.setText("");
+            return;
+        }
+
+        // Find student
+        Student s = Uni_App_Arslan.store.findStudentById(id);
+
+        if (s != null) {
+            paymentStudentNameField.setText(s.getName());
+            paymentRentField.setText(String.format("%.2f", s.getRentAmount()));
+        } else {
+            paymentStudentNameField.setText("Not found");
+            paymentRentField.setText("");
+            paymentRemainingField.setText("");
+            paymentStatusField.setText("");
+        }
+    }
+
+    /*
+     Calculates remaining balance and status.
+    */
+    public static void calculatePaymentDetails() {
+
+        String rentText = paymentRentField.getText().trim();
+        String paidText = paymentAmountPaidField.getText().trim();
+
+        if (rentText.isEmpty() || paidText.isEmpty()) {
+            paymentRemainingField.setText("");
+            paymentStatusField.setText("");
+            return;
+        }
+
+        try {
+            double rent = Double.parseDouble(rentText);
+            double paid = Double.parseDouble(paidText);
+
+            double remaining = rent - paid;
+
+            if (remaining <= 0) {
+                paymentRemainingField.setText(String.format("%.2f", 0.0));
+                paymentStatusField.setText("Paid");
+            } else {
+                paymentRemainingField.setText(String.format("%.2f", remaining));
+                paymentStatusField.setText("Pending");
+            }
+
+        } catch (Exception ex) {
+            paymentRemainingField.setText("");
+            paymentStatusField.setText("");
+        }
+    }
+
+    /*
      Clears Payment error labels.
     */
     public static void clearPaymentErrors() {
@@ -279,6 +359,12 @@ public class PaymentUI {
             valid = false;
         }
 
+        if (paymentStudentNameField.getText().trim().isEmpty() ||
+                paymentStudentNameField.getText().equals("Not found")) {
+            paymentStudentIdError.setText("Student ID must exist.");
+            valid = false;
+        }
+
         if (paymentAmountPaidField.getText().trim().isEmpty()) {
             paymentAmountPaidError.setText("Amount paid is required.");
             valid = false;
@@ -310,14 +396,95 @@ public class PaymentUI {
      Saves Payment record into Store.
     */
     public static void savePaymentRecord() {
-        JOptionPane.showMessageDialog(null, "Payment save logic will be updated in next step.");
+
+        if (!validatePaymentForm()) {
+            JOptionPane.showMessageDialog(null, "Please correct the highlighted fields.");
+            return;
+        }
+
+        try {
+            double amountPaid = Double.parseDouble(paymentAmountPaidField.getText().trim());
+            boolean isPaid = paymentStatusField.getText().equals("Paid");
+
+            Payment payment = new Payment(
+                    paymentIdField.getText().trim(),
+                    paymentStudentIdField.getText().trim(),
+                    paymentStudentNameField.getText().trim(),
+                    amountPaid,
+                    getDateText(paymentDateSpinner),
+                    (String) paymentMethodCombo.getSelectedItem(),
+                    isPaid
+            );
+
+            Uni_App_Arslan.store.addPayment(payment);
+
+            // Show saved payment in display area
+            paymentRecordArea.setText(
+                    "PAYMENT RECORD\n\n" +
+                            formatLine("Payment ID:", payment.getPaymentId()) +
+                            formatLine("Student ID:", payment.getStudentId()) +
+                            formatLine("Student Name:", payment.getStudentName()) +
+                            formatLine("Rent Amount:", "£" + paymentRentField.getText()) +
+                            formatLine("Amount Paid:", formatPounds(payment.getAmount())) +
+                            formatLine("Remaining:", "£" + paymentRemainingField.getText()) +
+                            formatLine("Payment Date:", payment.getPaymentDate()) +
+                            formatLine("Payment Method:", payment.getPaymentMethod()) +
+                            formatLine("Status:", paymentStatusField.getText())
+            );
+
+            JOptionPane.showMessageDialog(null, "Payment record saved.");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Please enter valid payment data.");
+        }
     }
 
     /*
      Shows next Payment record from Store.
     */
     public static void showNextPaymentRecord() {
-        JOptionPane.showMessageDialog(null, "Payment next record logic will be updated in next step.");
+
+        Payment p = Uni_App_Arslan.store.getNextPayment();
+
+        if (p == null) {
+            JOptionPane.showMessageDialog(null, "No payment records saved.");
+            return;
+        }
+
+        // Show colour only when Next Record is clicked
+        java.awt.Color lightPink = new java.awt.Color(255, 240, 245);
+        paymentRecordArea.setBackground(lightPink);
+        paymentRecordScrollPane.getViewport().setBackground(lightPink);
+        paymentRecordPanel.setBackground(lightPink);
+
+        // Clear old errors
+        clearPaymentErrors();
+
+        // Show payment details in form
+        paymentIdField.setText(p.getPaymentId());
+        paymentStudentIdField.setText(p.getStudentId());
+        paymentStudentNameField.setText(p.getStudentName());
+        setDateText(paymentDateSpinner, p.getPaymentDate());
+        paymentMethodCombo.setSelectedItem(p.getPaymentMethod());
+        paymentAmountPaidField.setText(String.format("%.2f", p.getAmount()));
+
+        // Reload student rent and recalculate
+        loadStudentDetails();
+        calculatePaymentDetails();
+
+        // Show record in display area
+        paymentRecordArea.setText(
+                "PAYMENT RECORD\n\n" +
+                        formatLine("Payment ID:", p.getPaymentId()) +
+                        formatLine("Student ID:", p.getStudentId()) +
+                        formatLine("Student Name:", p.getStudentName()) +
+                        formatLine("Rent Amount:", "£" + paymentRentField.getText()) +
+                        formatLine("Amount Paid:", formatPounds(p.getAmount())) +
+                        formatLine("Remaining:", "£" + paymentRemainingField.getText()) +
+                        formatLine("Payment Date:", p.getPaymentDate()) +
+                        formatLine("Payment Method:", p.getPaymentMethod()) +
+                        formatLine("Status:", paymentStatusField.getText())
+        );
     }
 
     /*

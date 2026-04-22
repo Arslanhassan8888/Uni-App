@@ -1,2 +1,4 @@
-arslan,Male,,,,,,129,1,Normal,true,150.0,Ground Floor Hall,false
-rammen,Female,,,pakistani,,,150,2,Vegetarian,false,180.0,First Floor Hall,false
+Jhon Smith,Male,12/05/2003,25 Green Park Road London,British,,01/09/2023,1001,2,Normal,false,550.0,Third Floor Hall,false
+Alice Brown,Female,22/08/2002,14 Willow Avenue Manchester,British,,02/09/2023,1002,3,Vegetarian,false,600.0,First Floor Hall,false
+Arslan Hassan,Male,06/05/1988,26 Faraday Avenue Manchester,Italian,,10/09/2023,1003,2,Vegan,false,580.0,Second Floor Hall,false
+Sarah Khan,Other,15/03/2001,42 Rose Lane Leeds,Pakistani,Wheelchair user,10/10/2023,1004,3,Normal,false,400.0,Ground Floor Hall,true

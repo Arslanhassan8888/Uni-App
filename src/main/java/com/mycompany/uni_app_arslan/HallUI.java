@@ -102,6 +102,9 @@ public class HallUI {
                 "Employee"
         });
 
+        // Update hall fields if resident type changes
+        residentTypeCombo.addActionListener(e -> updateHallFromResident());
+
         roomTypeCombo = new JComboBox<>(new String[]{
                 "1 Person",
                 "2 Person",
@@ -113,6 +116,13 @@ public class HallUI {
         residentIdField = new JTextField(15);
         residentIdField.setToolTipText("Enter positive numbers only");
         residentIdField.setPreferredSize(new Dimension(150, 22));
+
+        // If user types resident ID, update hall options automatically
+        residentIdField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                updateHallFromResident();
+            }
+        });
 
         // Create check boxes
         hallVegetarianCheck = new JCheckBox("Yes");
@@ -205,6 +215,76 @@ public class HallUI {
     }
 
     /*
+     Updates hall fields automatically from resident details.
+    */
+    public static void updateHallFromResident() {
+
+        // Reset automatic hall options first
+        hallVegetarianCheck.setSelected(false);
+        hallVeganCheck.setSelected(false);
+        hallNameCombo.setEnabled(true);
+
+        // Only apply automatic hall rules for students
+        String residentType = (String) residentTypeCombo.getSelectedItem();
+
+        if (!residentType.equals("Student")) {
+            return;
+        }
+
+        // Get entered resident ID
+        String residentId = residentIdField.getText().trim();
+
+        // Stop if ID is empty or invalid
+        if (residentId.isEmpty() || !residentId.matches("\\d+")) {
+            return;
+        }
+
+        // Find student by ID
+        Student student = Uni_App_Arslan.store.findStudentById(residentId);
+
+        // Stop if student not found
+        if (student == null) {
+            return;
+        }
+
+        // Get student diet and health condition
+        String diet = student.getDietaryPreference();
+        String health = student.getHealthConditions();
+
+        // Disabled / health condition student goes to ground floor
+        if (health != null && !health.trim().isEmpty() && !health.equalsIgnoreCase("None")) {
+            hallVegetarianCheck.setSelected(false);
+            hallVeganCheck.setSelected(false);
+            hallNameCombo.setSelectedItem("Ground Floor Hall");
+            hallNameCombo.setEnabled(false);
+            return;
+        }
+
+        // Vegetarian student
+        if (diet.equals("Vegetarian")) {
+            hallVegetarianCheck.setSelected(true);
+            hallVeganCheck.setSelected(false);
+            hallNameCombo.setSelectedItem("First Floor Hall");
+            hallNameCombo.setEnabled(false);
+        }
+
+        // Vegan student
+        else if (diet.equals("Vegan")) {
+            hallVegetarianCheck.setSelected(false);
+            hallVeganCheck.setSelected(true);
+            hallNameCombo.setSelectedItem("Second Floor Hall");
+            hallNameCombo.setEnabled(false);
+        }
+
+        // Normal student
+        else {
+            hallVegetarianCheck.setSelected(false);
+            hallVeganCheck.setSelected(false);
+            hallNameCombo.setEnabled(true);
+        }
+    }
+
+    /*
      Clears Hall error labels.
     */
     public static void clearHallErrors() {
@@ -289,6 +369,7 @@ public class HallUI {
         roomTypeCombo.setSelectedItem(h.getRoomType());
         hallVegetarianCheck.setSelected(h.isVegetarianFriendly());
         hallVeganCheck.setSelected(h.isVeganFriendly());
+        updateHallFromResident();
 
         // Show record in display area
         hallRecordArea.setText(
@@ -335,6 +416,7 @@ public class HallUI {
         residentTypeCombo.setSelectedIndex(0);
         residentIdField.setText("");
         hallNameCombo.setSelectedIndex(0);
+        hallNameCombo.setEnabled(true);
         hallTypeCombo.setSelectedIndex(0);
         roomTypeCombo.setSelectedIndex(0);
         hallVegetarianCheck.setSelected(false);

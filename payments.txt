@@ -1,1 +1,4 @@
-1235,1212,arslan,200.0,18/04/2026,Card,true
+3001,1001,Jhon Smith,400.0,22/04/2026,Cash,false
+3002,1002,Alice Brown,500.0,22/04/2026,Card,false
+3003,1003,Arslan Hassan,580.0,22/04/2026,Bank Transfer,true
+3004,1004,Sarah Khan,400.0,22/04/2026,Card,true
