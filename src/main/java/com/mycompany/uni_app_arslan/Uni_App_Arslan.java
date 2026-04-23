@@ -140,6 +140,7 @@ public class Uni_App_Arslan {
      Clear Form
      Save To File
      Load From File
+     Delete Tab Records
     */
     public static JPanel createButtonPanel() {
 
@@ -152,6 +153,7 @@ public class Uni_App_Arslan {
         JButton clear = new JButton("Clear Form");
         JButton saveFile = new JButton("Save To File");
         JButton loadFile = new JButton("Load From File");
+        JButton deleteTabRecords = new JButton("Delete Tab Records");
 
         // Save record
         save.addActionListener(e -> {
@@ -234,12 +236,54 @@ public class Uni_App_Arslan {
             JOptionPane.showMessageDialog(null, "All records loaded from file.");
         });
 
+        // Delete tab records
+        deleteTabRecords.addActionListener(e -> {
+
+            // Check which tab is selected
+            int selectedTab = tabbedPane.getSelectedIndex();
+
+            // Confirm delete
+            int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    "Are you sure you want to delete all records in this tab from system memory?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            if (selectedTab == 0) {
+                store.clearStudents();
+                StudentUI.clearStudentForm();
+                JOptionPane.showMessageDialog(null, "All student records deleted from memory.");
+            } else if (selectedTab == 1) {
+                store.clearEmployees();
+                EmployeeUI.clearEmployeeForm();
+                JOptionPane.showMessageDialog(null, "All employee records deleted from memory.");
+            } else if (selectedTab == 2) {
+                store.clearHalls();
+                HallUI.clearHallForm();
+                JOptionPane.showMessageDialog(null, "All hall records deleted from memory.");
+            } else if (selectedTab == 3) {
+                store.clearPayments();
+                PaymentUI.clearPaymentForm();
+                JOptionPane.showMessageDialog(null, "All payment records deleted from memory.");
+            } else if (selectedTab == 4) {
+                JOptionPane.showMessageDialog(null, "Search tab has no records to delete.");
+            } else {
+                JOptionPane.showMessageDialog(null, "This tab is not ready yet.");
+            }
+        });
+
         // Add buttons to panel
         panel.add(save);
         panel.add(next);
         panel.add(clear);
         panel.add(saveFile);
         panel.add(loadFile);
+        panel.add(deleteTabRecords);
 
         return panel;
     }
