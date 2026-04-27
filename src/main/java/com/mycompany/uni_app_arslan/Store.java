@@ -3,46 +3,41 @@ package com.mycompany.uni_app_arslan;
 import java.util.ArrayList;
 
 /**
+ * Store class stores records for the university halls system.
+ *
+ * This class will be used to keep students, employees halls and payment in memory.
  *
  * @author Arslan Hassan
  */
-
-
-/*
- Store class stores records for the university halls system.
-
- This class will be used to keep students, employees halls adn payment  in memory.
-*/
-
 public class Store {
 
-    // List to store students
+    /** List to store students */
     private ArrayList<Student> students;
 
-    // List to store employees
+    /** List to store employees */
     private ArrayList<Employee> employees;
 
-    // List to store halls
+    /** List to store halls */
     private ArrayList<Hall> halls;
 
-    //List to store payments
+    /** List to store payments */
     private ArrayList<Payment> payments;
 
-    // Current position in student list
+    /** Current position in student list */
     private int studentIndex;
 
-    // Current position in employee list
+    /** Current position in employee list */
     private int employeeIndex;
 
-    // Current position in hall list
+    /** Current position in hall list */
     private int hallIndex;
 
-    // Current position in payment list
+    /** Current position in payment list */
     private int paymentIndex;
 
-    // Constructor
+    /** Constructor */
 
-    // Default constructor
+    /** Default constructor */
     public Store() {
 
         // Create the student list
@@ -65,29 +60,29 @@ public class Store {
     }
 
 
-    //Methods to add data
+    /** Methods to add data */
 
-    // Adds a student to the list
+    /** Adds a student to the list */
     public void addStudent(Student student) {
         students.add(student);
     }
 
-    // Adds an employee to the list
+    /** Adds an employee to the list */
     public void addEmployee(Employee employee){
         employees.add(employee);
     }
 
-    // Adds a hall to the list
+    /** Adds a hall to the list */
     public void addHall(Hall hall){
         halls.add(hall);
     }
 
-    // Adds a payment to the list
+    /** Adds a payment to the list */
     public void addPayment(Payment payment) {
         payments.add(payment);
     }
 
-    // Returns the next student in the list
+    /** Returns the next student in the list */
     public Student getNextStudent() {
 
         // Check if the list is empty
@@ -109,7 +104,7 @@ public class Store {
         return student;
     }
 
-    // Returns the next employee in the list
+    /** Returns the next employee in the list */
     public Employee getNextEmployee() {
 
         // Check if the list is empty
@@ -131,7 +126,7 @@ public class Store {
         return employee;
     }
 
-    // Returns the next hall in the list
+    /** Returns the next hall in the list */
     public Hall getNextHall() {
 
         // Check if the list is empty
@@ -153,7 +148,7 @@ public class Store {
         return hall;
     }
 
-    // Returns the next payment in the list
+    /** Returns the next payment in the list */
     public Payment getNextPayment() {
 
         // Check if the list is empty
@@ -175,51 +170,51 @@ public class Store {
         return payment;
     }
 
-    // Returns the student list
+    /** Returns the student list */
     public ArrayList<Student> getStudents() {
         return students;
     }
 
-    // Returns the employee list
+    /** Returns the employee list */
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
 
-    // Returns the hall list
+    /** Returns the hall list */
     public ArrayList<Hall> getHalls() {
         return halls;
     }
 
-    // Returns the payment list
+    /** Returns the payment list */
     public ArrayList<Payment> getPayments() {
         return payments;
     }
 
-    // Clears the student list
+    /** Clears the student list */
     public void clearStudents() {
         students.clear();
         studentIndex = 0;
     }
 
-    // Clears the employee list
+    /** Clears the employee list */
     public void clearEmployees() {
         employees.clear();
         employeeIndex = 0;
     }
 
-    // Clears the hall list
+    /** Clears the hall list */
     public void clearHalls() {
         halls.clear();
         hallIndex = 0;
     }
 
-    // Clears the payment list
+    /** Clears the payment list */
     public void clearPayments() {
         payments.clear();
         paymentIndex = 0;
     }
 
-    // Finds a student by ID
+    /** Finds a student by ID */
     public Student findStudentById(String id) {
 
         // Check each student in the list
@@ -235,7 +230,7 @@ public class Store {
         return null;
     }
 
-    // Finds an employee by ID
+    /** Finds an employee by ID */
     public Employee findEmployeeById(String id) {
 
         // Check each employee in the list

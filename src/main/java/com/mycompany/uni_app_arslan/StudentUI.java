@@ -10,25 +10,24 @@ import java.util.Date;
 import javax.swing.*;
 
 /**
+ * Student user interface.
+ * This class handles:
+ * Student form
+ * Student record display
+ * Save record
+ * Next record
+ * Clear form
  *
  * @author Arslan Hassan
  */
-
-/*
- Student user interface.
- This class handles:
- Student form
- Student record display
- Save record
- Next record
- Clear form
-*/
 public class StudentUI {
 
-    // STUDENT FORM FIELDS
-    // These will store user input
+    /**
+     * STUDENT FORM FIELDS
+     * These will store user input
+     */
 
-    // Text fields for personal details
+    /** Text fields for personal details */
     static JTextField studentNameField;
     static JSpinner studentDobSpinner;
     static JTextField studentAddressField;
@@ -36,37 +35,39 @@ public class StudentUI {
     static JTextField studentHealthField;
     static JSpinner studentRegistrationDateSpinner;
 
-    // Text fields for student details
+    /** Text fields for student details */
     static JTextField studentIdField;
     static JTextField studentYearField;
     static JTextField studentRentField;
 
-    // Combo box for hall selection
+    /** Combo box for hall selection */
     static JComboBox<String> studentHallCombo;
 
-    // Radio buttons for gender selection
+    /** Radio buttons for gender selection */
     static JRadioButton studentMaleButton;
     static JRadioButton studentFemaleButton;
     static JRadioButton studentOtherButton;
 
-    // Combo box for diet
+    /** Combo box for diet */
     static JComboBox<String> studentDietCombo;
 
-    // Check boxes for student options
+    /** Check boxes for student options */
     static JCheckBox studentGroundFloorCheck;
     static JCheckBox studentSeniorCheck;
 
-    // Text area for record display
+    /** Text area for record display */
     static JTextArea studentRecordArea;
 
-    // Scroll pane for record area
+    /** Scroll pane for record area */
     static JScrollPane studentRecordScrollPane;
 
-    // Record panel
+    /** Record panel */
     static JPanel studentRecordPanel;
 
-    // STUDENT ERROR LABELS
-    // These show inline validation messages
+    /**
+     * STUDENT ERROR LABELS
+     * These show inline validation messages
+     */
 
     static JLabel studentNameError;
     static JLabel studentGenderError;
@@ -79,13 +80,13 @@ public class StudentUI {
     static JLabel studentYearError;
     static JLabel studentRentError;
 
-    /*
-     Creates STUDENT TAB.
-     This includes:
-     personal details
-     student details
-     record display area
-    */
+    /**
+     * Creates STUDENT TAB.
+     * This includes:
+     * personal details
+     * student details
+     * record display area
+     */
     public static JPanel createStudentTab() {
 
         // Main panel for Student tab
@@ -272,9 +273,9 @@ public class StudentUI {
         return mainPanel;
     }
 
-    /*
-     Creates a simple helper row.
-    */
+    /**
+     * Creates a simple helper row.
+     */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
         // Create row panel
@@ -291,10 +292,10 @@ public class StudentUI {
         return panel;
     }
 
-    /*
-     Creates a field block.
-     This puts the error label under the row.
-    */
+    /**
+     * Creates a field block.
+     * This puts the error label under the row.
+     */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
         JPanel panel = new JPanel();
@@ -309,9 +310,9 @@ public class StudentUI {
         return panel;
     }
 
-    /*
-     Creates an error label.
-    */
+    /**
+     * Creates an error label.
+     */
     public static JLabel createErrorLabel() {
 
         JLabel label = new JLabel(" ");
@@ -319,9 +320,9 @@ public class StudentUI {
         return label;
     }
 
-    /*
-     Creates a simple date spinner.
-    */
+    /**
+     * Creates a simple date spinner.
+     */
     public static JSpinner createDateSpinner() {
 
         SpinnerDateModel model = new SpinnerDateModel();
@@ -332,9 +333,9 @@ public class StudentUI {
         return spinner;
     }
 
-    /*
- Updates hall selection based on student needs.
-*/
+    /**
+     * Updates hall selection based on student needs.
+     */
     public static void updateHallSelection() {
 
         // If health condition is entered, force ground floor
@@ -365,9 +366,9 @@ public class StudentUI {
         }
     }
 
-    /*
-     Gets selected gender from Student radio buttons.
-    */
+    /**
+     * Gets selected gender from Student radio buttons.
+     */
     public static String getStudentGender() {
 
         if (studentMaleButton.isSelected()) {
@@ -381,9 +382,9 @@ public class StudentUI {
         return "";
     }
 
-    /*
-     Gets date text from spinner.
-    */
+    /**
+     * Gets date text from spinner.
+     */
     public static String getDateText(JSpinner spinner) {
 
         Date date = (Date) spinner.getValue();
@@ -391,9 +392,9 @@ public class StudentUI {
         return format.format(date);
     }
 
-    /*
-     Sets spinner date from text.
-    */
+    /**
+     * Sets spinner date from text.
+     */
     public static void setDateText(JSpinner spinner, String text) {
 
         try {
@@ -405,9 +406,9 @@ public class StudentUI {
         }
     }
 
-    /*
-     Clears all Student error labels.
-    */
+    /**
+     * Clears all Student error labels.
+     */
     public static void clearStudentErrors() {
 
         studentNameError.setText(" ");
@@ -422,9 +423,9 @@ public class StudentUI {
         studentRentError.setText(" ");
     }
 
-    /*
-     Validates Student form.
-    */
+    /**
+     * Validates Student form.
+     */
     public static boolean validateStudentForm() {
 
         boolean valid = true;
@@ -498,9 +499,9 @@ public class StudentUI {
         return valid;
     }
 
-    /*
-     Saves Student record into Store.
-    */
+    /**
+     * Saves Student record into Store.
+     */
     public static void saveStudentRecord() {
 
         if (!validateStudentForm()) {
@@ -534,9 +535,9 @@ public class StudentUI {
         }
     }
 
-    /*
-     Shows next Student record from Store.
-    */
+    /**
+     * Shows next Student record from Store.
+     */
     public static void showNextStudentRecord() {
 
         Student s = Uni_App_Arslan.store.getNextStudent();
@@ -604,9 +605,9 @@ public class StudentUI {
         );
     }
 
-    /*
-     Formats one display line.
-    */
+    /**
+     * Formats one display line.
+     */
     public static String formatLine(String label, String value) {
 
         if (value == null || value.trim().isEmpty()) {
@@ -616,16 +617,16 @@ public class StudentUI {
         return label + " " + value + "\n\n";
     }
 
-    /*
-     Formats amount as British pounds.
-    */
+    /**
+     * Formats amount as British pounds.
+     */
     public static String formatPounds(double amount) {
         return String.format("£%.2f", amount);
     }
 
-    /*
-     Converts boolean to Yes or No.
-    */
+    /**
+     * Converts boolean to Yes or No.
+     */
     public static String yesNo(boolean value) {
 
         if (value) {
@@ -635,9 +636,9 @@ public class StudentUI {
         return "No";
     }
 
-    /*
-     Clears Student form fields.
-    */
+    /**
+     * Clears Student form fields.
+     */
     public static void clearStudentForm() {
 
         studentNameField.setText("");

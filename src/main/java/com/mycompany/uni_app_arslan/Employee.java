@@ -5,34 +5,35 @@ package com.mycompany.uni_app_arslan;
  *
  * @author Arslan Hassan
  */
-/*
- Employee class represents a staff member in the university halls system.
 
- This class extends Person.
- It will inherit common information from the Person class.
-*/
+/**
+ * Employee class represents a staff member in the university halls system.
+ *
+ * This class extends Person.
+ * It will inherit common information from the Person class.
+ */
 public class Employee extends Person {
 
-    // Employee ID
+    /** Employee ID */
     private String employeeId;
 
-    // Job role (e.g. cleaner, manager, security)
+    /** Job role (e.g. cleaner, manager, security) */
     private String jobRole;
 
-    // Salary of the employee
+    /** Salary of the employee */
     private double salary;
 
-    // Hall name where the employee works or lives
+    /** Hall name where the employee works or lives */
     private String hallName;
 
 
-    // Constructors
+    /** CONSTRCUTORS */
 
-    // Default constructor
+    /** Default constructor */
     public Employee() {
     }
 
-    // Full constructor
+    /** Full constructor */
     public Employee(String name, String gender, String dateOfBirth, String address,
                     String nationality, String healthConditions, String registrationDate,
                     String employeeId, String jobRole, double salary, String hallName) {
@@ -49,44 +50,44 @@ public class Employee extends Person {
     }
 
 
-    // Getters and Setters
+    /** GETTER AND SETTLER */
 
-    // Returns the employee ID
+    /** Returns the employee ID */
     public String getEmployeeId() {
         return employeeId;
     }
 
-    // Sets the employee ID
+    /** Sets the employee ID */
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 
-    // Returns the job role
+    /** Returns the job role */
     public String getJobRole() {
         return jobRole;
     }
 
-    // Sets the job role
+    /** Sets the job role */
     public void setJobRole(String jobRole) {
         this.jobRole = jobRole;
     }
 
-    // Returns the salary
+    /** Returns the salary */
     public double getSalary() {
         return salary;
     }
 
-    // Sets the salary
+    /** Sets the salary */
     public void setSalary(double salary) {
         this.salary = salary;
     }
 
-    // Returns the hall name
+    /** Returns the hall name */
     public String getHallName() {
         return hallName;
     }
 
-    // Sets the hall name
+    /** Sets the hall name */
     public void setHallName(String hallName) {
         this.hallName = hallName;
     }
@@ -96,9 +97,9 @@ public class Employee extends Person {
         return "Employee";
     }
 
-    // toString method
+    /** toString method */
 
-    // Returns a readable version of the employee object
+    /** Returns a readable version of the employee object */
     @Override
     public String toString() {
         return "Employee: " +

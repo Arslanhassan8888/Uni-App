@@ -10,25 +10,24 @@ import java.util.Date;
 import javax.swing.*;
 
 /**
+ * Payment user interface.
+ * This class handles:
+ * Payment form
+ * Payment record display
+ * Save record
+ * Next record
+ * Clear form
  *
  * @author Arslan Hassan
  */
-
-/*
- Payment user interface.
- This class handles:
- Payment form
- Payment record display
- Save record
- Next record
- Clear form
-*/
 public class PaymentUI {
 
-    // PAYMENT FORM FIELDS
-    // These will store payment input
+    /**
+     * PAYMENT FORM FIELDS
+     * These will store payment input
+     */
 
-    // Text fields for payment details
+    /** Text fields for payment details */
     static JTextField paymentIdField;
     static JTextField paymentStudentIdField;
     static JTextField paymentStudentNameField;
@@ -37,35 +36,37 @@ public class PaymentUI {
     static JTextField paymentRemainingField;
     static JTextField paymentStatusField;
 
-    // Date spinner for payment date
+    /** Date spinner for payment date */
     static JSpinner paymentDateSpinner;
 
-    // Combo box for payment method
+    /** Combo box for payment method */
     static JComboBox<String> paymentMethodCombo;
 
-    // Text area for record display
+    /** Text area for record display */
     static JTextArea paymentRecordArea;
 
-    // Scroll pane for record area
+    /** Scroll pane for record area */
     static JScrollPane paymentRecordScrollPane;
 
-    // Record panel
+    /** Record panel */
     static JPanel paymentRecordPanel;
 
-    // PAYMENT ERROR LABELS
-    // These show inline validation messages
+    /**
+     * PAYMENT ERROR LABELS
+     * These show inline validation messages
+     */
 
     static JLabel paymentIdError;
     static JLabel paymentStudentIdError;
     static JLabel paymentAmountPaidError;
     static JLabel paymentDateError;
 
-    /*
-     Creates PAYMENT TAB.
-     This includes:
-     payment details
-     record display area
-    */
+    /**
+     * Creates PAYMENT TAB.
+     * This includes:
+     * payment details
+     * record display area
+     */
     public static JPanel createPaymentTab() {
 
         // Main panel for Payment tab
@@ -174,9 +175,9 @@ public class PaymentUI {
         return mainPanel;
     }
 
-    /*
-     Creates a simple helper row.
-    */
+    /**
+     * Creates a simple helper row.
+     */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
         // Create row panel
@@ -193,10 +194,10 @@ public class PaymentUI {
         return panel;
     }
 
-    /*
-     Creates a field block.
-     This puts the error label under the row.
-    */
+    /**
+     * Creates a field block.
+     * This puts the error label under the row.
+     */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
         JPanel panel = new JPanel();
@@ -211,9 +212,9 @@ public class PaymentUI {
         return panel;
     }
 
-    /*
-     Creates an error label.
-    */
+    /**
+     * Creates an error label.
+     */
     public static JLabel createErrorLabel() {
 
         JLabel label = new JLabel("");
@@ -222,9 +223,9 @@ public class PaymentUI {
         return label;
     }
 
-    /*
-     Creates a simple date spinner.
-    */
+    /**
+     * Creates a simple date spinner.
+     */
     public static JSpinner createDateSpinner() {
 
         SpinnerDateModel model = new SpinnerDateModel();
@@ -235,9 +236,9 @@ public class PaymentUI {
         return spinner;
     }
 
-    /*
-     Gets date text from spinner.
-    */
+    /**
+     * Gets date text from spinner.
+     */
     public static String getDateText(JSpinner spinner) {
 
         Date date = (Date) spinner.getValue();
@@ -245,9 +246,9 @@ public class PaymentUI {
         return format.format(date);
     }
 
-    /*
-     Sets spinner date from text.
-    */
+    /**
+     * Sets spinner date from text.
+     */
     public static void setDateText(JSpinner spinner, String text) {
 
         try {
@@ -259,9 +260,9 @@ public class PaymentUI {
         }
     }
 
-    /*
-     Loads student details into payment form.
-    */
+    /**
+     * Loads student details into payment form.
+     */
     public static void loadStudentDetails() {
 
         String id = paymentStudentIdField.getText().trim();
@@ -289,9 +290,9 @@ public class PaymentUI {
         }
     }
 
-    /*
-     Calculates remaining balance and status.
-    */
+    /**
+     * Calculates remaining balance and status.
+     */
     public static void calculatePaymentDetails() {
 
         String rentText = paymentRentField.getText().trim();
@@ -323,9 +324,9 @@ public class PaymentUI {
         }
     }
 
-    /*
-     Clears Payment error labels.
-    */
+    /**
+     * Clears Payment error labels.
+     */
     public static void clearPaymentErrors() {
 
         paymentIdError.setText("");
@@ -334,9 +335,9 @@ public class PaymentUI {
         paymentDateError.setText("");
     }
 
-    /*
-     Validates Payment form.
-    */
+    /**
+     * Validates Payment form.
+     */
     public static boolean validatePaymentForm() {
 
         boolean valid = true;
@@ -392,9 +393,9 @@ public class PaymentUI {
         return valid;
     }
 
-    /*
-     Saves Payment record into Store.
-    */
+    /**
+     * Saves Payment record into Store.
+     */
     public static void savePaymentRecord() {
 
         if (!validatePaymentForm()) {
@@ -439,9 +440,9 @@ public class PaymentUI {
         }
     }
 
-    /*
-     Shows next Payment record from Store.
-    */
+    /**
+     * Shows next Payment record from Store.
+     */
     public static void showNextPaymentRecord() {
 
         Payment p = Uni_App_Arslan.store.getNextPayment();
@@ -487,9 +488,9 @@ public class PaymentUI {
         );
     }
 
-    /*
-     Clears Payment form fields.
-    */
+    /**
+     * Clears Payment form fields.
+     */
     public static void clearPaymentForm() {
 
         paymentIdField.setText("");
@@ -514,9 +515,9 @@ public class PaymentUI {
         paymentRecordPanel.setBackground(null);
     }
 
-    /*
-     Formats one display line.
-    */
+    /**
+     * Formats one display line.
+     */
     public static String formatLine(String label, String value) {
 
         if (value == null || value.trim().isEmpty()) {
@@ -526,16 +527,16 @@ public class PaymentUI {
         return label + " " + value + "\n\n";
     }
 
-    /*
-     Formats amount as British pounds.
-    */
+    /**
+     * Formats amount as British pounds.
+     */
     public static String formatPounds(double amount) {
         return String.format("£%.2f", amount);
     }
 
-    /*
-     Converts boolean to Yes or No.
-    */
+    /**
+     * Converts boolean to Yes or No.
+     */
     public static String yesNo(boolean value) {
 
         if (value) {

@@ -1,34 +1,32 @@
 package com.mycompany.uni_app_arslan;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
 /**
+ * FileManager class handles saving and loading records.
+ *
+ * This class is used to save data to text files
+ * and load data back from text files.
  *
  * @author Arslan Hassan
  */
-
-/*
- FileManager class handles saving and loading records.
-
- This class is used to save data to text files
- and load data back from text files.
-*/
 public class FileManager {
 
-    // File name for student records
+    /** File name for student records */
     private static final String STUDENT_FILE = "students.txt";
 
-    // File name for employee records
+    /** File name for employee records */
     private static final String EMPLOYEE_FILE = "employees.txt";
 
-    // File name for hall records
+    /** File name for hall records */
     private static final String HALL_FILE = "halls.txt";
 
-    // File name for payment records
+    /** File name for payment records */
     private static final String PAYMENT_FILE = "payments.txt";
 
-    // Saves all student records to file
+    /** Saves all student records to file */
     public static void saveStudents(Store store) {
 
         try {
@@ -66,7 +64,7 @@ public class FileManager {
         }
     }
 
-    // Loads all student records from file
+    /** Loads all student records from file */
     public static void loadStudents(Store store) {
 
         try {
@@ -110,7 +108,7 @@ public class FileManager {
         }
     }
 
-    // Saves all employee records to file
+    /** Saves all employee records to file */
     public static void saveEmployees(Store store) {
 
         try {
@@ -145,7 +143,7 @@ public class FileManager {
         }
     }
 
-    // Loads all employee records from file
+    /** Loads all employee records from file */
     public static void loadEmployees(Store store) {
 
         try {
@@ -186,7 +184,7 @@ public class FileManager {
         }
     }
 
-    // Saves all hall records to file
+    /** Saves all hall records to file */
     public static void saveHalls(Store store) {
 
         try {
@@ -217,7 +215,7 @@ public class FileManager {
         }
     }
 
-    // Loads all hall records from file
+    /** Loads all hall records from file */
     public static void loadHalls(Store store) {
 
         try {
@@ -254,7 +252,7 @@ public class FileManager {
         }
     }
 
-    // Saves all payment records to file
+    /** Saves all payment records to file */
     public static void savePayments(Store store) {
 
         try {
@@ -285,7 +283,7 @@ public class FileManager {
         }
     }
 
-    // Loads all payment records from file
+    /** Loads all payment records from file */
     public static void loadPayments(Store store) {
 
         try {

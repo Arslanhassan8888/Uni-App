@@ -1,52 +1,49 @@
 package com.mycompany.uni_app_arslan;
 
 /**
+ * Hall class represents a hall record in the university halls system.
+ *
+ * This class stores information about:
+ * hall name
+ * hall type
+ * who the hall record is for
+ * the related person ID
+ * room type
+ * vegetarian option
+ * vegan option
  *
  * @author Arslan Hassan
  */
-
-/*
- Hall class represents a hall record in the university halls system.
-
- This class stores information about:
- hall name
- hall type
- who the hall record is for
- the related person ID
- room type
- vegetarian option
- vegan option
-*/
 public class Hall {
 
-    // Name of the hall
+    /** Name of the hall */
     private String hallName;
 
-    // Type of hall (e.g. mixed, female only, quiet)
+    /** Type of hall (e.g. mixed, female only, quiet) */
     private String hallType;
 
-    // Is this hall record for a student or employee?
+    /** Is this hall record for a student or employee? */
     private String residentType;
 
-    // ID of the student or employee
+    /** ID of the student or employee */
     private String residentId;
 
-    // Room type (e.g. 1 Person, 2 Person)
+    /** Room type (e.g. 1 Person, 2 Person) */
     private String roomType;
 
-    // Is the hall suitable for vegetarian people?
+    /** Is the hall suitable for vegetarian people? */
     private boolean vegetarianFriendly;
 
-    // Is the hall suitable for vegan people?
+    /** Is the hall suitable for vegan people? */
     private boolean veganFriendly;
 
-    // Constructors
+    /** Constructors */
 
-    // Default constructor
+    /** Default constructor */
     public Hall() {
     }
 
-    // Full constructor
+    /** Full constructor */
     public Hall(String hallName, String hallType, String residentType,
                 String residentId, String roomType,
                 boolean vegetarianFriendly, boolean veganFriendly) {
@@ -60,7 +57,7 @@ public class Hall {
         this.veganFriendly = veganFriendly;
     }
 
-    // Getters and Setters
+    /** Getters and Setters */
 
     public String getHallName() {
         return hallName;
@@ -118,7 +115,7 @@ public class Hall {
         this.veganFriendly = veganFriendly;
     }
 
-    // toString method
+    /** toString method */
 
     @Override
     public String toString() {

@@ -8,44 +8,43 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
+ * Search user interface.
+ * This class handles:
+ * Search form
+ * Search result display
+ * Search validation
+ * Clear form
  *
  * @author Arslan Hassan
  */
-
-/*
- Search user interface.
- This class handles:
- Search form
- Search result display
- Search validation
- Clear form
-*/
 public class SearchUI {
 
-    // SEARCH FORM FIELDS
-    // These will store search input
+    /**
+     * SEARCH FORM FIELDS
+     * These will store search input
+     */
 
-    // Text field for ID search
+    /** Text field for ID search */
     static JTextField searchIdField;
 
-    // Error label
+    /** Error label */
     static JLabel searchIdError;
 
-    // Text area for search result display
+    /** Text area for search result display */
     static JTextArea searchResultArea;
 
-    // Scroll pane for result area
+    /** Scroll pane for result area */
     static JScrollPane searchResultScrollPane;
 
-    // Record panel
+    /** Record panel */
     static JPanel searchResultPanel;
 
-    /*
-     Creates SEARCH TAB.
-     This includes:
-     search form
-     result display area
-    */
+    /**
+     * Creates SEARCH TAB.
+     * This includes:
+     * search form
+     * result display area
+     */
     public static JPanel createSearchTab() {
 
         // Main panel for Search tab
@@ -114,10 +113,10 @@ public class SearchUI {
         return mainPanel;
     }
 
-    /*
-     Creates a field block.
-     This puts the error label under the row.
-    */
+    /**
+     * Creates a field block.
+     * This puts the error label under the row.
+     */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
         JPanel panel = new JPanel();
@@ -134,9 +133,9 @@ public class SearchUI {
         return panel;
     }
 
-    /*
-     Creates an error label.
-    */
+    /**
+     * Creates an error label.
+     */
     public static JLabel createErrorLabel() {
 
         JLabel label = new JLabel(" ");
@@ -144,9 +143,9 @@ public class SearchUI {
         return label;
     }
 
-    /*
-     Searches for a person by ID.
-    */
+    /**
+     * Searches for a person by ID.
+     */
     public static void searchPerson() {
 
         // Clear old error
@@ -237,9 +236,9 @@ public class SearchUI {
         searchResultArea.setText("No student or employee found with this ID.");
     }
 
-    /*
-     Formats one display line.
-    */
+    /**
+     * Formats one display line.
+     */
     public static String formatLine(String label, String value) {
 
         if (value == null || value.trim().isEmpty()) {
@@ -249,16 +248,16 @@ public class SearchUI {
         return label + " " + value + "\n\n";
     }
 
-    /*
-     Formats amount as British pounds.
-    */
+    /**
+     * Formats amount as British pounds.
+     */
     public static String formatPounds(double amount) {
         return String.format("£%.2f", amount);
     }
 
-    /*
-     Converts boolean to Yes or No.
-    */
+    /**
+     * Converts boolean to Yes or No.
+     */
     public static String yesNo(boolean value) {
 
         if (value) {
@@ -268,9 +267,9 @@ public class SearchUI {
         return "No";
     }
 
-    /*
-     Clears Search form fields.
-    */
+    /**
+     * Clears Search form fields.
+     */
     public static void clearSearchForm() {
 
         searchIdField.setText("");

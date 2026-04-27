@@ -8,63 +8,64 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
+ * Hall user interface.
+ * This class handles:
+ * Hall form
+ * Hall record display
+ * Save record
+ * Next record
+ * Clear form
  *
  * @author Arslan Hassan
  */
-
-/*
- Hall user interface.
- This class handles:
- Hall form
- Hall record display
- Save record
- Next record
- Clear form
-*/
 public class HallUI {
 
-    // HALL FORM FIELDS
-    // These will store hall input
+    /**
+     * HALL FORM FIELDS
+     * These will store hall input
+     */
 
-    // Combo box for hall name
+    /** Combo box for hall name */
     static JComboBox<String> hallNameCombo;
 
-    // Combo box for hall type
+    /** Combo box for hall type */
     static JComboBox<String> hallTypeCombo;
 
-    // Combo box for resident type
+    /** Combo box for resident type */
     static JComboBox<String> residentTypeCombo;
 
-    // Text field for resident ID
+    /** Text field for resident ID */
     static JTextField residentIdField;
 
-    // Combo box for room type
+    /** Combo box for room type */
     static JComboBox<String> roomTypeCombo;
 
-    // Check boxes for hall options
+    /** Check boxes for hall options */
     static JCheckBox hallVegetarianCheck;
     static JCheckBox hallVeganCheck;
 
-    // Text area for record display
+    /** Text area for record display */
     static JTextArea hallRecordArea;
 
-    // Scroll pane for record area
+    /** Scroll pane for record area */
     static JScrollPane hallRecordScrollPane;
 
-    // Record panel
+    /** Record panel */
     static JPanel hallRecordPanel;
 
-    // HALL ERROR LABELS
-    // These show inline validation messages
+    /**
+     * HALL ERROR LABELS
+     * These show inline validation messages
+     */
 
     static JLabel residentIdError;
 
-    /*
-     Creates HALL TAB.
-     This includes:
-     hall details
-     record display area
-    */
+    /**
+     * Creates HALL TAB.
+     * This includes:
+     * hall details
+     * record display area
+     */
     public static JPanel createHallTab() {
 
         // Main panel for Hall tab
@@ -166,9 +167,9 @@ public class HallUI {
         return mainPanel;
     }
 
-    /*
-     Creates a simple helper row.
-    */
+    /**
+     * Creates a simple helper row.
+     */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
         // Create row panel
@@ -185,10 +186,10 @@ public class HallUI {
         return panel;
     }
 
-    /*
-     Creates a field block.
-     This puts the error label under the row.
-    */
+    /**
+     * Creates a field block.
+     * This puts the error label under the row.
+     */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
         JPanel panel = new JPanel();
@@ -203,9 +204,9 @@ public class HallUI {
         return panel;
     }
 
-    /*
-     Creates an error label.
-    */
+    /**
+     * Creates an error label.
+     */
     public static JLabel createErrorLabel() {
 
         JLabel label = new JLabel("");
@@ -214,9 +215,9 @@ public class HallUI {
         return label;
     }
 
-    /*
-     Updates hall fields automatically from resident details.
-    */
+    /**
+     * Updates hall fields automatically from resident details.
+     */
     public static void updateHallFromResident() {
 
         // Reset automatic hall options first
@@ -284,16 +285,16 @@ public class HallUI {
         }
     }
 
-    /*
-     Clears Hall error labels.
-    */
+    /**
+     * Clears Hall error labels.
+     */
     public static void clearHallErrors() {
         residentIdError.setText("");
     }
 
-    /*
-     Validates Hall form.
-    */
+    /**
+     * Validates Hall form.
+     */
     public static boolean validateHallForm() {
 
         boolean valid = true;
@@ -311,9 +312,9 @@ public class HallUI {
         return valid;
     }
 
-    /*
-     Saves Hall record into Store.
-    */
+    /**
+     * Saves Hall record into Store.
+     */
     public static void saveHallRecord() {
 
         if (!validateHallForm()) {
@@ -340,9 +341,9 @@ public class HallUI {
         }
     }
 
-    /*
-     Shows next Hall record from Store.
-    */
+    /**
+     * Shows next Hall record from Store.
+     */
     public static void showNextHallRecord() {
 
         Hall h = Uni_App_Arslan.store.getNextHall();
@@ -384,9 +385,9 @@ public class HallUI {
         );
     }
 
-    /*
-     Formats one display line.
-    */
+    /**
+     * Formats one display line.
+     */
     public static String formatLine(String label, String value) {
 
         if (value == null || value.trim().isEmpty()) {
@@ -396,9 +397,9 @@ public class HallUI {
         return label + " " + value + "\n\n";
     }
 
-    /*
-     Converts boolean to Yes or No.
-    */
+    /**
+     * Converts boolean to Yes or No.
+     */
     public static String yesNo(boolean value) {
 
         if (value) {
@@ -408,9 +409,9 @@ public class HallUI {
         return "No";
     }
 
-    /*
-     Clears Hall form fields.
-    */
+    /**
+     * Clears Hall form fields.
+     */
     public static void clearHallForm() {
 
         residentTypeCombo.setSelectedIndex(0);
