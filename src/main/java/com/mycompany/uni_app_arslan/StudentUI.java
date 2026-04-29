@@ -11,6 +11,7 @@ import javax.swing.*;
 
 /**
  * Student user interface.
+ *
  * This class handles:
  * Student form
  * Student record display
@@ -22,12 +23,12 @@ import javax.swing.*;
  */
 public class StudentUI {
 
-    /**
-     * STUDENT FORM FIELDS
-     * These will store user input
-     */
+/**
+ * STUDENT FORM FIELDS
+ * These store user input for the student form.
+ */
 
-    /** Text fields for personal details */
+    /** Text fields and date spinners for personal details. */
     static JTextField studentNameField;
     static JSpinner studentDobSpinner;
     static JTextField studentAddressField;
@@ -35,40 +36,35 @@ public class StudentUI {
     static JTextField studentHealthField;
     static JSpinner studentRegistrationDateSpinner;
 
-    /** Text fields for student details */
+    /** Text fields for student details. */
     static JTextField studentIdField;
     static JTextField studentYearField;
     static JTextField studentRentField;
 
-    /** Combo box for hall selection */
+    /** Combo boxes for hall and dietary selections. */
     static JComboBox<String> studentHallCombo;
+    static JComboBox<String> studentDietCombo;
 
-    /** Radio buttons for gender selection */
+    /** Radio buttons for gender selection. */
     static JRadioButton studentMaleButton;
     static JRadioButton studentFemaleButton;
     static JRadioButton studentOtherButton;
 
-    /** Combo box for diet */
-    static JComboBox<String> studentDietCombo;
-
-    /** Check boxes for student options */
+    /** Check boxes for student options. */
     static JCheckBox studentGroundFloorCheck;
     static JCheckBox studentSeniorCheck;
 
-    /** Text area for record display */
+    /** Components used to display student records. */
     static JTextArea studentRecordArea;
-
-    /** Scroll pane for record area */
     static JScrollPane studentRecordScrollPane;
-
-    /** Record panel */
     static JPanel studentRecordPanel;
 
-    /**
-     * STUDENT ERROR LABELS
-     * These show inline validation messages
-     */
+/**
+ * STUDENT ERROR LABELS
+ * These show inline validation messages.
+ */
 
+    /** Error labels for personal details. */
     static JLabel studentNameError;
     static JLabel studentGenderError;
     static JLabel studentDobError;
@@ -76,16 +72,19 @@ public class StudentUI {
     static JLabel studentNationalityError;
     static JLabel studentHealthError;
     static JLabel studentRegistrationError;
+
+    /** Error labels for student details. */
     static JLabel studentIdError;
     static JLabel studentYearError;
     static JLabel studentRentError;
-
     /**
      * Creates STUDENT TAB.
      * This includes:
      * personal details
      * student details
      * record display area
+     *
+     * @return student tab panel
      */
     public static JPanel createStudentTab() {
 
@@ -275,6 +274,11 @@ public class StudentUI {
 
     /**
      * Creates a simple helper row.
+     *
+     * @param labelText text shown in the label
+     * @param field input component placed next to the label
+     * @param size preferred size of the label
+     * @return row panel containing the label and input component
      */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
@@ -295,6 +299,10 @@ public class StudentUI {
     /**
      * Creates a field block.
      * This puts the error label under the row.
+     *
+     * @param rowPanel row panel containing the field and label
+     * @param errorLabel error label shown under the row
+     * @return panel containing the row and error label
      */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
@@ -312,6 +320,8 @@ public class StudentUI {
 
     /**
      * Creates an error label.
+     *
+     * @return error label with red text
      */
     public static JLabel createErrorLabel() {
 
@@ -322,6 +332,8 @@ public class StudentUI {
 
     /**
      * Creates a simple date spinner.
+     *
+     * @return date spinner with dd/MM/yyyy format
      */
     public static JSpinner createDateSpinner() {
 
@@ -335,6 +347,9 @@ public class StudentUI {
 
     /**
      * Updates hall selection based on student needs.
+     *
+     * This checks health conditions, ground floor requirement,
+     * and dietary preference to select the correct hall automatically.
      */
     public static void updateHallSelection() {
 
@@ -368,6 +383,8 @@ public class StudentUI {
 
     /**
      * Gets selected gender from Student radio buttons.
+     *
+     * @return selected gender, or an empty string if no gender is selected
      */
     public static String getStudentGender() {
 
@@ -384,6 +401,9 @@ public class StudentUI {
 
     /**
      * Gets date text from spinner.
+     *
+     * @param spinner date spinner to read from
+     * @return formatted date as text
      */
     public static String getDateText(JSpinner spinner) {
 
@@ -394,6 +414,9 @@ public class StudentUI {
 
     /**
      * Sets spinner date from text.
+     *
+     * @param spinner date spinner to update
+     * @param text date text in dd/MM/yyyy format
      */
     public static void setDateText(JSpinner spinner, String text) {
 
@@ -425,6 +448,8 @@ public class StudentUI {
 
     /**
      * Validates Student form.
+     *
+     * @return true if the student form is valid, otherwise false
      */
     public static boolean validateStudentForm() {
 
@@ -607,6 +632,10 @@ public class StudentUI {
 
     /**
      * Formats one display line.
+     *
+     * @param label label text to display
+     * @param value value text to display
+     * @return formatted display line
      */
     public static String formatLine(String label, String value) {
 
@@ -619,6 +648,9 @@ public class StudentUI {
 
     /**
      * Formats amount as British pounds.
+     *
+     * @param amount amount to format
+     * @return amount formatted as British pounds
      */
     public static String formatPounds(double amount) {
         return String.format("£%.2f", amount);
@@ -626,6 +658,9 @@ public class StudentUI {
 
     /**
      * Converts boolean to Yes or No.
+     *
+     * @param value boolean value
+     * @return Yes if true, otherwise No
      */
     public static String yesNo(boolean value) {
 

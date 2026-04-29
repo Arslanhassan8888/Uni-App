@@ -9,6 +9,7 @@ import javax.swing.*;
 
 /**
  * Hall user interface.
+ *
  * This class handles:
  * Hall form
  * Hall record display
@@ -22,42 +23,33 @@ public class HallUI {
 
     /**
      * HALL FORM FIELDS
-     * These will store hall input
+     * These store hall input.
      */
 
-    /** Combo box for hall name */
+    /** Combo boxes for hall details. */
     static JComboBox<String> hallNameCombo;
-
-    /** Combo box for hall type */
     static JComboBox<String> hallTypeCombo;
-
-    /** Combo box for resident type */
     static JComboBox<String> residentTypeCombo;
-
-    /** Text field for resident ID */
-    static JTextField residentIdField;
-
-    /** Combo box for room type */
     static JComboBox<String> roomTypeCombo;
 
-    /** Check boxes for hall options */
+    /** Text field for resident ID. */
+    static JTextField residentIdField;
+
+    /** Check boxes for hall options. */
     static JCheckBox hallVegetarianCheck;
     static JCheckBox hallVeganCheck;
 
-    /** Text area for record display */
+    /** Components used to display hall records. */
     static JTextArea hallRecordArea;
-
-    /** Scroll pane for record area */
     static JScrollPane hallRecordScrollPane;
-
-    /** Record panel */
     static JPanel hallRecordPanel;
 
     /**
      * HALL ERROR LABELS
-     * These show inline validation messages
+     * These show inline validation messages.
      */
 
+    /** Error label for resident ID. */
     static JLabel residentIdError;
 
     /**
@@ -65,6 +57,8 @@ public class HallUI {
      * This includes:
      * hall details
      * record display area
+     *
+     * @return hall tab panel
      */
     public static JPanel createHallTab() {
 
@@ -169,6 +163,11 @@ public class HallUI {
 
     /**
      * Creates a simple helper row.
+     *
+     * @param labelText text shown in the label
+     * @param field input component placed next to the label
+     * @param size preferred size of the label
+     * @return row panel containing the label and input component
      */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
@@ -189,6 +188,10 @@ public class HallUI {
     /**
      * Creates a field block.
      * This puts the error label under the row.
+     *
+     * @param rowPanel row panel containing the field and label
+     * @param errorLabel error label shown under the row
+     * @return panel containing the row and error label
      */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
@@ -206,6 +209,8 @@ public class HallUI {
 
     /**
      * Creates an error label.
+     *
+     * @return error label with red text
      */
     public static JLabel createErrorLabel() {
 
@@ -217,6 +222,9 @@ public class HallUI {
 
     /**
      * Updates hall fields automatically from resident details.
+     *
+     * This method uses the resident type and resident ID to find a matching
+     * student record and automatically update hall options when needed.
      */
     public static void updateHallFromResident() {
 
@@ -294,6 +302,8 @@ public class HallUI {
 
     /**
      * Validates Hall form.
+     *
+     * @return true if the hall form is valid, otherwise false
      */
     public static boolean validateHallForm() {
 
@@ -387,6 +397,10 @@ public class HallUI {
 
     /**
      * Formats one display line.
+     *
+     * @param label label text to display
+     * @param value value text to display
+     * @return formatted display line
      */
     public static String formatLine(String label, String value) {
 
@@ -399,6 +413,9 @@ public class HallUI {
 
     /**
      * Converts boolean to Yes or No.
+     *
+     * @param value boolean value
+     * @return Yes if true, otherwise No
      */
     public static String yesNo(boolean value) {
 

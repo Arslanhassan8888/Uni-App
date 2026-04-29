@@ -11,6 +11,7 @@ import javax.swing.*;
 
 /**
  * Employee user interface.
+ *
  * This class handles:
  * Employee form
  * Employee record display
@@ -24,10 +25,10 @@ public class EmployeeUI {
 
     /**
      * EMPLOYEE FORM FIELDS
-     * These will store employee input
+     * These store employee input.
      */
 
-    /** Text fields for personal details */
+    /** Text fields and date spinners for personal details. */
     static JTextField employeeNameField;
     static JSpinner employeeDobSpinner;
     static JTextField employeeAddressField;
@@ -35,33 +36,30 @@ public class EmployeeUI {
     static JTextField employeeHealthField;
     static JSpinner employeeRegistrationDateSpinner;
 
-    /** Text fields for employee details */
+    /** Text fields for employee details. */
     static JTextField employeeIdField;
     static JTextField employeeSalaryField;
 
-    /** Combo boxes for employee details */
+    /** Combo boxes for employee details. */
     static JComboBox<String> employeeJobRoleCombo;
     static JComboBox<String> employeeHallCombo;
 
-    /** Radio buttons for gender selection */
+    /** Radio buttons for gender selection. */
     static JRadioButton employeeMaleButton;
     static JRadioButton employeeFemaleButton;
     static JRadioButton employeeOtherButton;
 
-    /** Text area for record display */
+    /** Components used to display employee records. */
     static JTextArea employeeRecordArea;
-
-    /** Scroll pane for record area */
     static JScrollPane employeeRecordScrollPane;
-
-    /** Record panel */
     static JPanel employeeRecordPanel;
 
     /**
      * EMPLOYEE ERROR LABELS
-     * These show inline validation messages
+     * These show inline validation messages.
      */
 
+    /** Error labels for personal details. */
     static JLabel employeeNameError;
     static JLabel employeeGenderError;
     static JLabel employeeDobError;
@@ -69,6 +67,8 @@ public class EmployeeUI {
     static JLabel employeeNationalityError;
     static JLabel employeeHealthError;
     static JLabel employeeRegistrationError;
+
+    /** Error labels for employee details. */
     static JLabel employeeIdError;
     static JLabel employeeSalaryError;
 
@@ -78,29 +78,29 @@ public class EmployeeUI {
      * personal details
      * employee details
      * record display area
+     *
+     * @return employee tab panel
      */
     public static JPanel createEmployeeTab() {
 
-        /** Main panel for Employee tab */
+        // Main panel for Employee tab
         JPanel mainPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 
-        /**
-         * FORM CONTAINER
-         * This holds the form sections on the left
-         */
+        // FORM CONTAINER
+        // This holds the form sections on the left
         JPanel formContainer = new JPanel();
         formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.Y_AXIS));
         formContainer.setBorder(BorderFactory.createTitledBorder("Employee Form"));
 
-        /** PERSONAL DETAILS SECTION */
+        // PERSONAL DETAILS SECTION
         JPanel personalPanel = new JPanel();
         personalPanel.setLayout(new BoxLayout(personalPanel, BoxLayout.Y_AXIS));
         personalPanel.setBorder(BorderFactory.createTitledBorder("Personal Details"));
 
-        /** Common label size */
+        // Common label size
         Dimension labelSize = new Dimension(140, 25);
 
-        /** Create error labels */
+        // Create error labels
         employeeNameError = createErrorLabel();
         employeeGenderError = createErrorLabel();
         employeeDobError = createErrorLabel();
@@ -111,7 +111,7 @@ public class EmployeeUI {
         employeeIdError = createErrorLabel();
         employeeSalaryError = createErrorLabel();
 
-        /** Name row */
+        // Name row
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setPreferredSize(labelSize);
@@ -119,7 +119,7 @@ public class EmployeeUI {
         namePanel.add(nameLabel);
         namePanel.add(employeeNameField);
 
-        /** Gender row */
+        // Gender row
         JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel genderLabel = new JLabel("Gender:");
         genderLabel.setPreferredSize(labelSize);
@@ -129,7 +129,7 @@ public class EmployeeUI {
         employeeFemaleButton = new JRadioButton("Female");
         employeeOtherButton = new JRadioButton("Other");
 
-        /** Group radio buttons */
+        // Group radio buttons
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(employeeMaleButton);
         genderGroup.add(employeeFemaleButton);
@@ -139,7 +139,7 @@ public class EmployeeUI {
         genderPanel.add(employeeFemaleButton);
         genderPanel.add(employeeOtherButton);
 
-        /** Date of Birth row */
+        // Date of Birth row
         JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel dobLabel = new JLabel("Date of Birth:");
         dobLabel.setPreferredSize(labelSize);
@@ -147,7 +147,7 @@ public class EmployeeUI {
         dobPanel.add(dobLabel);
         dobPanel.add(employeeDobSpinner);
 
-        /** Address row */
+        // Address row
         JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setPreferredSize(labelSize);
@@ -155,7 +155,7 @@ public class EmployeeUI {
         addressPanel.add(addressLabel);
         addressPanel.add(employeeAddressField);
 
-        /** Nationality row */
+        // Nationality row
         JPanel nationalityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel nationalityLabel = new JLabel("Nationality:");
         nationalityLabel.setPreferredSize(labelSize);
@@ -163,7 +163,7 @@ public class EmployeeUI {
         nationalityPanel.add(nationalityLabel);
         nationalityPanel.add(employeeNationalityField);
 
-        /** Health Conditions row */
+        // Health Conditions row
         JPanel healthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel healthLabel = new JLabel("Health Conditions:");
         healthLabel.setPreferredSize(labelSize);
@@ -171,7 +171,7 @@ public class EmployeeUI {
         healthPanel.add(healthLabel);
         healthPanel.add(employeeHealthField);
 
-        /** Registration Date row */
+        // Registration Date row
         JPanel registrationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel registrationLabel = new JLabel("Registration Date:");
         registrationLabel.setPreferredSize(labelSize);
@@ -179,7 +179,7 @@ public class EmployeeUI {
         registrationPanel.add(registrationLabel);
         registrationPanel.add(employeeRegistrationDateSpinner);
 
-        /** Add all rows to personal panel */
+        // Add all rows to personal panel
         personalPanel.add(makeFieldBlock(namePanel, employeeNameError));
         personalPanel.add(makeFieldBlock(genderPanel, employeeGenderError));
         personalPanel.add(makeFieldBlock(dobPanel, employeeDobError));
@@ -188,33 +188,31 @@ public class EmployeeUI {
         personalPanel.add(makeFieldBlock(healthPanel, employeeHealthError));
         personalPanel.add(makeFieldBlock(registrationPanel, employeeRegistrationError));
 
-        /** EMPLOYEE DETAILS SECTION */
+        // EMPLOYEE DETAILS SECTION
         JPanel employeePanel = new JPanel();
         employeePanel.setLayout(new BoxLayout(employeePanel, BoxLayout.Y_AXIS));
         employeePanel.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
-        /** Create fields */
+        // Create fields
         employeeIdField = new JTextField(15);
         employeeSalaryField = new JTextField(15);
 
-        /** Create combo boxes */
+        // Create combo boxes
         employeeJobRoleCombo = new JComboBox<>(Uni_App_Arslan.JOB_ROLE_OPTIONS);
         employeeHallCombo = new JComboBox<>(Uni_App_Arslan.HALL_OPTIONS);
 
-        /** Add rows to employee panel */
+        // Add rows to employee panel
         employeePanel.add(makeFieldBlock(makeRow("Employee ID:", employeeIdField, labelSize), employeeIdError));
         employeePanel.add(makeFieldBlock(makeRow("Job Role:", employeeJobRoleCombo, labelSize), createErrorLabel()));
         employeePanel.add(makeFieldBlock(makeRow("Salary:", employeeSalaryField, labelSize), employeeSalaryError));
         employeePanel.add(makeFieldBlock(makeRow("Hall Name:", employeeHallCombo, labelSize), createErrorLabel()));
 
-        /** Add both sections to form container */
+        // Add both sections to form container
         formContainer.add(personalPanel);
         formContainer.add(employeePanel);
 
-        /**
-         * RECORD DISPLAY SECTION
-         * This shows the saved record on the right
-         */
+        // RECORD DISPLAY SECTION
+        // This shows the saved record on the right
         employeeRecordPanel = new JPanel(new BorderLayout());
         employeeRecordPanel.setBorder(BorderFactory.createTitledBorder("Employee Record Display"));
 
@@ -227,12 +225,12 @@ public class EmployeeUI {
 
         employeeRecordPanel.add(employeeRecordScrollPane, BorderLayout.CENTER);
 
-        /** Put form container inside scroll pane */
+        // Put form container inside scroll pane
         JScrollPane formScrollPane = new JScrollPane(formContainer);
         formScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         formScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        /** Add form and record display to main panel */
+        // Add form and record display to main panel
         mainPanel.add(formScrollPane);
         mainPanel.add(employeeRecordPanel);
 
@@ -241,17 +239,22 @@ public class EmployeeUI {
 
     /**
      * Creates a simple helper row.
+     *
+     * @param labelText text shown in the label
+     * @param field input component placed next to the label
+     * @param size preferred size of the label
+     * @return row panel containing the label and input component
      */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
-        /** Create row panel */
+        // Create row panel
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
 
-        /** Create label */
+        // Create label
         JLabel label = new JLabel(labelText);
         label.setPreferredSize(size);
 
-        /** Add label and field */
+        // Add label and field
         panel.add(label);
         panel.add(field);
 
@@ -261,6 +264,10 @@ public class EmployeeUI {
     /**
      * Creates a field block.
      * This puts the error label under the row.
+     *
+     * @param rowPanel row panel containing the field and label
+     * @param errorLabel error label shown under the row
+     * @return panel containing the row and error label
      */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
@@ -278,6 +285,8 @@ public class EmployeeUI {
 
     /**
      * Creates an error label.
+     *
+     * @return error label with red text
      */
     public static JLabel createErrorLabel() {
 
@@ -288,6 +297,8 @@ public class EmployeeUI {
 
     /**
      * Creates a simple date spinner.
+     *
+     * @return date spinner with dd/MM/yyyy format
      */
     public static JSpinner createDateSpinner() {
 
@@ -301,6 +312,8 @@ public class EmployeeUI {
 
     /**
      * Gets selected gender from Employee radio buttons.
+     *
+     * @return selected gender, or an empty string if no gender is selected
      */
     public static String getEmployeeGender() {
 
@@ -317,6 +330,9 @@ public class EmployeeUI {
 
     /**
      * Gets date text from spinner.
+     *
+     * @param spinner date spinner to read from
+     * @return formatted date as text
      */
     public static String getDateText(JSpinner spinner) {
 
@@ -327,6 +343,9 @@ public class EmployeeUI {
 
     /**
      * Sets spinner date from text.
+     *
+     * @param spinner date spinner to update
+     * @param text date text in dd/MM/yyyy format
      */
     public static void setDateText(JSpinner spinner, String text) {
 
@@ -357,6 +376,8 @@ public class EmployeeUI {
 
     /**
      * Validates Employee form.
+     *
+     * @return true if the employee form is valid, otherwise false
      */
     public static boolean validateEmployeeForm() {
 
@@ -463,16 +484,16 @@ public class EmployeeUI {
             return;
         }
 
-        /** Show light blue background only when Next Record is clicked */
+        // Show light blue background only when Next Record is clicked
         Color lightBlue = new Color(230, 240, 255);
         employeeRecordArea.setBackground(lightBlue);
         employeeRecordScrollPane.getViewport().setBackground(lightBlue);
         employeeRecordPanel.setBackground(lightBlue);
 
-        /** Clear old errors */
+        // Clear old errors
         clearEmployeeErrors();
 
-        /** Show personal details in form */
+        // Show personal details in form
         employeeNameField.setText(e.getName());
         setDateText(employeeDobSpinner, e.getDateOfBirth());
         employeeAddressField.setText(e.getAddress());
@@ -480,7 +501,7 @@ public class EmployeeUI {
         employeeHealthField.setText(e.getHealthConditions());
         setDateText(employeeRegistrationDateSpinner, e.getRegistrationDate());
 
-        /** Show gender */
+        // Show gender
         if (e.getGender().equals("Male")) {
             employeeMaleButton.setSelected(true);
         } else if (e.getGender().equals("Female")) {
@@ -489,13 +510,13 @@ public class EmployeeUI {
             employeeOtherButton.setSelected(true);
         }
 
-        /** Show employee details in form */
+        // Show employee details in form
         employeeIdField.setText(e.getEmployeeId());
         employeeJobRoleCombo.setSelectedItem(e.getJobRole());
         employeeSalaryField.setText(String.format("%.2f", e.getSalary()));
         employeeHallCombo.setSelectedItem(e.getHallName());
 
-        /** Show record in display area */
+        // Show record in display area
         employeeRecordArea.setText(
                 "EMPLOYEE RECORD\n\n" +
                         formatLine("Name:", e.getName()) +
@@ -514,6 +535,10 @@ public class EmployeeUI {
 
     /**
      * Formats one display line.
+     *
+     * @param label label text to display
+     * @param value value text to display
+     * @return formatted display line
      */
     public static String formatLine(String label, String value) {
 
@@ -526,6 +551,9 @@ public class EmployeeUI {
 
     /**
      * Formats amount as British pounds.
+     *
+     * @param amount amount to format
+     * @return amount formatted as British pounds
      */
     public static String formatPounds(double amount) {
         return String.format("£%.2f", amount);
@@ -558,7 +586,7 @@ public class EmployeeUI {
 
         clearEmployeeErrors();
 
-        /** Reset background when form is cleared */
+        // Reset background when form is cleared
         employeeRecordArea.setBackground(Color.WHITE);
         employeeRecordScrollPane.getViewport().setBackground(Color.WHITE);
         employeeRecordPanel.setBackground(null);

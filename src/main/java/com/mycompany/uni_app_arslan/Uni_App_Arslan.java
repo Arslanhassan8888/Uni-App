@@ -4,16 +4,18 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 
 /**
- * Main class for testing the application.
- * And for the University Hall system.
+ * Main class for the University Hall Management System.
+ *
+ * This class starts the application, creates the main window,
+ * adds the main panels, and connects the buttons to each tab.
  *
  * @author Arslan Hassan
  */
 public class Uni_App_Arslan {
 
     /**
-     * HALL OPTIONS
-     * These are used in Student and Employee tabs
+     * HALL OPTIONS.
+     * These are used in Student and Employee tabs.
      */
     public static final String[] HALL_OPTIONS = {
             "Ground Floor Hall",
@@ -24,8 +26,8 @@ public class Uni_App_Arslan {
     };
 
     /**
-     * JOB ROLE OPTIONS
-     * These are used in Employee tab
+     * JOB ROLE OPTIONS.
+     * These are used in Employee tab.
      */
     public static final String[] JOB_ROLE_OPTIONS = {
             "Cleaner",
@@ -36,15 +38,17 @@ public class Uni_App_Arslan {
             "Warden"
     };
 
-    /** Tabbed pane */
+    /** Tabbed pane. */
     static JTabbedPane tabbedPane;
 
-    /** Store object */
+    /** Store object. */
     static Store store = new Store();
 
     /**
-     * MAIN METHOD
-     * Starts the program
+     * Main method.
+     * Starts the program.
+     *
+     * @param args command line arguments
      */
     public static void main(String[] args) {
 
@@ -73,7 +77,9 @@ public class Uni_App_Arslan {
     }
 
     /**
-     * HEADER PANEL.
+     * Creates the header panel.
+     *
+     * @return header panel
      */
     public static JPanel createHeaderPanel() {
 
@@ -93,7 +99,9 @@ public class Uni_App_Arslan {
     }
 
     /**
-     * CREATES CENTRE PANEL WITH TABS.
+     * Creates the centre panel with tabs.
+     *
+     * @return centre panel
      */
     public static JPanel createCenterPanel() {
 
@@ -118,6 +126,9 @@ public class Uni_App_Arslan {
 
     /**
      * Creates a simple placeholder tab.
+     *
+     * @param title title shown on the border
+     * @return placeholder tab panel
      */
     public static JPanel createSimpleTab(String title) {
 
@@ -135,13 +146,16 @@ public class Uni_App_Arslan {
 
     /**
      * Creates the button panel.
+     *
      * This includes:
-     * Save Record
-     * Next Record
-     * Clear Form
-     * Save To File
-     * Load From File
-     * Delete Tab Records
+     * Save Record,
+     * Next Record,
+     * Clear Form,
+     * Save To File,
+     * Load From File,
+     * and Delete Tab Records.
+     *
+     * @return button panel
      */
     public static JPanel createButtonPanel() {
 

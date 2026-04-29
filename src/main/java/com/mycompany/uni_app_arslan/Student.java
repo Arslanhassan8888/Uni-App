@@ -3,50 +3,63 @@ package com.mycompany.uni_app_arslan;
 /**
  * Student class represents a student in the university halls system.
  *
- * This class extends Person.
- * This means Student inherits common fields such as:
- * name, gender, dateOfBirth, address, nationality, etc.
+ * This class extends Person and inherits common fields such as
+ * name, gender, date of birth, address, nationality, and other shared details.
  *
- * We only add fields that are specific to students.
+ * It adds fields that are specific to students.
  *
  * @author Arslan Hassan
  */
 public class Student extends Person {
 
-    /** Unique student ID */
+    /** Unique student ID. */
     private String studentId;
 
-    /** Year of study (1, 2, 3, etc.) */
+    /** Year of study (1, 2, 3, etc.). */
     private int yearOfStudy;
 
-    /** Dietary preference (e.g. vegetarian, vegan) */
+    /** Dietary preference (e.g. vegetarian, vegan). */
     private String dietaryPreference;
 
-    /** Does the student need a ground floor room? */
+    /** Indicates if the student requires a ground floor room. */
     private boolean groundFloorRequired;
 
-    /** Rent amount for the student */
+    /** Rent amount for the student. */
     private double rentAmount;
 
-    /** Name of the hall the student is assigned to */
+    /** Name of the hall the student is assigned to. */
     private String hallName;
 
-    /** Indicates if the student is a senior helper */
+    /** Indicates if the student is a senior helper. */
     private boolean seniorStudent;
 
 
-    /** Constructors */
+    /** CONSTRUCTORS */
 
     /**
      * Default constructor.
-     * Creates an empty Student object
+     * Creates an empty Student object.
      */
     public Student() {
     }
 
     /**
      * Full constructor.
-     * This sets all values when creating a Student object
+     *
+     * @param name student's name
+     * @param gender student's gender
+     * @param dateOfBirth student's date of birth
+     * @param address student's address
+     * @param nationality student's nationality
+     * @param healthConditions student's health conditions
+     * @param registrationDate registration date
+     * @param studentId unique student ID
+     * @param yearOfStudy year of study
+     * @param dietaryPreference dietary preference
+     * @param groundFloorRequired true if a ground floor room is required
+     * @param rentAmount rent amount
+     * @param hallName assigned hall name
+     * @param seniorStudent true if the student is a senior helper
      */
     public Student(String name, String gender, String dateOfBirth, String address,
                    String nationality, String healthConditions, String registrationDate,
@@ -69,79 +82,139 @@ public class Student extends Person {
         this.seniorStudent = seniorStudent;
     }
 
-    /** Getters and Setters */
+    /** GETTERS AND SETTERS */
 
-    /** Returns the student ID */
+    /**
+     * Returns the student ID.
+     *
+     * @return student ID
+     */
     public String getStudentId() {
         return studentId;
     }
 
-    /** Sets the student ID */
+    /**
+     * Sets the student ID.
+     *
+     * @param studentId student ID
+     */
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
-    /** Returns the year of study */
+    /**
+     * Returns the year of study.
+     *
+     * @return year of study
+     */
     public int getYearOfStudy() {
         return yearOfStudy;
     }
 
-    /** Sets the year of study */
+    /**
+     * Sets the year of study.
+     *
+     * @param yearOfStudy year of study
+     */
     public void setYearOfStudy(int yearOfStudy) {
         this.yearOfStudy = yearOfStudy;
     }
 
-    /** Returns the dietary preference */
+    /**
+     * Returns the dietary preference.
+     *
+     * @return dietary preference
+     */
     public String getDietaryPreference() {
         return dietaryPreference;
     }
 
-    /** Sets the dietary preference */
+    /**
+     * Sets the dietary preference.
+     *
+     * @param dietaryPreference dietary preference
+     */
     public void setDietaryPreference(String dietaryPreference) {
         this.dietaryPreference = dietaryPreference;
     }
 
-    /** Returns true if ground floor room is required */
+    /**
+     * Returns true if a ground floor room is required.
+     *
+     * @return ground floor requirement
+     */
     public boolean isGroundFloorRequired() {
         return groundFloorRequired;
     }
 
-    /** Sets ground floor requirement */
+    /**
+     * Sets the ground floor requirement.
+     *
+     * @param groundFloorRequired ground floor requirement
+     */
     public void setGroundFloorRequired(boolean groundFloorRequired) {
         this.groundFloorRequired = groundFloorRequired;
     }
 
-    /** Returns the rent amount */
+    /**
+     * Returns the rent amount.
+     *
+     * @return rent amount
+     */
     public double getRentAmount() {
         return rentAmount;
     }
 
-    /** Sets the rent amount */
+    /**
+     * Sets the rent amount.
+     *
+     * @param rentAmount rent amount
+     */
     public void setRentAmount(double rentAmount) {
         this.rentAmount = rentAmount;
     }
 
-    /** Returns the hall name */
+    /**
+     * Returns the hall name.
+     *
+     * @return hall name
+     */
     public String getHallName() {
         return hallName;
     }
 
-    /** Sets the hall name */
+    /**
+     * Sets the hall name.
+     *
+     * @param hallName hall name
+     */
     public void setHallName(String hallName) {
         this.hallName = hallName;
     }
 
-    /** Returns true if student is a senior helper */
+    /**
+     * Returns true if the student is a senior helper.
+     *
+     * @return senior student status
+     */
     public boolean isSeniorStudent() {
         return seniorStudent;
     }
 
-    /** Sets senior student status */
+    /**
+     * Sets the senior student status.
+     *
+     * @param seniorStudent senior student status
+     */
     public void setSeniorStudent(boolean seniorStudent) {
         this.seniorStudent = seniorStudent;
     }
 
-    /** Gets the role of the person. */
+    /**
+     * Returns the role of the person.
+     *
+     * @return Student
+     */
     @Override
     public String getRole() {
         return "Student";
@@ -150,8 +223,9 @@ public class Student extends Person {
     /** toString method */
 
     /**
-     * Returns a readable version of the student object
-     * Useful for testing and debugging
+     * Returns a readable version of the student object.
+     *
+     * @return student details as a string
      */
     @Override
     public String toString() {

@@ -9,11 +9,12 @@ import javax.swing.*;
 
 /**
  * Search user interface.
+ *
  * This class handles:
- * Search form
- * Search result display
- * Search validation
- * Clear form
+ * search form input,
+ * search result display,
+ * validation,
+ * and clearing the form.
  *
  * @author Arslan Hassan
  */
@@ -21,29 +22,28 @@ public class SearchUI {
 
     /**
      * SEARCH FORM FIELDS
-     * These will store search input
+     * These store search input.
      */
 
-    /** Text field for ID search */
+    /** Text field for entering the person ID. */
     static JTextField searchIdField;
 
-    /** Error label */
+    /** Error label for validation messages. */
     static JLabel searchIdError;
 
-    /** Text area for search result display */
+    /** Components used to display search results. */
     static JTextArea searchResultArea;
-
-    /** Scroll pane for result area */
     static JScrollPane searchResultScrollPane;
-
-    /** Record panel */
     static JPanel searchResultPanel;
 
     /**
-     * Creates SEARCH TAB.
+     * Creates the Search tab.
+     *
      * This includes:
-     * search form
-     * result display area
+     * search form,
+     * and result display area.
+     *
+     * @return search tab panel
      */
     public static JPanel createSearchTab() {
 
@@ -51,7 +51,6 @@ public class SearchUI {
         JPanel mainPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 
         // FORM CONTAINER
-        // This holds the form section on the left
         JPanel formContainer = new JPanel();
         formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.Y_AXIS));
         formContainer.setBorder(BorderFactory.createTitledBorder("Search Person"));
@@ -77,6 +76,7 @@ public class SearchUI {
         JPanel searchRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 2));
         JLabel searchLabel = new JLabel("Person ID:");
         searchLabel.setPreferredSize(labelSize);
+
         searchRow.add(searchLabel);
         searchRow.add(searchIdField);
         searchRow.add(searchButton);
@@ -90,7 +90,6 @@ public class SearchUI {
         formContainer.add(Box.createVerticalGlue());
 
         // RESULT DISPLAY SECTION
-        // This shows the found record on the right
         searchResultPanel = new JPanel(new BorderLayout());
         searchResultPanel.setBorder(BorderFactory.createTitledBorder("Search Result Display"));
 
@@ -106,7 +105,7 @@ public class SearchUI {
         // Search button action
         searchButton.addActionListener(e -> searchPerson());
 
-        // Add form and record display to main panel
+        // Add panels to main panel
         mainPanel.add(formContainer);
         mainPanel.add(searchResultPanel);
 
@@ -115,14 +114,17 @@ public class SearchUI {
 
     /**
      * Creates a field block.
-     * This puts the error label under the row.
+     * This places the error label under the row.
+     *
+     * @param rowPanel panel containing the input field
+     * @param errorLabel label used to display validation errors
+     * @return panel containing the row and error label
      */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Keep everything aligned to left
         panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         rowPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         errorLabel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
@@ -135,6 +137,8 @@ public class SearchUI {
 
     /**
      * Creates an error label.
+     *
+     * @return error label with red text
      */
     public static JLabel createErrorLabel() {
 
@@ -145,14 +149,17 @@ public class SearchUI {
 
     /**
      * Searches for a person by ID.
+     *
+     * This method checks both student and employee records.
+     * It displays the result if found, or a message if not found.
      */
     public static void searchPerson() {
 
-        // Clear old error
+        // Clear old error and result
         searchIdError.setText(" ");
         searchResultArea.setText("");
 
-        // Reset result colour
+        // Reset colours
         searchResultArea.setBackground(Color.WHITE);
         searchResultScrollPane.getViewport().setBackground(Color.WHITE);
         searchResultPanel.setBackground(null);
@@ -176,7 +183,6 @@ public class SearchUI {
 
         if (student != null) {
 
-            // Show green colour for student
             Color lightGreen = new Color(230, 250, 230);
             searchResultArea.setBackground(lightGreen);
             searchResultScrollPane.getViewport().setBackground(lightGreen);
@@ -203,12 +209,11 @@ public class SearchUI {
             return;
         }
 
-        // Search employee if student not found
+        // Search employee
         Employee employee = Uni_App_Arslan.store.findEmployeeById(id);
 
         if (employee != null) {
 
-            // Show blue colour for employee
             Color lightBlue = new Color(230, 240, 255);
             searchResultArea.setBackground(lightBlue);
             searchResultScrollPane.getViewport().setBackground(lightBlue);
@@ -232,12 +237,16 @@ public class SearchUI {
             return;
         }
 
-        // Show message if not found
+        // Not found
         searchResultArea.setText("No student or employee found with this ID.");
     }
 
     /**
      * Formats one display line.
+     *
+     * @param label label text
+     * @param value value text
+     * @return formatted line for display
      */
     public static String formatLine(String label, String value) {
 
@@ -250,6 +259,9 @@ public class SearchUI {
 
     /**
      * Formats amount as British pounds.
+     *
+     * @param amount numeric value
+     * @return formatted currency string
      */
     public static String formatPounds(double amount) {
         return String.format("£%.2f", amount);
@@ -257,18 +269,16 @@ public class SearchUI {
 
     /**
      * Converts boolean to Yes or No.
+     *
+     * @param value boolean value
+     * @return Yes if true, otherwise No
      */
     public static String yesNo(boolean value) {
-
-        if (value) {
-            return "Yes";
-        }
-
-        return "No";
+        return value ? "Yes" : "No";
     }
 
     /**
-     * Clears Search form fields.
+     * Clears the search form.
      */
     public static void clearSearchForm() {
 
@@ -276,7 +286,7 @@ public class SearchUI {
         searchResultArea.setText("");
         searchIdError.setText(" ");
 
-        // Reset result colour
+        // Reset colours
         searchResultArea.setBackground(Color.WHITE);
         searchResultScrollPane.getViewport().setBackground(Color.WHITE);
         searchResultPanel.setBackground(null);

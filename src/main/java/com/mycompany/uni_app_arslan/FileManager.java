@@ -14,19 +14,23 @@ import java.util.ArrayList;
  */
 public class FileManager {
 
-    /** File name for student records */
+    /** File name for student records. */
     private static final String STUDENT_FILE = "students.txt";
 
-    /** File name for employee records */
+    /** File name for employee records. */
     private static final String EMPLOYEE_FILE = "employees.txt";
 
-    /** File name for hall records */
+    /** File name for hall records. */
     private static final String HALL_FILE = "halls.txt";
 
-    /** File name for payment records */
+    /** File name for payment records. */
     private static final String PAYMENT_FILE = "payments.txt";
 
-    /** Saves all student records to file */
+    /**
+     * Saves all student records to file.
+     *
+     * @param store the store containing student records
+     */
     public static void saveStudents(Store store) {
 
         try {
@@ -64,7 +68,11 @@ public class FileManager {
         }
     }
 
-    /** Loads all student records from file */
+    /**
+     * Loads all student records from file.
+     *
+     * @param store the store where student records will be loaded
+     */
     public static void loadStudents(Store store) {
 
         try {
@@ -108,7 +116,11 @@ public class FileManager {
         }
     }
 
-    /** Saves all employee records to file */
+    /**
+     * Saves all employee records to file.
+     *
+     * @param store the store containing employee records
+     */
     public static void saveEmployees(Store store) {
 
         try {
@@ -143,7 +155,11 @@ public class FileManager {
         }
     }
 
-    /** Loads all employee records from file */
+    /**
+     * Loads all employee records from file.
+     *
+     * @param store the store where employee records will be loaded
+     */
     public static void loadEmployees(Store store) {
 
         try {
@@ -184,7 +200,11 @@ public class FileManager {
         }
     }
 
-    /** Saves all hall records to file */
+    /**
+     * Saves all hall records to file.
+     *
+     * @param store the store containing hall records
+     */
     public static void saveHalls(Store store) {
 
         try {
@@ -215,7 +235,11 @@ public class FileManager {
         }
     }
 
-    /** Loads all hall records from file */
+    /**
+     * Loads all hall records from file.
+     *
+     * @param store the store where hall records will be loaded
+     */
     public static void loadHalls(Store store) {
 
         try {
@@ -252,7 +276,11 @@ public class FileManager {
         }
     }
 
-    /** Saves all payment records to file */
+    /**
+     * Saves all payment records to file.
+     *
+     * @param store the store containing payment records
+     */
     public static void savePayments(Store store) {
 
         try {
@@ -283,7 +311,11 @@ public class FileManager {
         }
     }
 
-    /** Loads all payment records from file */
+    /**
+     * Loads all payment records from file.
+     *
+     * @param store the store where payment records will be loaded
+     */
     public static void loadPayments(Store store) {
 
         try {

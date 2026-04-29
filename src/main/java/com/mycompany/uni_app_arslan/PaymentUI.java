@@ -11,6 +11,7 @@ import javax.swing.*;
 
 /**
  * Payment user interface.
+ *
  * This class handles:
  * Payment form
  * Payment record display
@@ -24,10 +25,10 @@ public class PaymentUI {
 
     /**
      * PAYMENT FORM FIELDS
-     * These will store payment input
+     * These store payment input.
      */
 
-    /** Text fields for payment details */
+    /** Text fields for payment details. */
     static JTextField paymentIdField;
     static JTextField paymentStudentIdField;
     static JTextField paymentStudentNameField;
@@ -36,26 +37,23 @@ public class PaymentUI {
     static JTextField paymentRemainingField;
     static JTextField paymentStatusField;
 
-    /** Date spinner for payment date */
+    /** Date spinner for payment date. */
     static JSpinner paymentDateSpinner;
 
-    /** Combo box for payment method */
+    /** Combo box for payment method. */
     static JComboBox<String> paymentMethodCombo;
 
-    /** Text area for record display */
+    /** Components used to display payment records. */
     static JTextArea paymentRecordArea;
-
-    /** Scroll pane for record area */
     static JScrollPane paymentRecordScrollPane;
-
-    /** Record panel */
     static JPanel paymentRecordPanel;
 
     /**
      * PAYMENT ERROR LABELS
-     * These show inline validation messages
+     * These show inline validation messages.
      */
 
+    /** Error labels for payment validation. */
     static JLabel paymentIdError;
     static JLabel paymentStudentIdError;
     static JLabel paymentAmountPaidError;
@@ -66,6 +64,8 @@ public class PaymentUI {
      * This includes:
      * payment details
      * record display area
+     *
+     * @return payment tab panel
      */
     public static JPanel createPaymentTab() {
 
@@ -177,6 +177,11 @@ public class PaymentUI {
 
     /**
      * Creates a simple helper row.
+     *
+     * @param labelText text shown in the label
+     * @param field input component placed next to the label
+     * @param size preferred size of the label
+     * @return row panel containing the label and input component
      */
     public static JPanel makeRow(String labelText, java.awt.Component field, Dimension size) {
 
@@ -197,6 +202,10 @@ public class PaymentUI {
     /**
      * Creates a field block.
      * This puts the error label under the row.
+     *
+     * @param rowPanel row panel containing the field and label
+     * @param errorLabel error label shown under the row
+     * @return panel containing the row and error label
      */
     public static JPanel makeFieldBlock(JPanel rowPanel, JLabel errorLabel) {
 
@@ -214,6 +223,8 @@ public class PaymentUI {
 
     /**
      * Creates an error label.
+     *
+     * @return error label with red text
      */
     public static JLabel createErrorLabel() {
 
@@ -225,6 +236,8 @@ public class PaymentUI {
 
     /**
      * Creates a simple date spinner.
+     *
+     * @return date spinner with dd/MM/yyyy format
      */
     public static JSpinner createDateSpinner() {
 
@@ -238,6 +251,9 @@ public class PaymentUI {
 
     /**
      * Gets date text from spinner.
+     *
+     * @param spinner date spinner to read from
+     * @return formatted date as text
      */
     public static String getDateText(JSpinner spinner) {
 
@@ -248,6 +264,9 @@ public class PaymentUI {
 
     /**
      * Sets spinner date from text.
+     *
+     * @param spinner date spinner to update
+     * @param text date text in dd/MM/yyyy format
      */
     public static void setDateText(JSpinner spinner, String text) {
 
@@ -262,6 +281,9 @@ public class PaymentUI {
 
     /**
      * Loads student details into payment form.
+     *
+     * This method uses the student ID to find a matching student record
+     * and automatically fills in the student name and rent amount.
      */
     public static void loadStudentDetails() {
 
@@ -292,6 +314,9 @@ public class PaymentUI {
 
     /**
      * Calculates remaining balance and status.
+     *
+     * This method compares rent amount with amount paid and updates
+     * the remaining balance and payment status fields.
      */
     public static void calculatePaymentDetails() {
 
@@ -337,6 +362,8 @@ public class PaymentUI {
 
     /**
      * Validates Payment form.
+     *
+     * @return true if the payment form is valid, otherwise false
      */
     public static boolean validatePaymentForm() {
 
@@ -517,6 +544,10 @@ public class PaymentUI {
 
     /**
      * Formats one display line.
+     *
+     * @param label label text to display
+     * @param value value text to display
+     * @return formatted display line
      */
     public static String formatLine(String label, String value) {
 
@@ -529,6 +560,9 @@ public class PaymentUI {
 
     /**
      * Formats amount as British pounds.
+     *
+     * @param amount amount to format
+     * @return amount formatted as British pounds
      */
     public static String formatPounds(double amount) {
         return String.format("£%.2f", amount);
@@ -536,6 +570,9 @@ public class PaymentUI {
 
     /**
      * Converts boolean to Yes or No.
+     *
+     * @param value boolean value
+     * @return Yes if true, otherwise No
      */
     public static String yesNo(boolean value) {
 
