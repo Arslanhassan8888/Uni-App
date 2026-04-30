@@ -126,6 +126,7 @@ java com.mycompany.uni_app_arslan.Uni_App_Arslan
   - payments.txt
 - load records back into memory
 - overwrite previous data when loading
+- Serialization of text file content
 
 ### Navigation and Controls
 - Save Record
@@ -193,6 +194,7 @@ com/mycompany/uni_app_arslan/
 - role-based access (admin/user)
 - reporting system (PDF export)
 - dashboard with analytics
+- encryption of text file content
 
 ### Code Improvements
 - apply MVC architecture
