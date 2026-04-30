@@ -7,8 +7,13 @@ import java.util.ArrayList;
 /**
  * FileManager class handles saving and loading records.
  *
- * This class is used to save data to text files
- * and load data back from text files.
+ * This version uses Java Serialization instead of plain text.
+ *
+ * Data is still saved in text files:
+ * students.txt, employees.txt, halls.txt, payments.txt
+ *
+ * However, the content is now stored as serialized objects
+ * (binary format), making it unreadable and more secure.
  *
  * @author Arslan Hassan
  */
@@ -26,328 +31,194 @@ public class FileManager {
     /** File name for payment records. */
     private static final String PAYMENT_FILE = "payments.txt";
 
+
     /**
-     * Saves all student records to file.
+     * Saves all student records to file using serialization.
      *
      * @param store the store containing student records
      */
     public static void saveStudents(Store store) {
 
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter(STUDENT_FILE));
+            ObjectOutputStream out = new ObjectOutputStream(
+                    new FileOutputStream(STUDENT_FILE)
+            );
 
-            // Get all student records
-            ArrayList<Student> students = store.getStudents();
-
-            // Write each student to file
-            for (Student student : students) {
-
-                writer.println(
-                        student.getName() + "," +
-                                student.getGender() + "," +
-                                student.getDateOfBirth() + "," +
-                                student.getAddress() + "," +
-                                student.getNationality() + "," +
-                                student.getHealthConditions() + "," +
-                                student.getRegistrationDate() + "," +
-                                student.getStudentId() + "," +
-                                student.getYearOfStudy() + "," +
-                                student.getDietaryPreference() + "," +
-                                student.isGroundFloorRequired() + "," +
-                                student.getRentAmount() + "," +
-                                student.getHallName() + "," +
-                                student.isSeniorStudent()
-                );
-            }
-
-            // Close writer
-            writer.close();
+            out.writeObject(store.getStudents());
+            out.close();
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error saving student records.");
         }
     }
 
+
     /**
-     * Loads all student records from file.
+     * Loads all student records from file using serialization.
      *
      * @param store the store where student records will be loaded
      */
     public static void loadStudents(Store store) {
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(STUDENT_FILE));
+            ObjectInputStream in = new ObjectInputStream(
+                    new FileInputStream(STUDENT_FILE)
+            );
 
-            // Clear old student records before loading new ones
+            ArrayList<Student> students = (ArrayList<Student>) in.readObject();
+            in.close();
+
             store.clearStudents();
 
-            String line;
-
-            // Read each line from file
-            while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(",");
-
-                Student student = new Student(
-                        parts[0],
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        parts[4],
-                        parts[5],
-                        parts[6],
-                        parts[7],
-                        Integer.parseInt(parts[8]),
-                        parts[9],
-                        Boolean.parseBoolean(parts[10]),
-                        Double.parseDouble(parts[11]),
-                        parts[12],
-                        Boolean.parseBoolean(parts[13])
-                );
-
+            for (Student student : students) {
                 store.addStudent(student);
             }
 
-            // Close reader
-            reader.close();
-
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error loading student records.");
         }
     }
 
+
     /**
-     * Saves all employee records to file.
+     * Saves all employee records to file using serialization.
      *
      * @param store the store containing employee records
      */
     public static void saveEmployees(Store store) {
 
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter(EMPLOYEE_FILE));
+            ObjectOutputStream out = new ObjectOutputStream(
+                    new FileOutputStream(EMPLOYEE_FILE)
+            );
 
-            // Get all employee records
-            ArrayList<Employee> employees = store.getEmployees();
-
-            // Write each employee to file
-            for (Employee employee : employees) {
-
-                writer.println(
-                        employee.getName() + "," +
-                                employee.getGender() + "," +
-                                employee.getDateOfBirth() + "," +
-                                employee.getAddress() + "," +
-                                employee.getNationality() + "," +
-                                employee.getHealthConditions() + "," +
-                                employee.getRegistrationDate() + "," +
-                                employee.getEmployeeId() + "," +
-                                employee.getJobRole() + "," +
-                                employee.getSalary() + "," +
-                                employee.getHallName()
-                );
-            }
-
-            // Close writer
-            writer.close();
+            out.writeObject(store.getEmployees());
+            out.close();
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error saving employee records.");
         }
     }
 
+
     /**
-     * Loads all employee records from file.
+     * Loads all employee records from file using serialization.
      *
      * @param store the store where employee records will be loaded
      */
     public static void loadEmployees(Store store) {
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(EMPLOYEE_FILE));
+            ObjectInputStream in = new ObjectInputStream(
+                    new FileInputStream(EMPLOYEE_FILE)
+            );
 
-            // Clear old employee records before loading new ones
+            ArrayList<Employee> employees = (ArrayList<Employee>) in.readObject();
+            in.close();
+
             store.clearEmployees();
 
-            String line;
-
-            // Read each line from file
-            while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(",");
-
-                Employee employee = new Employee(
-                        parts[0],
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        parts[4],
-                        parts[5],
-                        parts[6],
-                        parts[7],
-                        parts[8],
-                        Double.parseDouble(parts[9]),
-                        parts[10]
-                );
-
+            for (Employee employee : employees) {
                 store.addEmployee(employee);
             }
 
-            // Close reader
-            reader.close();
-
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error loading employee records.");
         }
     }
 
+
     /**
-     * Saves all hall records to file.
+     * Saves all hall records to file using serialization.
      *
      * @param store the store containing hall records
      */
     public static void saveHalls(Store store) {
 
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter(HALL_FILE));
+            ObjectOutputStream out = new ObjectOutputStream(
+                    new FileOutputStream(HALL_FILE)
+            );
 
-            // Get all hall records
-            ArrayList<Hall> halls = store.getHalls();
-
-            // Write each hall to file
-            for (Hall hall : halls) {
-
-                writer.println(
-                        hall.getHallName() + "," +
-                                hall.getHallType() + "," +
-                                hall.getResidentType() + "," +
-                                hall.getResidentId() + "," +
-                                hall.getRoomType() + "," +
-                                hall.isVegetarianFriendly() + "," +
-                                hall.isVeganFriendly()
-                );
-            }
-
-            // Close writer
-            writer.close();
+            out.writeObject(store.getHalls());
+            out.close();
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error saving hall records.");
         }
     }
 
+
     /**
-     * Loads all hall records from file.
+     * Loads all hall records from file using serialization.
      *
      * @param store the store where hall records will be loaded
      */
     public static void loadHalls(Store store) {
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(HALL_FILE));
+            ObjectInputStream in = new ObjectInputStream(
+                    new FileInputStream(HALL_FILE)
+            );
 
-            // Clear old hall records before loading new ones
+            ArrayList<Hall> halls = (ArrayList<Hall>) in.readObject();
+            in.close();
+
             store.clearHalls();
 
-            String line;
-
-            // Read each line from file
-            while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(",");
-
-                Hall hall = new Hall(
-                        parts[0],
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        parts[4],
-                        Boolean.parseBoolean(parts[5]),
-                        Boolean.parseBoolean(parts[6])
-                );
-
+            for (Hall hall : halls) {
                 store.addHall(hall);
             }
 
-            // Close reader
-            reader.close();
-
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error loading hall records.");
         }
     }
 
+
     /**
-     * Saves all payment records to file.
+     * Saves all payment records to file using serialization.
      *
      * @param store the store containing payment records
      */
     public static void savePayments(Store store) {
 
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter(PAYMENT_FILE));
+            ObjectOutputStream out = new ObjectOutputStream(
+                    new FileOutputStream(PAYMENT_FILE)
+            );
 
-            // Get all payment records
-            ArrayList<Payment> payments = store.getPayments();
-
-            // Write each payment to file
-            for (Payment payment : payments) {
-
-                writer.println(
-                        payment.getPaymentId() + "," +
-                                payment.getStudentId() + "," +
-                                payment.getStudentName() + "," +
-                                payment.getAmount() + "," +
-                                payment.getPaymentDate() + "," +
-                                payment.getPaymentMethod() + "," +
-                                payment.isPaid()
-                );
-            }
-
-            // Close writer
-            writer.close();
+            out.writeObject(store.getPayments());
+            out.close();
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error saving payment records.");
         }
     }
 
+
     /**
-     * Loads all payment records from file.
+     * Loads all payment records from file using serialization.
      *
      * @param store the store where payment records will be loaded
      */
     public static void loadPayments(Store store) {
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(PAYMENT_FILE));
+            ObjectInputStream in = new ObjectInputStream(
+                    new FileInputStream(PAYMENT_FILE)
+            );
 
-            // Clear old payment records before loading new ones
+            ArrayList<Payment> payments = (ArrayList<Payment>) in.readObject();
+            in.close();
+
             store.clearPayments();
 
-            String line;
-
-            // Read each line from file
-            while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(",");
-
-                Payment payment = new Payment(
-                        parts[0],
-                        parts[1],
-                        parts[2],
-                        Double.parseDouble(parts[3]),
-                        parts[4],
-                        parts[5],
-                        Boolean.parseBoolean(parts[6])
-                );
-
+            for (Payment payment : payments) {
                 store.addPayment(payment);
             }
 
-            // Close reader
-            reader.close();
-
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error loading payment records.");
         }
     }

@@ -14,7 +14,7 @@ package com.mycompany.uni_app_arslan;
  *
  * @author Arslan Hassan
  */
-public class Hall {
+public class Hall implements java.io.Serializable {
 
     /** Name of the hall. */
     private String hallName;

@@ -10,7 +10,7 @@ package com.mycompany.uni_app_arslan;
  *
  * @author Arslan Hassan
  */
-public class Student extends Person {
+public class Student extends Person implements java.io.Serializable {
 
     /** Unique student ID. */
     private String studentId;

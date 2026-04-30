@@ -8,7 +8,7 @@ package com.mycompany.uni_app_arslan;
  *
  * @author Arslan Hassan
  */
-public class Payment {
+public class Payment  implements java.io.Serializable{
 
     /** Unique payment ID. */
     private String paymentId;

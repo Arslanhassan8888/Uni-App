@@ -8,7 +8,7 @@ package com.mycompany.uni_app_arslan;
  *
  * @author Arslan Hassan
  */
-public abstract class Person {
+public abstract class Person implements java.io.Serializable{
 
     /**
      * The full name of the person.
